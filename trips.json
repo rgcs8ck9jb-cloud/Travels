@@ -1,0 +1,25 @@
+{
+  "_howto": "To add a city: upload <city>.html to the repo root, then add one block to the 'trips' list below. Nothing else ever needs changing.",
+  "_fields": {
+    "city": "required",
+    "country": "required",
+    "dates": "text shown on the card, e.g. 'August 2026'",
+    "start": "YYYY-MM-DD — used only to sort and to split upcoming vs past",
+    "file": "the html file in this repo, e.g. 'khiva.html'",
+    "tag": "short line under the title, e.g. '19 stops · 4.7 km'",
+    "blurb": "one sentence",
+    "accent": "hex colour for the card stripe"
+  },
+  "trips": [
+    {
+      "city": "Bukhara",
+      "country": "Uzbekistan",
+      "dates": "August 2026",
+      "start": "2026-08-15",
+      "file": "bukhara.html",
+      "tag": "19 stops · 4.7 km · walking",
+      "blurb": "Cultural walking route through the old town, west to east, from the Samanid Mausoleum to the last emir's world. Offline map included.",
+      "accent": "#1c6b7a"
+    }
+  ]
+}
