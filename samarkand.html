@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0A5FE0">
+<title>Samarkand — Tuesday 18 – Wednesday 19 August 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%230A5FE0'/><circle cx='32' cy='27' r='9' fill='none' stroke='%23fff' stroke-width='5'/><path d='M32 39v13' stroke='%23fff' stroke-width='5' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --blue:#0A5FE0; --blue-d:#0742A8; --blue-x:#053174;
+  --blue-l:#EAF2FE; --blue-l2:#F5F9FF;
+  --ink:#0B1220; --ink2:#5A6675; --ink3:#8D98A6;
+  --line:#E4E9F0; --line2:#F0F3F7;
+  --bg:#FFFFFF; --surf:#F7F9FC;
+  --amber:#B26A00; --amber-l:#FFF6E8;
+  --r:16px; --r2:12px;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+  --hh:112px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 Arial,"Helvetica Neue",Helvetica,sans-serif;
+  overscroll-behavior-y:none;
+}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.25;letter-spacing:-.015em}
+p{margin:0}
+a{color:var(--blue)}
+
+/* header */
+header{position:sticky;top:0;z-index:900;background:var(--blue);color:#fff}
+.hb{padding:calc(var(--st) + 13px) 16px 11px;display:flex;align-items:baseline;gap:10px}
+.hb h1{font-size:19px}
+.hb span{font-size:12px;opacity:.8;font-weight:700;letter-spacing:.02em}
+nav{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 8px;background:var(--blue)}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:1 0 auto;min-width:66px;appearance:none;border:0;background:transparent;cursor:pointer;
+  color:rgba(255,255,255,.72);font:700 13px/1 Arial,sans-serif;
+  padding:12px 12px 11px;border-bottom:3px solid transparent;white-space:nowrap;
+}
+nav button.on{color:#fff;border-bottom-color:#fff}
+
+main{padding-bottom:calc(var(--sb) + 40px)}
+.pane{display:none}
+.pane.on{display:block}
+.wrap{padding:0 14px;max-width:760px;margin:0 auto}
+
+/* generic blocks */
+.hero{
+  background:linear-gradient(150deg,var(--blue),var(--blue-x));color:#fff;
+  border-radius:var(--r);padding:18px;margin:14px 0;
+}
+.hero h2{font-size:19px;margin-bottom:8px}
+.hero p{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.88);margin-bottom:9px}
+.hero p:last-of-type{margin-bottom:0}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.pills span{background:rgba(255,255,255,.16);border-radius:100px;padding:6px 12px;font-size:11.5px;font-weight:700}
+
+.sech{display:flex;align-items:center;gap:11px;margin:26px 0 12px}
+.sech h2{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
+.sech i{flex:1;height:1px;background:var(--line);font-style:normal}
+
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden;scroll-margin-top:calc(var(--hh) + 8px)}
+.card.flash{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-l)}
+
+/* PLAN */
+.day{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.day .top{padding:16px 16px 13px;background:var(--blue-l2);border-bottom:1px solid var(--line)}
+.day .kick{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.day .slot{background:var(--blue);color:#fff;font:700 10.5px/1 Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;border-radius:100px;padding:5px 10px}
+.day .slot.eve{background:var(--amber)}
+.day .slot.opt{background:var(--ink3)}
+.day .when{font-size:12px;font-weight:700;color:var(--ink2)}
+.day h3{font-size:18.5px}
+.day .clock{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+.day .clock b{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--ink2)}
+.day .body{padding:15px 16px 16px}
+.day .body>p{font-size:14.5px;line-height:1.65;color:var(--ink2);margin-bottom:13px}
+.seq{list-style:none;margin:0 0 14px;padding:0}
+.seq li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line2)}
+.seq li:last-child{border-bottom:0}
+.seq .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--blue-l);color:var(--blue-d);display:flex;align-items:center;justify-content:center;font:700 12px/1 Arial,sans-serif;margin-top:1px}
+.seq .n.h{background:var(--ink);color:#fff}
+.seq .n.o{background:var(--surf);color:var(--ink3)}
+.seq .t{flex:1;min-width:0}
+.seq .t b{display:block;font-size:15px;font-weight:700}
+.seq .t i{display:block;font-style:normal;font-size:12.5px;color:var(--ink2);margin-top:1px}
+.seq button{appearance:none;border:0;background:var(--surf);color:var(--blue);font:700 12px/1 Arial,sans-serif;padding:8px 11px;border-radius:8px;cursor:pointer;margin-top:2px}
+.btn{
+  display:block;width:100%;text-align:center;text-decoration:none;cursor:pointer;appearance:none;border:0;
+  background:var(--blue);color:#fff;font:700 14px/1 Arial,sans-serif;padding:14px;border-radius:var(--r2);
+}
+.btn.g{background:var(--surf);color:var(--blue);border:1px solid var(--line)}
+.row2{display:flex;gap:8px}
+.row2>*{flex:1}
+.tipbox{background:var(--amber-l);border-radius:var(--r2);padding:13px 15px;margin-top:13px}
+.tipbox ul{margin:0;padding-left:17px}
+.tipbox li{font-size:13.5px;line-height:1.55;margin-bottom:6px;color:#6b4400}
+.tipbox li:last-child{margin-bottom:0}
+
+/* MAP */
+.gbar{display:flex;gap:8px;padding:12px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.gbar::-webkit-scrollbar{display:none}
+.gbar a{flex:0 0 auto;text-decoration:none;background:var(--blue);color:#fff;font:700 12.5px/1 Arial,sans-serif;padding:11px 14px;border-radius:100px;white-space:nowrap}
+.gbar a.alt{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.hint{padding:11px 14px;background:var(--blue-l2);color:var(--blue-d);font-size:12.5px;line-height:1.5;border-bottom:1px solid var(--line)}
+.seg{display:flex;padding:11px 14px;gap:0}
+.seg button{flex:1;appearance:none;cursor:pointer;background:var(--surf);color:var(--ink2);border:1px solid var(--line);font:700 13px/1 Arial,sans-serif;padding:11px 6px}
+.seg button:first-child{border-radius:10px 0 0 10px}
+.seg button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.seg button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+#map{width:100%;height:calc(100vh - 250px - var(--st));height:calc(100dvh - 250px - var(--st));min-height:380px;background:var(--surf)}
+.pin{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font:700 12.5px/1 Arial,sans-serif;box-shadow:0 2px 8px rgba(11,18,32,.35)}
+.pin.x{background:var(--amber)}
+.pin.h{background:var(--ink);border-radius:8px}
+.leaflet-popup-content-wrapper{border-radius:13px}
+.leaflet-popup-content{margin:12px 13px;font:14px/1.45 Arial,sans-serif}
+.pop b{display:block;font-size:15px;margin-bottom:2px}
+.pop i{display:block;font-style:normal;color:var(--ink2);font-size:12px;margin-bottom:9px}
+.pop .r{display:flex;gap:6px}
+.pop a{flex:1;text-align:center;text-decoration:none;font:700 12.5px/1 Arial,sans-serif;padding:9px 8px;border-radius:8px}
+.pop a.p{background:var(--blue);color:#fff}
+.pop a.s{background:var(--blue-l);color:var(--blue-d)}
+#plan{display:none;background:var(--surf)}
+#plan.on{display:block}
+#planSvg{width:100%;height:auto;display:block}
+.pfoot{padding:10px 14px 16px;font-size:12px;color:var(--ink2);text-align:center}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(var(--sb) + 12px);z-index:950;background:#fff;border-radius:var(--r);box-shadow:0 10px 40px rgba(11,18,32,.25);border:1px solid var(--line);padding:15px;display:none}
+.sheet.on{display:block}
+.sheet b{display:block;font-size:16px;margin-bottom:2px}
+.sheet i{display:block;font-style:normal;color:var(--ink2);font-size:12.5px;margin-bottom:11px}
+.sheet .r{display:flex;gap:7px}
+.sheet .r a,.sheet .r button{flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;font:700 13px/1 Arial,sans-serif;padding:12px 6px;border-radius:10px}
+.sheet .r a.p{background:var(--blue);color:#fff}
+.sheet .r a.s{background:var(--blue-l);color:var(--blue-d)}
+.sheet .r button{background:var(--surf);color:var(--ink2);border:1px solid var(--line)}
+
+/* STOPS */
+.chead{display:flex;gap:12px;padding:16px 15px 12px;align-items:flex-start}
+.num{flex:0 0 33px;height:33px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14.5px/1 Arial,sans-serif}
+.card.extra .num{background:var(--amber)}
+.chead h3{font-size:17px}
+.chead .alt{display:block;color:var(--ink2);font-size:12.5px;margin-top:3px;line-height:1.45}
+.meta{display:flex;flex-wrap:wrap;gap:6px;padding:0 15px 13px}
+.meta span{font-size:11px;font-weight:700;background:var(--surf);color:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.meta span.t{background:var(--blue-l);color:var(--blue-d);border-color:#d3e4fd}
+.acts{display:flex;gap:8px;padding:0 15px 14px}
+.acts a,.acts button{flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;font:700 13px/1 Arial,sans-serif;padding:12px 6px;border-radius:10px}
+.acts a{background:var(--blue);color:#fff}
+.acts button{background:var(--surf);color:var(--ink2);border:1px solid var(--line)}
+.sec{border-top:1px solid var(--line);padding:14px 15px}
+.sec h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:9px}
+.sec ul{margin:0;padding-left:17px}
+.sec li{margin-bottom:7px;font-size:14.5px;line-height:1.55}
+.sec li:last-child{margin-bottom:0}
+details{border-top:1px solid var(--line)}
+details summary{list-style:none;cursor:pointer;padding:15px;display:flex;justify-content:space-between;align-items:center;font:700 13.5px/1 Arial,sans-serif;color:var(--blue-d);background:var(--blue-l2)}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-size:19px;font-weight:400;line-height:1}
+details[open] summary::after{content:"–"}
+.body{padding:6px 16px 20px}
+.body p{margin:0 0 13px;font-size:15.5px;line-height:1.72;color:#1a2433}
+.body p:last-child{margin:0}
+.body h4{font-size:15.5px;color:var(--blue-d);margin:19px 0 8px;text-transform:none;letter-spacing:-.01em}
+.body em{color:var(--ink2)}
+
+/* FOOD */
+.dish{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line2)}
+.dish:last-child{border-bottom:0}
+.dish .dn{flex:0 0 96px;font-weight:700;font-size:14.5px;color:var(--blue-d)}
+.dish .dd{flex:1;font-size:14px;line-height:1.55;color:var(--ink2)}
+.eat{border:1px solid var(--line);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.eat .et{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.eat h4{font-size:16px}
+.eat .pr{font-size:11.5px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.eat .ea{font-size:12px;color:var(--blue);font-weight:700;margin-top:3px}
+.eat p{font-size:14px;line-height:1.6;color:var(--ink2);margin-top:8px}
+.eat a{display:inline-block;margin-top:11px;text-decoration:none;background:var(--surf);border:1px solid var(--line);color:var(--blue);font:700 12.5px/1 Arial,sans-serif;padding:10px 13px;border-radius:9px}
+
+/* INFO */
+.pc{border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.pc h3{font-size:16px;margin-bottom:10px;color:var(--blue-d)}
+.pc ul{margin:0;padding-left:17px}
+.pc li{margin-bottom:8px;font-size:14.5px;line-height:1.55}
+.pc li:last-child{margin-bottom:0}
+.pc.warn{background:var(--amber-l);border-color:#f2dfc0}
+.pc.warn h3{color:var(--amber)}
+.pc.warn li{color:#6b4400}
+footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--ink3);font-size:12px;line-height:1.6}
+#top{position:fixed;right:14px;bottom:calc(var(--sb) + 16px);z-index:800;width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:19px;box-shadow:0 4px 14px rgba(11,18,32,.3);display:none;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hb"><h1>Samarkand</h1><span>2 mornings · 2 evenings</span></div>
+  <nav>
+    <button data-p="plan" class="on">Plan</button>
+    <button data-p="map">Map</button>
+    <button data-p="stops">Stops</button>
+    <button data-p="food">Food</button>
+    <button data-p="info">Info</button>
+  </nav>
+</header>
+
+<main>
+  <section class="pane on" id="p-plan"><div class="wrap"><div id="planIntro"></div><div id="days"></div></div></section>
+
+  <section class="pane" id="p-map">
+    <div class="gbar" id="gbar"></div>
+    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at the hotel. Google caps a route at 10 points, so longer days are split.</div>
+    <div class="seg"><button id="tabLive" class="on">Live map</button><button id="tabPlan">Offline plan</button></div>
+    <div><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="pfoot">Schematic — true relative positions, no streets. Works with no signal.</div></div></div>
+  </section>
+
+  <section class="pane" id="p-stops"><div class="wrap"><div id="stops"></div><div id="extras"></div></div></section>
+  <section class="pane" id="p-food"><div class="wrap"><div id="food"></div></div></section>
+  <section class="pane" id="p-info"><div class="wrap"><div id="info"></div></div></section>
+</main>
+
+<div class="sheet" id="sheet"></div>
+<button id="top" aria-label="Top">&#8593;</button>
+<footer>Samarkand, Uzbekistan · Tuesday 18 – Wednesday 19 August 2026<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const CITY = {
+  name:"Samarkand", country:"Uzbekistan",
+  dates:"Tuesday 18 – Wednesday 19 August 2026",
+  sub:"2 mornings · 2 evenings",
+  plan:"Two early mornings out and two evenings out, with the hot middle of the day back at the hotel for lunch, a nap and the pool. Nothing here is rushed — each morning has three or four real stops plus optional extras if you are moving faster than expected.",
+  pills:["2 mornings","2 evenings","Out 06:30","Back ~12:30","~3 km a day"],
+  hotel:{ name:"Khan Hotel Samarkand", short:"Hotel", gq:"Khan Hotel Samarkand", routeQ:"Khan Hotel Samarkand, Usto Umar Djurakulov, Samarkand",
+          lat:39.6643, lng:66.9853,
+          alt:"48 Usto Umar Djurakulov St — 70 m from Shah-i-Zinda" }
+};
+
+const DAYS = [
+{
+  slot:"Morning", day:"Tuesday 18 August", dayShort:"Tue", out:"06:30", back:"12:30",
+  walk:"3.4 km on foot", after:"Lunch, nap, pool",
+  title:"The doorstep, the bazaar and the blue",
+  intro:"The single best thing in Samarkand is 70 metres from your door, and at seven in the morning you will have it almost to yourselves. Walk down through the shrines to Bibi-Khanym, finish in the bazaar with breakfast, and take a taxi back before it gets hot.",
+  stops:[1,2,3,4,5,6],
+  optional:[11,12],
+  tips:[
+    "Shah-i-Zinda officially opens around 07:00–08:00 in summer. Arrive at opening: the light is low, the tilework glows and the staircase is empty. By 10:00 it is full of tour groups.",
+    "It is downhill almost the whole way. Take a taxi back from the bazaar rather than walking up in the sun — 10–15,000 som, two minutes.",
+    "Buy breakfast in Siyob Bazaar: hot non straight off the tandir wall, apricots, walnuts, halva. Better and cheaper than any café.",
+    "If the child is still fresh at 10:30, add the Afrosiyob Museum (11) and Daniel's tomb (12) — both close to the hotel on the way back."
+  ]
+},
+{
+  slot:"Evening", day:"Tuesday 18 August", dayShort:"Tue", out:"18:30", back:"21:30",
+  walk:"Taxi each way", after:"Late back — sleep in a little",
+  title:"Registan after dark",
+  intro:"Do not visit the inside of the Registan tonight — save that for tomorrow's empty morning. Tonight is for standing on the terrace opposite as the floodlights come up, and eating nearby.",
+  stops:[7],
+  optional:[],
+  tips:[
+    "The light-and-music show runs on summer evenings, usually around 20:00–21:00. Times shift; ask at the hotel desk in the afternoon.",
+    "You can see the square lit from outside without a ticket. The paid evening entry is only worth it if you will not be back in the morning.",
+    "Dinner: Platan or Old City are both a short taxi from the square. Book, or go early at 18:30.",
+    "It stays hot until well after sunset in August — still shorts-and-water weather at 21:00."
+  ]
+},
+{
+  slot:"Morning", day:"Wednesday 19 August", dayShort:"Wed", out:"06:30", back:"12:30",
+  walk:"2.6 km on foot", after:"Lunch, nap, pool",
+  title:"Timur: the square and the tomb",
+  intro:"Taxi straight to the Registan for opening, take your time inside all three madrasas, then walk the pedestrian mall down to Timur's tomb. Short, shaded in parts, and finished before noon.",
+  stops:[7,8,9],
+  optional:[10],
+  tips:[
+    "Taxi to the Registan (15 min, ~20,000 som) rather than walking — it is 2 km and there is no shade on the way.",
+    "Be at the gate for 08:00 opening. The first hour is the only time the courtyards are empty and the low sun is on the façades.",
+    "Inside Tilya-Kori, stand under the gold dome and look straight up. It is flat, not domed — the whole effect is painted illusion.",
+    "The walk from the Registan to Gur-e-Amir is about 800 m down a pedestrian mall with trees and cafés. Easy with a child.",
+    "Going fast? Add the Ulugh Beg Observatory (10) — but it is north, near the hotel, so it is better as a separate 45-minute stop on the way back."
+  ]
+},
+{
+  slot:"Evening", day:"Wednesday 19 August", dayShort:"Wed", out:"18:30", back:"21:30",
+  walk:"Taxi each way", after:"Pack for the onward leg",
+  title:"Eternal City and dinner",
+  intro:"An easy last evening. The Eternal City is a purpose-built recreation of an old Uzbek town inside the Silk Road Samarkand complex — part film set, part food court, and genuinely good with a child after two mornings of monuments.",
+  stops:["A"],
+  optional:[],
+  tips:[
+    "Entirely unhistorical and it does not pretend otherwise. Take it as an evening out, not as sightseeing.",
+    "Craft workshops, courtyards, restaurants and a nightly show. Everything is walkable and stroller-friendly, which the old town is not.",
+    "If you would rather have a quiet last night, skip it: dinner at Bibikhanum Teahouse and a slow walk is a fine substitute.",
+    "Taxi is about 20 minutes from the hotel. Agree the fare first or use Yandex Go."
+  ]
+}
+];
+
+const STOPS = [
+{
+  n:1, name:"Shah-i-Zinda", short:"Shah-i-Zinda", alt:"\"The Living King\" · 11th–19th c. necropolis",
+  lat:39.6638, lng:66.9857, gq:"Shah-i-Zinda Samarkand",
+  dur:"1h", fee:"~30,000 som", hours:"07:00/08:00–19:00 in summer", block:"70 m from the hotel",
+  tips:[
+    "Go at opening. This is the one stop where arriving first genuinely changes the experience.",
+    "The staircase at the entrance is called the Stairway of Sinners — local tradition says count the steps going up and coming down, and if you get the same number both times your soul is clean. Perfect job for a child.",
+    "Shoulders and knees covered; a scarf for hair is appreciated but not enforced except at the shrine itself.",
+    "Narrow lane, uneven steps — a carrier is much easier than a stroller."
+  ],
+  more:`<p>A single narrow lane, barely three metres wide, lined on both sides with mausoleums whose façades are covered floor to roofline in blue, turquoise and cobalt tile. There is nothing else quite like it. Most visitors to Samarkand rate the Registan the most impressive thing they see and Shah-i-Zinda the thing they remember.</p>
+<p><strong>The name</strong> means "The Living King", and it refers to Kusam ibn Abbas — a cousin of the Prophet Muhammad who, tradition says, brought Islam to Samarkand in the 7th century and was beheaded here while at prayer. The legend continues that he picked up his own head and descended into a well, where he lives still, and will return. His shrine at the top of the lane is the oldest and holiest part of the complex, and the reason everything else was built around it.</p>
+<p><strong>How it grew.</strong> Being buried near a saint was worth a great deal, so for eight hundred years Samarkand's rulers, generals and — unusually — royal women were interred along the approach to Kusam's tomb. The finest cluster dates from the late 14th and early 15th centuries, the Timurid peak. Several were built for Timur's own family: his sister Shirin Bika Aka, his niece Shodi Mulk Oko, his wet-nurse. The craftsmen were largely from Persia and Khorezm, brought to Samarkand by force after Timur's campaigns.</p>
+<p><strong>What to look at.</strong> The tile techniques change as you walk up the lane, and you can date the tombs by eye once you know what to look for: carved unglazed terracotta and simple cut-tile mosaic in the earlier ones, then true <em>haft rangi</em> — "seven colours" — polychrome painted tiles fired in one go, faster and cheaper, in the later work. Look for the deep relief carving on the Shodi Mulk Oko mausoleum, and the ribbed turquoise dome on Tuman Aka's.</p>
+<p>It is still an active pilgrimage site. You will see local families reading Qur'anic verses with palms upturned. Give them room.</p>`
+},
+{
+  n:2, name:"Hazrat Khizr Mosque", short:"Hazrat Khizr", alt:"Rebuilt 1854 on an 8th-c. site",
+  lat:39.6626, lng:66.9848, gq:"Hazrat Khizr Mosque Samarkand",
+  dur:"20 min", fee:"Free · donation", hours:"Daylight",
+  block:"400 m downhill from Shah-i-Zinda",
+  tips:[
+    "The terrace has the best free view in Samarkand — the whole Afrosiyob plateau on one side, Bibi-Khanym's dome on the other.",
+    "Working mosque. Shoes off, shoulders and knees covered.",
+    "The painted wooden ceiling under the portico is worth two minutes with your head back."
+  ],
+  more:`<p>The oldest mosque site in Samarkand, and one of the least visited. The first mosque here was built in the 8th century, immediately after the Arab conquest, on the edge of the ancient city of Afrosiyob — literally at the gate where the old Sogdian city met the new Islamic one. Genghis Khan destroyed it in 1220. What stands today is a rebuilding of 1854, extended into the 20th century.</p>
+<p><strong>Who Khizr is.</strong> Al-Khidr — "the green one" — is one of the strangest and most appealing figures in Islamic tradition: an immortal wanderer, patron of travellers, associated with the water of life, who appears in the Qur'an as the mysterious teacher who confounds Moses by doing things that look wrong and turn out to be right. He is not a prophet exactly, and not a saint exactly. Merchants setting out along the Silk Road prayed here for his protection.</p>
+<p><strong>The modern layer.</strong> Islam Karimov, independent Uzbekistan's first president, who ruled from 1991 until his death in 2016, is buried in a mausoleum in the grounds, a few steps below the mosque. It was built quickly after he died and it is polished, white-marble and formal. Whatever you make of him — and Uzbeks themselves are divided — it is worth walking past, because it is the only place in the country where you can see the state's official self-image expressed in the same architectural language as the fifteenth century. Guards are present and photography of the tomb chamber is sometimes restricted.</p>
+<p>Stand on the terrace before you leave. The bare brown mounds to the north are Afrosiyob: the entire pre-Mongol city of Samarkand, unexcavated, under grass.</p>`
+},
+{
+  n:3, name:"Islam Karimov Mausoleum", short:"Karimov tomb", alt:"2016–17 · first president of Uzbekistan",
+  lat:39.6629, lng:66.9843, gq:"Islam Karimov Mausoleum Samarkand",
+  dur:"10 min", fee:"Free", hours:"Daylight",
+  block:"In the Hazrat Khizr grounds",
+  tips:[
+    "A ten-minute stop, immediately below the mosque — you pass it anyway.",
+    "Quiet, formal, guarded. Uzbek visitors treat it seriously; follow their lead.",
+    "Photography of the tomb chamber itself may be restricted. Ask or watch what others do."
+  ],
+  more:`<p>Islam Karimov ran Uzbekistan from 1989 — first as Soviet party boss, then as president of the independent republic — until he died in September 2016. He was born in Samarkand and buried here, in the grounds of the city's oldest mosque, in a marble mausoleum finished in 2017.</p>
+<p>The building deliberately quotes Timurid architecture: a portal, an inner chamber, carved marble, a garden. It is the newest link in a chain that runs back through Gur-e-Amir to the fourteenth century, and the placement is not accidental — modern Uzbekistan has consciously built its national story on Timur, and this positions the first president inside that lineage.</p>
+<p><strong>Worth knowing before you go in.</strong> His rule is genuinely contested. Uzbeks credit him with holding a new country together through the chaos of the 1990s, avoiding the civil war that engulfed neighbouring Tajikistan, and keeping the state secular. Human rights organisations documented systematic torture, the suppression of independent media and opposition, and forced labour in the cotton harvest; the crushing of protests in Andijan in 2005, in which hundreds of civilians were killed, remains unexamined inside the country. Both of those things are true at once, and you will hear only the first from most guides.</p>
+<p>Say nothing critical out loud here. It costs you nothing to be quiet, and it is a live subject.</p>`
+},
+{
+  n:4, name:"Bibi-Khanym Mosque", short:"Bibi-Khanym", alt:"1399–1405 · Timur's great mosque",
+  lat:39.6601, lng:66.9793, gq:"Bibi-Khanym Mosque Samarkand",
+  dur:"45 min", fee:"~40,000 som", hours:"08:00–19:00",
+  block:"1.1 km downhill from Hazrat Khizr",
+  tips:[
+    "The scale is the point. Stand under the entrance portal and look up — it is 35 m high.",
+    "The giant marble Qur'an stand in the courtyard: local women still crawl under it hoping for children. Your call whether to mention that to a five-year-old.",
+    "Very little shade in the courtyard. Do this before 10:00 or hug the arcades.",
+    "The small Bibi-Khanym Mausoleum (stop 5) is directly opposite the mosque, across the street, and takes ten minutes."
+  ],
+  more:`<p>Timur built this after returning from the sack of Delhi in 1398, and he built it to be the largest mosque in the Islamic world. Ninety-five elephants brought back from India hauled the stone. The main portal rises about 35 metres; the courtyard could hold ten thousand men at prayer.</p>
+<p><strong>And it began falling down almost immediately.</strong> Timur was in a hurry — he was in his sixties, he had campaigns still to fight, and he reportedly had builders executed for slow work. The result was a structure at the very limit of what brick and the technology of 1400 could hold up. Bricks were falling from the arches within a few years of completion. By the eighteenth century it was a ruin, and an earthquake in 1897 brought down much of what remained. What you walk through today is a Soviet and post-Soviet reconstruction, honest about itself: you can see clearly where old brick ends and new begins.</p>
+<p><strong>The legend</strong> — and it is a legend, not history — gives the mosque its name. Bibi Khanym, "the elder lady", is said to be Timur's Chinese wife Saray Mulk Khanum, who ordered the mosque built as a surprise while her husband was away at war. The architect fell in love with her and refused to finish unless she let him kiss her. She offered him a tray of painted eggs to prove that all women are the same inside; he countered with two glasses, one water and one white wine, saying they look identical but one sets you on fire. She relented and let him kiss her cheek through her hand — and the kiss burned through and left a mark. Timur came home, saw it, and had the architect thrown from a minaret. In some versions the architect grew wings and flew to Persia. This is why, the story concludes, women in Bukhara and Samarkand had to veil.</p>
+<p>The huge lectern in the courtyard is real, though — a marble Qur'an stand made for Ulugh Beg, Timur's grandson, to hold a Qur'an so large it took several men to move.</p>`
+},
+{
+  n:5, name:"Bibi-Khanym Mausoleum", short:"Bibi mausoleum", alt:"Early 15th c. · the women's tomb",
+  lat:39.6597, lng:66.9803, gq:"Bibi Khanym Mausoleum Samarkand",
+  dur:"15 min", fee:"~15,000 som or included", hours:"08:00–18:00",
+  block:"Directly opposite the mosque",
+  tips:[
+    "Ten minutes, and almost always empty — most people walk straight past it to the bazaar.",
+    "The crypt below holds the actual sarcophagi. Steps are steep and unlit; hold the child's hand.",
+    "Good, cool, dark break between the mosque and the bazaar."
+  ],
+  more:`<p>A small octagonal mausoleum across the street from the great mosque, built for the women of Timur's family. Excavation of the crypt found several female burials, and the tomb is traditionally identified as that of Saray Mulk Khanum — the "Bibi Khanym" of the legend — together with her mother and other relatives.</p>
+<p>It is a useful corrective to the mosque opposite. The mosque is Timur's ego at full volume, half-ruined and rebuilt. This is the same period, the same workshops, at domestic scale and largely intact: a modest dome, ribbed and turquoise, and interior painting in blue and gold on a dark ground that survives far better than anything in the mosque.</p>
+<p><strong>The women of the dynasty were not decorative.</strong> Saray Mulk Khanum was a Chinggisid princess — a direct descendant of Genghis Khan — and marrying her is what let Timur call himself <em>Gurkani</em>, "son-in-law", the title he used all his life. He was never a khan and could never be one, because he was not of Genghis's line; he ruled through puppet khans and through his wife's blood. Timurid women held property, endowed buildings, and several of the mausoleums you saw at Shah-i-Zinda this morning were built by and for them.</p>`
+},
+{
+  n:6, name:"Siyob Bazaar", short:"Siyob Bazaar", alt:"Samarkand's central market",
+  lat:39.6612, lng:66.9812, gq:"Siyob Bazaar Samarkand",
+  dur:"45 min", fee:"Free", hours:"07:00–18:00, busiest 08:00–11:00",
+  block:"Beside Bibi-Khanym",
+  tips:[
+    "This is breakfast. Hot non bread, apricots, walnuts, halva, a bag of raisins for the walk.",
+    "Samarkand non is stamped with a wooden chekich and is famously dense — it genuinely keeps for weeks. Buy one to take on the road.",
+    "Prices are usually marked. Where they are not, ask two sellers before buying.",
+    "Taxi rank at the bazaar gate for the ride back to the hotel. 10–15,000 som."
+  ],
+  more:`<p>The oldest and largest market in Samarkand, on the same ground it has occupied for centuries, right at the foot of Bibi-Khanym. It is a working food market, not a tourist bazaar, and it is one of the most enjoyable half-hours in the city.</p>
+<p><strong>Samarkand bread</strong> is the thing to understand here. Uzbek <em>non</em> is a round flatbread baked against the inside wall of a clay <em>tandir</em>, and every city bakes its own version; Samarkand's is the most famous, thick-rimmed, dense in the middle, stamped in the centre with a nail-studded stamp called a <em>chekich</em>. It is said that it cannot be reproduced anywhere else — that bakers who moved to Tashkent taking their own flour, their own water and their own oven still could not make it come out right. Whatever the reason, it keeps extraordinarily well; families take it on journeys and soak it in tea weeks later.</p>
+<p>Bread is treated with real respect in Uzbekistan. It is never placed upside down, never thrown away, and a departing traveller traditionally bites a piece of a loaf which is then kept until they come home safely.</p>
+<p><strong>What else to buy:</strong> dried apricots (the dark, unsulphured ones taste of caramel), apricot kernels, walnuts, pistachios, black raisins, <em>parvarda</em> flour-dusted sweets, <em>nabot</em> crystallised sugar on a string for tea, and Samarkand halva, which is closer to a crumbly nut fudge than to the Middle Eastern sesame kind. Everything is offered as a taste before you buy. Take the taste.</p>`
+},
+{
+  n:7, name:"The Registan", short:"Registan", alt:"Ulugh Beg 1420 · Sher-Dor 1636 · Tilya-Kori 1660",
+  lat:39.6547, lng:66.9754, gq:"Registan Samarkand",
+  dur:"1h 30", fee:"~65,000 som", hours:"08:00–19:00 · evening show in summer",
+  block:"2 km south-west of the hotel — take a taxi",
+  tips:[
+    "Be there for the 08:00 opening. Empty courtyards, low sun on the façades, and no queue.",
+    "Look at the Sher-Dor portal: two tigers chasing white does, with human-faced suns rising from their backs. Living creatures and a human face on a madrasa — a deliberate breach of convention, and it is on the 200-som note.",
+    "Inside Tilya-Kori, the gold \"dome\" is flat. It is painted to look domed. Stand directly underneath and it collapses into two dimensions.",
+    "The cells around the courtyards are now shops. The upper galleries are sometimes opened for a small tip — the view down into the square is worth it.",
+    "Come back for the floodlights on your first evening (see the Plan tab). It is a completely different building."
+  ],
+  more:`<p><em>Registan</em> means "sandy place", and that is what it was: the central square of Timurid Samarkand, where six roads met, where the market stood, where royal proclamations were read and public executions carried out. Three madrasas frame it on three sides, built across 240 years, and together they are the most photographed thing in Central Asia.</p>
+<h4>Ulugh Beg Madrasa (1417–1420), west</h4>
+<p>The oldest and the most interesting. Ulugh Beg was Timur's grandson and the most unlikely ruler of his age — a serious working astronomer who happened to inherit an empire. He taught here himself. The star patterns across the façade are not decoration for its own sake: they advertise what the building was for. At its peak the madrasa had around a hundred students studying mathematics, astronomy and philosophy alongside theology, which was radical, and which contributed to his downfall. The clergy never forgave him. He was deposed by his own son and beheaded on pilgrimage in 1449.</p>
+<h4>Sher-Dor Madrasa (1619–1636), east</h4>
+<p>Built two centuries later as a mirror of Ulugh Beg's, by the governor Yalangtush Bakhodur. <em>Sher-dor</em> means "having tigers". The mosaic on the portal shows two big cats — usually called lions, plainly striped like tigers — chasing white does, each with a human-faced sun on its back. Depicting living beings, let alone a human face, on a religious building is contrary to normal Islamic practice. It was done anyway, it caused an argument at the time, and it is now the emblem of the city. Note that the mirror is imperfect: the builders could not quite match the fifteenth-century work opposite, and the domes sit slightly awkwardly.</p>
+<h4>Tilya-Kori Madrasa (1646–1660), north</h4>
+<p><em>Tilya-kori</em> means "gilded". It was both a madrasa and the city's main Friday mosque after Bibi-Khanym became unusable. The mosque hall on the left of the courtyard is covered in <em>kundal</em> gilding — gold leaf laid over raised plaster relief, so the light catches it at every angle — and it used around three kilograms of gold in the Soviet restoration alone. The ceiling appears to be a deep dome. It is flat. The illusion is done entirely with concentric painted gold rings and it only breaks when you stand in the exact centre and refuse to believe it.</p>
+<p><strong>A note on authenticity.</strong> Much of what you see is 20th-century Soviet restoration, some of it heavy-handed — minarets were straightened, tilework replaced wholesale, and the square itself was cleared and lowered in the 1970s. Purists object. The alternative was collapse: photographs from the 1920s show the Sher-Dor minarets leaning like Pisa and the square buried under later buildings.</p>`
+},
+{
+  n:8, name:"Rukhabad Mausoleum", short:"Rukhabad", alt:"c. 1380 · \"Abode of the Spirit\"",
+  lat:39.6503, lng:66.9714, gq:"Rukhabad Mausoleum Samarkand",
+  dur:"15 min", fee:"Free", hours:"Daylight",
+  block:"On the walk from the Registan to Gur-e-Amir",
+  tips:[
+    "Small, plain, no tilework at all — and it is on your route, so stop for ten minutes.",
+    "Timur is said to have dismounted and gone on foot whenever he passed it. Worth telling the family before you arrive.",
+    "Shaded courtyard with old trees. Good place to sit."
+  ],
+  more:`<p>A cube of bare brick with a simple dome, no glaze, no gold, no portal. After the Registan it looks like almost nothing, which is exactly why it is worth the ten minutes.</p>
+<p>It was built around 1380 — before Timur's great projects — over the grave of <strong>Sheikh Burhan al-Din Sagharji</strong>, a Sufi mystic and missionary who spent years in China and married, according to tradition, a Chinese princess. The name means "abode of the spirit". A hair of the Prophet Muhammad is said to be sealed inside a casket in the walls.</p>
+<p><strong>Timur, who built the largest mosque in the world a mile from here, treated this modest building with more deference than anything else in his city.</strong> Chronicles record that he would dismount and walk past it on foot. When he came to build his own dynastic tomb, he sited it deliberately a short distance away, in the sheikh's shadow rather than the other way round.</p>
+<p>It is a useful thing to hold in your head as you walk on to Gur-e-Amir: the man who did all of this took Sufi holy men extremely seriously, consulted them before campaigns, and wanted to be buried near one. The gold and the scale were the argument he made to the world. This was the argument he made to God.</p>`
+},
+{
+  n:9, name:"Gur-e-Amir", short:"Gur-e-Amir", alt:"1403–04 · the tomb of Timur",
+  lat:39.6483, lng:66.9690, gq:"Gur-e-Amir Mausoleum Samarkand",
+  dur:"45 min", fee:"~30,000 som", hours:"08:00–19:00",
+  block:"800 m south of the Registan, down the mall",
+  tips:[
+    "The fluted turquoise dome is the one to photograph, from the garden on the approach. It has 64 ribs.",
+    "Inside: the stones you see are markers. The actual bodies lie in a crypt directly beneath, closed to visitors.",
+    "Small interior, and it fills up. Even at 10:30 you will want to wait for a gap to look up at the ceiling.",
+    "Shoes off in the tomb chamber. Quiet — people pray here."
+  ],
+  more:`<p><em>Gur-e-Amir</em> means "tomb of the king", and it holds Timur, two of his sons, two grandsons including Ulugh Beg, and his spiritual adviser Mir Sayyid Baraka. It was not built for him. He built it in 1403 for his favourite grandson and heir Muhammad Sultan, who had died at twenty-seven on campaign. Timur died two years later, in the winter of 1405, on the road to invade China — the passes were frozen, he had a fever, and the plan to conquer the Ming empire died with him. He had intended a modest tomb in Shahrisabz, his home town. The snow closed the road, so they brought him here.</p>
+<p><strong>The dome</strong> is the thing. Sixty-four ribs, ribbed and swelling outward, sheathed in turquoise tile, sitting on a tall drum with a band of enormous Kufic script reading "God is immortal". It is the direct ancestor of the Taj Mahal: Babur, Timur's descendant, founded the Mughal empire, and his descendants brought this shape to India. Inside, the walls are hexagonal onyx panels below and gilded relief above.</p>
+<p><strong>The dark stone</strong> in the centre of the tomb markers is a single block of nephrite jade, the largest known in the world, brought from Mongolia. It was cracked in two in the eighteenth century when the Persian ruler Nadir Shah carried it off as loot, and then hurriedly returned it after a run of misfortune.</p>
+<p><strong>The curse.</strong> On 19 June 1941 a Soviet team led by the anthropologist Mikhail Gerasimov opened the crypt to examine the remains — Gerasimov went on to reconstruct Timur's face from the skull, and confirmed the chronicles: a tall man for his time, with a withered right arm and a lame right leg, the injuries that gave him the name Timur-e Lang, "Timur the Lame", which Europe turned into Tamerlane. An inscription was reportedly found warning that whoever disturbed the tomb would unleash an invader more terrible than himself. Two days later, on 22 June, Germany invaded the Soviet Union. The bodies were reburied with full Islamic rites in December 1942; the Battle of Stalingrad turned shortly afterwards. Every guide in Samarkand tells this story. The dates are accurate; the inscription is unverifiable. Enjoy it as folklore.</p>`
+},
+{
+  n:10, name:"Ulugh Beg Observatory", short:"Observatory", alt:"1420s · the sextant of a king",
+  lat:39.6752, lng:66.9891, gq:"Ulugh Beg Observatory Samarkand",
+  dur:"45 min", fee:"~40,000 som", hours:"08:00–18:00",
+  block:"1.5 km north of the hotel — short taxi",
+  tips:[
+    "Optional, and close to the hotel — best as a standalone 45 minutes rather than squeezed into a morning.",
+    "The building is gone; what survives is the underground arc of the sextant, in a trench. Small, and much better with the museum next door.",
+    "The best stop of the trip for a science-minded child.",
+    "Combine with the Afrosiyob Museum (11), five minutes away."
+  ],
+  more:`<p>In the 1420s Ulugh Beg built an observatory on this hill, and for the next twenty years he and his colleagues did the finest naked-eye astronomy anyone had done since Ptolemy — and better than anyone would do again until Tycho Brahe, a century and a half later in Denmark.</p>
+<p><strong>The instrument.</strong> A three-storey cylindrical building housed a gigantic meridian arc — the Fakhri sextant — with a radius of about 40 metres, its lower portion sunk into the bedrock to keep it stable. Only that buried section survives, and it is what you walk down to see: a smooth double-railed marble arc curving away into the trench. The sheer size was the point. The bigger the arc, the finer the graduations, the more precisely you can measure the altitude of a star as it crosses the meridian.</p>
+<p><strong>What they got.</strong> The <em>Zij-i Sultani</em>, published in 1437, catalogued 1,018 stars from direct observation — the first substantially original star catalogue since the second century AD. Ulugh Beg's team calculated the length of the sidereal year as 365 days, 6 hours, 10 minutes and 8 seconds. The modern value is 365 days, 6 hours, 9 minutes and 10 seconds. He was out by 58 seconds. The catalogue reached Europe in the seventeenth century and was published at Oxford.</p>
+<p><strong>What happened to it.</strong> Ulugh Beg was murdered in 1449 on the orders of his own son. The religious establishment, which had long resented his priorities, had the observatory torn down; within decades its location was forgotten entirely. It was rediscovered in 1908 by a Russian archaeologist, Vasily Vyatkin, working from a 17th-century deed of endowment that described where it stood. Vyatkin is buried in the grounds.</p>
+<p>The small museum beside the trench is genuinely good, with reconstructions of the instruments and pages from the star catalogue.</p>`
+},
+{
+  n:11, name:"Afrosiyob Museum", short:"Afrosiyob", alt:"Pre-Mongol Samarkand · 7th-c. Sogdian murals",
+  lat:39.6698, lng:66.9878, gq:"Afrasiab Museum Samarkand",
+  dur:"40 min", fee:"~40,000 som", hours:"09:00–18:00",
+  block:"800 m north of the hotel",
+  tips:[
+    "Air-conditioned, quiet, and the murals are extraordinary. A good optional stop when it gets hot.",
+    "The mounds outside the museum are the actual ancient city — 200 hectares of unexcavated Samarkand under grass.",
+    "Easy to combine with the Observatory (10) in one short taxi loop from the hotel."
+  ],
+  more:`<p>Everything else you see in Samarkand is Timurid — fourteenth and fifteenth century. This is what came before, and it is a different civilisation entirely.</p>
+<p><strong>Afrosiyob</strong> is the site of the original Samarkand: a Sogdian city founded around the 7th century BC, taken by Alexander the Great in 329 BC, prosperous for a thousand years as the hub of the Silk Road, and annihilated by Genghis Khan in 1220. It was never rebuilt — Timur founded his Samarkand on fresh ground to the south. The result is 200 hectares of untouched archaeological deposit, most of it still in the ground.</p>
+<p><strong>The murals</strong> are the reason to come. Discovered in 1965 during road construction, they date from about 660 AD and covered the four walls of a reception room in an aristocratic house. They show a Sogdian world at its confident height: an ambassadorial procession with envoys from China, Korea and Chaganian bearing gifts; a Chinese empress on a boat with attendants; a hunting party; a bridal caravan of elephants and camels. The Sogdians were the merchants of the Silk Road, their language its lingua franca from Persia to Xi'an, and their religion was Zoroastrian with a mix of everything else.</p>
+<p>The paintings are damaged and faded, and the museum's reconstructions do a lot of the explaining. Give them ten minutes of real attention and the world of Bukhara and Samarkand before Islam suddenly becomes concrete.</p>`
+},
+{
+  n:12, name:"Tomb of Daniel", short:"Daniel's tomb", alt:"Khoja Doniyor · an 18-metre grave",
+  lat:39.6690, lng:66.9930, gq:"Tomb of Saint Daniel Samarkand",
+  dur:"25 min", fee:"~20,000 som", hours:"08:00–18:00",
+  block:"1.2 km north-east of the hotel, above the Siyob river",
+  tips:[
+    "Optional. Quiet, green, shaded by a huge pistachio tree, and almost never crowded.",
+    "The sarcophagus is eighteen metres long. That is the whole reason people come, and the explanation is a good one.",
+    "Muslims, Christians and Jews all visit. A genuinely shared holy place, which is rarer than it sounds.",
+    "Drink from the spring if you like — locals do."
+  ],
+  more:`<p>A long low building on the bank of the Siyob, containing a single sarcophagus eighteen metres from end to end.</p>
+<p><strong>The story.</strong> Timur, the tradition says, failed three times to take a city in the Middle East — usually given as Susa in Persia — and was told his campaigns would not prosper until he honoured the prophet Daniel. He brought back relics, and the caravan carrying them stopped at this spot and would not move, which was taken as the prophet's choice of burial place. So Daniel — the Daniel of the lions' den, revered in Judaism, Christianity and Islam alike — is said to lie here, a very long way from Babylon.</p>
+<p><strong>Why the grave is eighteen metres long.</strong> The saint's body, according to local belief, continues to grow after death. The tomb was extended, and extended again, and eventually the caretakers simply built it long enough to accommodate however much growing was still to come. It is a wonderfully practical solution to a theological problem, and children love it.</p>
+<p>Iran, Iraq and Uzbekistan all claim Daniel's grave, and historians consider none of the claims demonstrable. What is real is the site itself: a shaded terrace, a holy spring said to have appeared when the relics arrived, an ancient pistachio tree that was declared dead and then flowered again after a visiting Orthodox patriarch blessed it, and a steady flow of Uzbek Muslims, Bukharan Jews and Russian Christians all praying in the same small room. Bring the family here for that, not for the archaeology.</p>`
+}
+];
+
+const EXTRAS = [
+{
+  n:"A", name:"Eternal City · Silk Road Samarkand", short:"Eternal City", alt:"Abadiy Shahar · opened 2022",
+  lat:39.6340, lng:66.9280, gq:"Eternal City Silk Road Samarkand",
+  dist:"7 km south-west · 20 min taxi", dur:"2h", fee:"~50,000 som",
+  hours:"Afternoon to late evening",
+  more:`<p>A purpose-built recreation of a historic Uzbek town — caravanserai courtyards, craft workshops, madrasa façades, a bazaar street — inside the large Silk Road Samarkand tourism complex by the lake. It opened in 2022 and it makes no claim to be old.</p>
+<p><strong>Take it for what it is.</strong> Nothing here is historic and the architecture is pastiche. What it does offer, after two mornings of real monuments in real heat, is flat paved streets, shade, a good concentration of restaurants, craft demonstrations that are actually being done rather than performed, and a nightly show. It is the one place in Samarkand that is genuinely easy with a small child and a stroller.</p>
+<p>Uzbek families come here in numbers in the evening, which is a good sign. Go around 19:00, eat there, and leave when the child flags.</p>`
+},
+{
+  n:"B", name:"Konigil Village & Meros Paper Mill", short:"Paper mill", alt:"Revived 8th-c. Samarkand paper craft",
+  lat:39.6862, lng:67.0035, gq:"Meros Paper Mill Konigil Samarkand",
+  dist:"6 km north-east · 15 min taxi", dur:"1h", fee:"~25,000 som",
+  hours:"09:00–18:00",
+  more:`<p>Samarkand paper was, for several centuries, the best in the world. The technique arrived after the Battle of Talas in 751, when Tang Chinese prisoners — including, tradition says, papermakers — were brought west. Samarkand had running water, mulberry trees and skilled hands, and its paper went to Baghdad, Cairo and eventually Europe. The craft died out completely in the nineteenth century when machine-made paper arrived.</p>
+<p>It was reconstructed from historical descriptions in the 1990s by the Mukhtarov brothers at Konigil, using a water-driven trip-hammer on the Siyob river. You watch mulberry bark stripped, boiled, pounded to pulp, poured, pressed and burnished smooth with agate. The result is a warm, tough, slightly uneven paper that lasts centuries.</p>
+<p>There are also potters and a working watermill on the site, plus a shaded tea terrace. It is a genuinely good hour, and much more interesting than "craft village" suggests — the child can have a go at pounding the pulp.</p>`
+},
+{
+  n:"C", name:"Imam al-Bukhari Complex", short:"Al-Bukhari", alt:"Shrine of the greatest hadith scholar",
+  lat:39.7737, lng:66.8560, gq:"Imam al-Bukhari Memorial Complex Samarkand",
+  dist:"25 km north-west · 40 min taxi", dur:"1h 30", fee:"Free · donation",
+  hours:"Dawn to dusk",
+  more:`<p>Muhammad al-Bukhari (810–870) collected, tested and compiled the sayings of the Prophet Muhammad into the <em>Sahih al-Bukhari</em>, which Sunni Muslims regard as the most reliable book after the Qur'an itself. He is said to have sifted some 600,000 reports down to about 7,000, travelling for sixteen years to interrogate the chain of transmission behind each one. He was born in Bukhara, fell out with its governor, and died in this village near Samarkand.</p>
+<p>The complex was rebuilt on a grand scale in 1998 by presidential decree and is now one of the most important pilgrimage sites in Central Asia, with a mosque, a museum, a courtyard of white marble and the tomb itself under a turquoise dome.</p>
+<p><strong>This is a pilgrimage site, not a monument.</strong> It is worth the drive only if the history interests you or you want to see contemporary Uzbek Islam at scale. Dress conservatively — women covered to wrist and ankle with hair covered. Fridays are extremely busy.</p>`
+}
+];
+
+const FOOD = {
+  intro:"Samarkand eats differently from Bukhara: the plov is layered rather than stirred, the bread is a local obsession, and there is a real café culture along the pedestrian mall between the Registan and Gur-e-Amir. Lunch is the main meal — plov is a midday dish and is often gone by 14:00.",
+  dishes:[
+    {name:"Samarkand plov", note:"Called <em>chalov</em> or <em>osh</em>. Rice, yellow carrot, chickpeas and raisins cooked in a kazan, but served in layers with the meat on top rather than mixed through — visibly different from the Tashkent or Bukhara versions. Eaten at lunch, never dinner."},
+    {name:"Non", note:"The stamped round bread. Samarkand's is thick-rimmed and dense and is said to be impossible to reproduce elsewhere. Buy it hot off the tandir wall in Siyob Bazaar."},
+    {name:"Samsa", note:"Flaky pastry parcels of lamb and onion baked stuck to the side of a clay oven. Best mid-morning when a fresh batch comes out."},
+    {name:"Shashlik", note:"Skewered lamb, beef or minced <em>lyulya</em>, grilled over charcoal. Ordered by the stick. Ask for it with raw onion and vinegar."},
+    {name:"Lagman", note:"Hand-pulled noodles in a spiced tomato and pepper broth with meat and vegetables. The Uyghur influence on Uzbek food, and a safe bet for a child."},
+    {name:"Manti", note:"Big steamed dumplings of minced lamb and onion, eaten with sour cream. Filling and mild."},
+    {name:"Shurpa", note:"Clear lamb soup with whole chunks of meat, carrot and potato. Breakfast food as much as lunch food."},
+    {name:"Tukhum barak", note:"A Samarkand and Khorezm speciality — sealed pasta envelopes filled with egg and milk, boiled and served with butter. Unusual, and children like it."},
+    {name:"Achichuk", note:"Thin-sliced tomato, onion and chilli with vinegar. Order it with everything grilled; it cuts the fat."},
+    {name:"Halva &amp; parvarda", note:"Samarkand halva is a crumbly nut fudge, nothing like sesame halva. Parvarda are flour-dusted boiled-sugar sweets. Both in the bazaar."},
+    {name:"Nabot", note:"Crystallised sugar grown on a string, stirred into green tea. Buy a lump in the bazaar as a souvenir that will actually get used."}
+  ],
+  places:[
+    {name:"Samarqand Osh Markazi N1", gq:"Samarqand Osh Markazi Samarkand", type:"Plov centre", area:"North of the centre", price:"Cheap",
+     note:"The plov institution — a canteen, not a restaurant, with a row of enormous kazans by the door. Go between 11:00 and 14:00; when the plov runs out they close. This is the reference version of Samarkand plov and the one to judge every other by. Point at what you want."},
+    {name:"Bibikhanum Teahouse", gq:"Bibikhanum Teahouse Samarkand", type:"Teahouse", area:"Beside Bibi-Khanym Mosque", price:"Mid",
+     note:"Garden seating in the shade right by the mosque, doing plov, samsa, salads and good tea. The obvious lunch or long break on your first morning, five minutes from the bazaar. Calm enough for a child to melt down in peace."},
+    {name:"Platan", gq:"Platan Restaurant Samarkand", type:"Uzbek &amp; European", area:"Russian quarter", price:"Mid–high",
+     note:"The long-standing choice for a proper dinner — a shaded courtyard under plane trees, Uzbek dishes done carefully alongside European ones, wine list, air conditioning inside. Book, or arrive at 18:30. The safest bet for a good evening meal."},
+    {name:"Restaurant Karimbek", gq:"Karimbek Restaurant Samarkand", type:"Traditional Uzbek", area:"North-east, near the hotel side", price:"Mid",
+     note:"Big, popular with Uzbek families, generous portions, live music some evenings. Grills and plov done properly. Loud and cheerful rather than refined — good with a child, and close to your side of town."},
+    {name:"Old City Restaurant", gq:"Old City Restaurant Samarkand", type:"Uzbek &amp; international", area:"Near the Registan", price:"Mid",
+     note:"Courtyard restaurant a short walk from the Registan with a broad menu including vegetarian options and recognisable European dishes. Useful on the evening you go to see the square lit, and useful if anyone has had enough lamb."},
+    {name:"Magistr Cafe", gq:"Magistr Cafe Samarkand", type:"Café", area:"Mall between Registan and Gur-e-Amir", price:"Cheap",
+     note:"Coffee, pastries and light meals on the pedestrian mall — exactly where you will want to stop on your second morning between the Registan and Timur's tomb. Air conditioning, clean toilets, and iced coffee that will save the day."},
+    {name:"Dolce Italia", gq:"Dolce Italia gelato Samarkand", type:"Gelato", area:"Near the Registan", price:"Cheap",
+     note:"Genuinely decent gelato near the Registan. Filed here purely as the most effective bribe available to a hot five-year-old at 11:30 in the morning."}
+  ],
+  tips:[
+    "<b>On sources:</b> you asked for Condé Nast recommendations. Their site is blocked from this environment, so nothing here comes from them — these are drawn from Caravanistan, Advantour and current on-the-ground guides, and cross-checked where they overlap. Worth a look on your phone directly if you want their take.",
+    "Plov is a lunch dish. Ordering it at 20:00 usually gets you a reheated version — go at midday instead.",
+    "Most places take cash only. Carry som; card acceptance is patchy outside hotels.",
+    "Tap water is not for drinking. Bottled water is everywhere and costs 3–5,000 som.",
+    "Alcohol is served in tourist restaurants and hotels but not in teahouses or plov centres.",
+    "Uzbek food is heavy on lamb and light on vegetables. Order achichuk and a herb salad with everything, and use the bazaar for fruit."
+  ]
+};
+
+const PRACTICAL = [
+{
+  warn:true, title:"August heat — this is the whole plan",
+  items:[
+    "Expect <b>36–40 °C</b> by early afternoon, with almost no shade at the Registan, Bibi-Khanym or Shah-i-Zinda.",
+    "That is why both days are structured as <b>out at 06:30, back at the hotel by ~12:30</b> for lunch, a nap and the pool, then out again at 18:30.",
+    "Carry 2 litres of water per person. Refill from shops — 3–5,000 som a bottle.",
+    "Hats and sunscreen for all three of you. It is very dry, so you dehydrate without feeling sweaty.",
+    "Monuments are at their best in the first hour after opening and after dark. The middle of the day is the worst of both worlds — hot and crowded."
+  ]
+},
+{
+  title:"Getting around from the Khan Hotel",
+  items:[
+    "You are in the north-east, right beside Shah-i-Zinda. Bibi-Khanym is a 15-minute downhill walk; the Registan is 2 km and worth a taxi.",
+    "Taxis are cheap and constant: 10–20,000 som for anything inside the city. Agree the price before getting in.",
+    "<b>Yandex Go</b> works in Samarkand and removes the haggling. Download it before you arrive.",
+    "The pedestrian mall between the Registan and Gur-e-Amir is the one genuinely pleasant stretch of walking — shaded, flat, café-lined.",
+    "Ask the hotel to call the same driver each time. It is worth a small premium to have someone who knows where you are staying."
+  ]
+},
+{
+  title:"Tickets and money",
+  items:[
+    "Rough foreigner prices: Registan ~65,000 som · Shah-i-Zinda ~30,000 · Gur-e-Amir ~30,000 · Bibi-Khanym ~40,000 · Observatory ~40,000 · Afrosiyob ~40,000.",
+    "<b>Prices rise most years — these are indicative. Confirm at the window.</b>",
+    "Carry cash in som. Ticket booths rarely take cards.",
+    "Budget roughly 250,000 som per adult for everything on this page. Children are usually free or heavily reduced — ask.",
+    "A photo permit is occasionally an extra few thousand som."
+  ]
+},
+{
+  title:"Dress and etiquette",
+  items:[
+    "Shoulders and knees covered at all religious sites. A light scarf for hair at Hazrat Khizr and inside the Shah-i-Zinda shrine.",
+    "Shoes off in working mosques and in the Gur-e-Amir tomb chamber. Slip-ons save time.",
+    "Ask before photographing people, particularly at prayer.",
+    "Do not voice political opinions at the Karimov mausoleum. It is a live subject.",
+    "Bargaining is normal in the bazaar and in the madrasa shops — open at about half, settle near two-thirds. It is friendly, not adversarial."
+  ]
+},
+{
+  title:"With a small child",
+  items:[
+    "<b>Carrier beats stroller</b> almost everywhere: Shah-i-Zinda has steps, the old streets are uneven, and the Registan is gravel and stone.",
+    "Best bits for a child: counting the steps at Shah-i-Zinda, the eighteen-metre grave at Daniel's tomb, bread and dried fruit in the bazaar, and the giant sextant at the observatory.",
+    "Gelato at Dolce Italia near the Registan is the emergency lever.",
+    "The Eternal City on the second evening is flat, shaded and easy — deliberately placed at the end when everyone is tired.",
+    "Pool time at the hotel every afternoon is not a compromise, it is the reason the mornings work."
+  ]
+},
+{
+  title:"Using this page offline",
+  items:[
+    "Every description, tip and plan works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself and always works.",
+    "Download the Samarkand area in Google Maps for offline use before you set out. Then the Google Maps buttons work without signal too.",
+    "Add this page to your Home Screen: Share → Add to Home Screen. It opens full-screen like an app.",
+    "<b>Map pins are accurate to roughly a block.</b> The <b>Open in Google Maps</b> button on each stop searches by name, which is exact — use that for navigation."
+  ]
+}
+];
+
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const gS = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+const byN = {}; STOPS.concat(EXTRAS).forEach(s => byN[s.n] = s);
+function gRoute(list){
+  const c = p => p.routeQ ? p.routeQ : (p.lat.toFixed(6) + "," + p.lng.toFixed(6));
+  if(list.length < 2) return gS(list[0] ? list[0].gq : CITY.name);
+  const w = list.slice(1,-1).map(c).join("|");
+  return "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=" + c(list[0]) +
+         "&destination=" + c(list[list.length-1]) + (w ? "&waypoints=" + encodeURIComponent(w) : "");
+}
+/* hotel -> stops -> hotel, split into legs of <=10 points */
+function dayLegs(nums){
+  const pts = [CITY.hotel].concat(nums.map(n => byN[n]).filter(Boolean)).concat([CITY.hotel]);
+  const legs = [];
+  for(let i = 0; i < pts.length - 1; i += 9) legs.push(pts.slice(i, i + 10));
+  return legs;
+}
+
+/* ---------- PLAN ---------- */
+$("#planIntro").innerHTML = `<div class="hero">
+  <h2>${CITY.dates}</h2>
+  <p>${CITY.plan}</p>
+  <p><b>Base:</b> ${CITY.hotel.name}. Every route below leaves from the hotel and comes back to it.</p>
+  <div class="pills">${CITY.pills.map(p=>`<span>${p}</span>`).join("")}</div>
+</div>`;
+
+$("#days").innerHTML = DAYS.map(d => {
+  const legs = dayLegs(d.stops);
+  const line = (n, cls) => {
+    const s = byN[n]; if(!s) return "";
+    return `<li><span class="n ${cls||''}">${s.n}</span><span class="t"><b>${s.name}</b><i>${s.dur} · ${s.fee}</i></span><button data-read="${s.n}">Read</button></li>`;
+  };
+  return `<article class="day">
+    <div class="top">
+      <div class="kick"><span class="slot ${d.slot==='Evening'?'eve':''}">${d.slot}</span><span class="when">${d.day}</span></div>
+      <h3>${d.title}</h3>
+      <div class="clock"><b>Out ${d.out}</b><b>Back ${d.back}</b><b>${d.walk}</b></div>
+    </div>
+    <div class="body">
+      <p>${d.intro}</p>
+      <ul class="seq">
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>Leave at ${d.out}</i></span></li>
+        ${d.stops.map(n => line(n)).join("")}
+        ${(d.optional||[]).length ? `<li style="padding-top:13px"><span class="n o">+</span><span class="t"><b style="color:var(--ink2)">If you are going faster</b><i>Optional — skip without guilt</i></span></li>` : ""}
+        ${(d.optional||[]).map(n => line(n,"o")).join("")}
+        <li><span class="n h">H</span><span class="t"><b>Back at ${CITY.hotel.name}</b><i>${d.after}</i></span></li>
+      </ul>
+      ${legs.map((L,i) => `<a class="btn${i?' g':''}" style="margin-bottom:8px" target="_blank" rel="noopener" href="${gRoute(L)}">Open ${legs.length>1?('leg '+(i+1)+' '):''}in Google Maps</a>`).join("")}
+      ${d.tips && d.tips.length ? `<div class="tipbox"><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : ""}
+    </div>
+  </article>`;
+}).join("");
+
+/* ---------- STOPS ---------- */
+function card(s, extra){
+  const meta = extra
+    ? `<span class="t">${s.dist}</span><span>${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span>`
+    : `<span class="t">${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span><span>${s.block}</span>`;
+  return `<article class="card${extra?" extra":""}" id="s${s.n}">
+    <div class="chead"><div class="num">${s.n}</div><div><h3>${s.name}</h3><span class="alt">${s.alt}</span></div></div>
+    <div class="meta">${meta}</div>
+    <div class="acts"><a href="${gS(s.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>${extra?"":`<button data-go="${s.n}">Show on map</button>`}</div>
+    ${s.tips&&s.tips.length?`<div class="sec"><h4>Good to know</h4><ul>${s.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`:""}
+    <details><summary>Know more — read this out</summary><div class="body">${s.more}</div></details>
+  </article>`;
+}
+$("#stops").innerHTML  = `<div class="sech"><h2>On foot</h2><i></i></div>` + STOPS.map(s=>card(s,false)).join("");
+$("#extras").innerHTML = EXTRAS.length ? `<div class="sech"><h2>Worth a taxi</h2><i></i></div>` + EXTRAS.map(s=>card(s,true)).join("") : "";
+
+/* ---------- FOOD ---------- */
+$("#food").innerHTML = `
+  <div class="hero"><h2>Eating in ${CITY.name}</h2><p>${FOOD.intro}</p></div>
+  <div class="sech"><h2>What to order</h2><i></i></div>
+  <div class="card" style="padding:4px 15px">${FOOD.dishes.map(d=>`<div class="dish"><div class="dn">${d.name}</div><div class="dd">${d.note}</div></div>`).join("")}</div>
+  <div class="sech"><h2>Where to eat</h2><i></i></div>
+  ${FOOD.places.map(p=>`<div class="eat">
+      <div class="et"><h4>${p.name}</h4><span class="pr">${p.price}</span></div>
+      <div class="ea">${p.type} · ${p.area}</div>
+      <p>${p.note}</p>
+      <a href="${gS(p.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>`).join("")}
+  <div class="pc warn" style="margin-top:16px"><h3>Before you book</h3><ul>${FOOD.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`;
+
+/* ---------- INFO ---------- */
+$("#info").innerHTML = PRACTICAL.map(b => `<div class="pc${b.warn?" warn":""}" style="margin-top:14px">
+  <h3>${b.title}</h3><ul>${b.items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`).join("");
+
+/* ---------- tabs & nav ---------- */
+const PANES = {plan:"p-plan", map:"p-map", stops:"p-stops", food:"p-food", info:"p-info"};
+function show(p){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on", b.dataset.p===p));
+  Object.entries(PANES).forEach(([k,id])=>$("#"+id).classList.toggle("on", k===p));
+  if(p==="map" && window._map) setTimeout(()=>window._map.invalidateSize(), 60);
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{show(b.dataset.p);scrollTo(0,0);});
+function goStop(n){
+  show("stops");
+  const el = document.getElementById("s"+n); if(!el) return;
+  const d = el.querySelector("details"); if(d) d.open = true;
+  setTimeout(()=>{el.scrollIntoView({behavior:"smooth",block:"start"});
+    el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);},70);
+}
+window.goStop = goStop;
+document.addEventListener("click", e=>{
+  const r = e.target.closest("[data-read]"); if(r){ goStop(r.dataset.read); return; }
+  const g = e.target.closest("[data-go]");   if(g){ showOnMap(+g.dataset.go); }
+});
+
+/* ---------- map route buttons ---------- */
+$("#gbar").innerHTML = DAYS.map((d,i)=>{
+  const legs = dayLegs(d.stops);
+  return legs.map((L,j)=>`<a class="${i?'alt':''}" target="_blank" rel="noopener" href="${gRoute(L)}">${d.slot} ${d.dayShort}${legs.length>1?' · leg '+(j+1):''}</a>`).join("");
+}).join("");
+
+/* ---------- offline schematic ---------- */
+(function(){
+  const W=1000, H=720, PAD=88;
+  const P = [CITY.hotel].concat(STOPS);
+  const k = Math.cos(CITY.hotel.lat*Math.PI/180);
+  const xs=P.map(s=>s.lng*k), ys=P.map(s=>-s.lat);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const sc=Math.min((W-2*PAD)/((x1-x0)||1e-6),(H-2*PAD)/((y1-y0)||1e-6));
+  const ox=(W-(x1-x0)*sc)/2-x0*sc, oy=(H-(y1-y0)*sc)/2-y0*sc;
+  const PX=s=>[s.lng*k*sc+ox, -s.lat*sc+oy];
+  let bar=200, mpu=1/(sc/111320);
+  while(bar/mpu>270) bar/=2; while(bar/mpu<90) bar*=2;
+
+  let g=`<rect width="${W}" height="${H}" fill="#F7F9FC"/>`;
+  for(let i=0;i<=W;i+=50) g+=`<line x1="${i}" y1="0" x2="${i}" y2="${H}" stroke="#E9EEF5" stroke-width="1"/>`;
+  for(let i=0;i<=H;i+=50) g+=`<line x1="0" y1="${i}" x2="${W}" y2="${i}" stroke="#E9EEF5" stroke-width="1"/>`;
+  DAYS.forEach(d=>{
+    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
+    if(!inner.length) return;
+    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(PX);
+    g+=`<path d="${pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${d.slot==='Evening'?'#B26A00':'#0A5FE0'}" stroke-width="3.5" stroke-opacity=".3" stroke-dasharray="10 8" stroke-linejoin="round"/>`;
+  });
+
+  const FS=16, CH=8.4, LH=19;
+  const slots=[];
+  [[0,1,"middle"],[0,-1,"middle"],[1,0,"start"],[-1,0,"end"],[.72,-.72,"start"],[-.72,-.72,"end"],[.72,.72,"start"],[-.72,.72,"end"]]
+    .forEach(([ux,uy,an])=>[26,44,64,86,110].forEach(r=>slots.push([ux*r, uy*r+(uy>0?8:uy<0?-2:6), an])));
+  slots.sort((a,b)=>Math.hypot(a[0],a[1])-Math.hypot(b[0],b[1]));
+  const boxes=P.map(s=>{const[x,y]=PX(s);return[x-17,y-17,x+17,y+17];});
+  const hit=(a,b)=>!(a[2]<b[0]||a[0]>b[2]||a[3]<b[1]||a[1]>b[3]);
+  const L=[];
+  P.forEach(s=>{
+    const [x,y]=PX(s), txt = s.short || s.name, w=txt.length*CH;
+    let best=null;
+    for(const [dx,dy,an] of slots){
+      const lx=x+dx, ly=y+dy;
+      const bx = an==="start"?lx: an==="end"?lx-w: lx-w/2;
+      const box=[bx-3, ly-LH+3, bx+w+3, ly+5];
+      if(box[0]<14||box[2]>W-14||box[1]<10||box[3]>H-38) continue;
+      if(!boxes.some(b=>hit(box,b))){best={lx,ly,an,box,dx,dy};break;}
+    }
+    if(!best){best={lx:x,ly:y+34,an:"middle",box:[x-w/2,y+15,x+w/2,y+38],dx:0,dy:34};}
+    boxes.push(best.box); L.push({s,x,y,txt,...best});
+  });
+  L.forEach(o=>{
+    const isH = o.s === CITY.hotel;
+    const far = Math.hypot(o.dx,o.dy)>38;
+    g += `<g class="hit" data-n="${isH?'H':o.s.n}">
+      ${far?`<line x1="${o.x}" y1="${o.y}" x2="${o.lx+(o.an==="end"?-2:o.an==="start"?2:0)}" y2="${o.ly-5}" stroke="#B9C4D2" stroke-width="1.5"/>`:""}
+      <circle cx="${o.x}" cy="${o.y}" r="22" fill="#fff" fill-opacity="0"/>
+      ${isH ? `<rect x="${o.x-14}" y="${o.y-14}" width="28" height="28" rx="8" fill="#0B1220"/>`
+            : `<circle cx="${o.x}" cy="${o.y}" r="14" fill="#0A5FE0" stroke="#fff" stroke-width="3"/>`}
+      <text x="${o.x}" y="${o.y+5}" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="700" fill="#fff">${isH?'H':o.s.n}</text>
+      <text x="${o.lx}" y="${o.ly}" text-anchor="${o.an}" font-family="Arial" font-size="${FS}" font-weight="700" fill="#5A6675" stroke="#F7F9FC" stroke-width="4.5" paint-order="stroke">${o.txt}</text>
+    </g>`;
+  });
+  const bx=PAD, by=H-26, bw=bar/mpu;
+  g+=`<line x1="${bx}" y1="${by}" x2="${bx+bw}" y2="${by}" stroke="#5A6675" stroke-width="3"/>
+      <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
+      <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
+      <text x="${bx+bw+10}" y="${by+6}" font-family="Arial" font-size="16" fill="#5A6675">${bar} m</text>
+      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = hotel · N &#8593;</text>`;
+
+  const svg=$("#planSvg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML=g;
+  const sheet=$("#sheet");
+  svg.addEventListener("click", e=>{
+    const h=e.target.closest(".hit"); if(!h) return;
+    const id=h.dataset.n;
+    const s = id==="H" ? CITY.hotel : byN[+id];
+    const isH = id==="H";
+    sheet.innerHTML = `<b>${isH?"":s.n+". "}${s.name}</b><i>${isH?"Your base — routes start and end here":s.alt}</i>
+      <div class="r">${isH?"":`<a class="p" href="#" onclick="goStop(${s.n});closeSheet();return false;">Read</a>`}
+      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Google Maps</a>
+      <button onclick="closeSheet()">Close</button></div>`;
+    sheet.classList.add("on");
+  });
+  window.closeSheet=()=>sheet.classList.remove("on");
+})();
+
+/* ---------- live / offline toggle ---------- */
+const tL=$("#tabLive"), tP=$("#tabPlan");
+function mapMode(m){
+  tL.classList.toggle("on",m==="live"); tP.classList.toggle("on",m==="plan");
+  $("#map").style.display = m==="live" ? "" : "none";
+  $("#plan").classList.toggle("on", m==="plan");
+  if(m!=="plan") closeSheet();
+  if(m==="live" && window._map) setTimeout(()=>window._map.invalidateSize(),60);
+}
+tL.onclick=()=>mapMode("live"); tP.onclick=()=>mapMode("plan");
+
+/* ---------- leaflet ---------- */
+if(typeof L === "undefined"){
+  tL.textContent="Live map (offline)";
+  tL.onclick=()=>alert("The live street map needs an internet connection. The offline plan works without one.");
+  mapMode("plan");
+  window.showOnMap = n => { show("map"); scrollTo(0,0); mapMode("plan"); };
+} else {
+  const map = L.map("map",{zoomControl:true}).setView([CITY.hotel.lat, CITY.hotel.lng], 15);
+  window._map = map;
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
+  const M = {};
+  const mk = (s, cls, label) => {
+    const m = L.marker([s.lat,s.lng],{icon:L.divIcon({className:"",html:`<div class="pin ${cls}">${label}</div>`,iconSize:[28,28],iconAnchor:[14,14]})}).addTo(map);
+    m.bindPopup(`<div class="pop"><b>${label==="H"?"":label+". "}${s.name}</b><i>${s.alt||"Your base"}</i><div class="r">
+      ${label==="H"?"":`<a class="p" href="#" onclick="goStop('${label}');return false;">Read</a>`}
+      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Maps</a></div></div>`,{maxWidth:250});
+    return m;
+  };
+  M["H"] = mk(CITY.hotel,"h","H");
+  STOPS.forEach(s=>M[s.n]=mk(s,"",s.n));
+  EXTRAS.forEach(s=>M[s.n]=mk(s,"x",s.n));
+  DAYS.forEach(d=>{
+    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
+    if(!inner.length) return;
+    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(s=>[s.lat,s.lng]);
+    L.polyline(pts,{color:d.slot==="Evening"?"#B26A00":"#0A5FE0",weight:3.5,opacity:.5,dashArray:"8 8"}).addTo(map);
+  });
+  map.fitBounds(L.latLngBounds([CITY.hotel].concat(STOPS).map(s=>[s.lat,s.lng])).pad(0.16));
+  window.showOnMap = n => { show("map"); scrollTo(0,0);
+    setTimeout(()=>{map.invalidateSize(); map.setView(M[n].getLatLng(),17,{animate:true}); M[n].openPopup();},120); };
+}
+
+const topB=$("#top");
+topB.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+addEventListener("scroll",()=>{topB.style.display = scrollY>520 ? "block" : "none";});
+</script>
+</body>
+</html>

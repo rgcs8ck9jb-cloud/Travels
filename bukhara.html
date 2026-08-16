@@ -2,906 +2,1139 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=5">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#1c3f52">
-<title>Bukhara on Foot — 19 stops</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0A5FE0">
+<title>Bukhara — August 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%230A5FE0'/><circle cx='32' cy='27' r='9' fill='none' stroke='%23fff' stroke-width='5'/><path d='M32 39v13' stroke='%23fff' stroke-width='5' stroke-linecap='round'/></svg>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{
-  --ink:#221a12; --ink2:#5c5044; --line:#e3d9c8;
-  --paper:#faf6ef; --card:#ffffff;
-  --teal:#1c6b7a; --teal-d:#11414b; --teal-l:#e2f0f2;
-  --clay:#b4552d; --clay-l:#fbeade;
-  --gold:#a8842c;
-  --hdr:#17323d;
-  --r:14px;
-  --safe-t:env(safe-area-inset-top,0px);
-  --safe-b:env(safe-area-inset-bottom,0px);
+  --blue:#0A5FE0; --blue-d:#0742A8; --blue-x:#053174;
+  --blue-l:#EAF2FE; --blue-l2:#F5F9FF;
+  --ink:#0B1220; --ink2:#5A6675; --ink3:#8D98A6;
+  --line:#E4E9F0; --line2:#F0F3F7;
+  --bg:#FFFFFF; --surf:#F7F9FC;
+  --amber:#B26A00; --amber-l:#FFF6E8;
+  --r:16px; --r2:12px;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+  --hh:112px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;height:100%}
+html{-webkit-text-size-adjust:100%}
 body{
-  font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
-  color:var(--ink); background:var(--paper);
-  -webkit-text-size-adjust:100%;
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 Arial,"Helvetica Neue",Helvetica,sans-serif;
   overscroll-behavior-y:none;
 }
-h1,h2,h3,h4{font-family:"New York","Iowan Old Style",Georgia,serif;font-weight:600;line-height:1.25;margin:0}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.25;letter-spacing:-.015em}
+p{margin:0}
+a{color:var(--blue)}
 
-/* ---------- header ---------- */
-header{
-  position:sticky;top:0;z-index:900;
-  background:var(--hdr); color:#fff;
-  padding:calc(var(--safe-t) + 10px) 14px 0;
-  box-shadow:0 2px 14px rgba(0,0,0,.18);
-}
-.brand{display:flex;align-items:baseline;gap:9px;padding-bottom:9px}
-.brand h1{font-size:19px;letter-spacing:.2px}
-.brand span{font-size:11.5px;opacity:.62;letter-spacing:.5px;text-transform:uppercase}
-nav{display:flex;gap:4px;padding-bottom:2px}
+/* header */
+header{position:sticky;top:0;z-index:900;background:var(--blue);color:#fff}
+.hb{padding:calc(var(--st) + 13px) 16px 11px;display:flex;align-items:baseline;gap:10px}
+.hb h1{font-size:19px}
+.hb span{font-size:12px;opacity:.8;font-weight:700;letter-spacing:.02em}
+nav{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 8px;background:var(--blue)}
+nav::-webkit-scrollbar{display:none}
 nav button{
-  flex:1;appearance:none;border:0;background:transparent;color:rgba(255,255,255,.6);
-  font:600 13.5px/1 -apple-system,sans-serif;letter-spacing:.2px;
-  padding:11px 4px 10px;border-bottom:3px solid transparent;cursor:pointer;
+  flex:1 0 auto;min-width:66px;appearance:none;border:0;background:transparent;cursor:pointer;
+  color:rgba(255,255,255,.72);font:700 13px/1 Arial,sans-serif;
+  padding:12px 12px 11px;border-bottom:3px solid transparent;white-space:nowrap;
 }
-nav button.on{color:#fff;border-bottom-color:var(--clay)}
+nav button.on{color:#fff;border-bottom-color:#fff}
 
-/* ---------- panes ---------- */
-main{padding-bottom:calc(var(--safe-b) + 30px)}
+main{padding-bottom:calc(var(--sb) + 40px)}
 .pane{display:none}
 .pane.on{display:block}
+.wrap{padding:0 14px;max-width:760px;margin:0 auto}
 
-/* ---------- map ---------- */
-#mapwrap{position:relative}
-#map{width:100%;height:calc(100vh - 240px - var(--safe-t));height:calc(100dvh - 240px - var(--safe-t));min-height:400px;background:#e8e2d6}
-.leaflet-container{font-family:inherit}
-.pin{
-  width:29px;height:29px;border-radius:50%;
-  background:var(--teal);color:#fff;border:2.5px solid #fff;
-  display:flex;align-items:center;justify-content:center;
-  font:700 13px/1 -apple-system,sans-serif;
-  box-shadow:0 2px 7px rgba(0,0,0,.4);
+/* generic blocks */
+.hero{
+  background:linear-gradient(150deg,var(--blue),var(--blue-x));color:#fff;
+  border-radius:var(--r);padding:18px;margin:14px 0;
 }
-.pin.x{background:var(--clay)}
-.pin.hi{transform:scale(1.28);background:var(--gold);z-index:1000!important}
-.leaflet-popup-content-wrapper{border-radius:12px}
-.leaflet-popup-content{margin:11px 13px;font-size:14px;line-height:1.45}
-.pop b{display:block;font-size:15px;margin-bottom:3px;font-family:Georgia,serif}
-.pop i{display:block;color:var(--ink2);font-size:12px;font-style:normal;margin-bottom:8px}
-.pop .row{display:flex;gap:6px}
-.pop a{
-  flex:1;text-align:center;text-decoration:none;font-weight:600;font-size:12.5px;
-  padding:7px 8px;border-radius:8px;
+.hero h2{font-size:19px;margin-bottom:8px}
+.hero p{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.88);margin-bottom:9px}
+.hero p:last-of-type{margin-bottom:0}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.pills span{background:rgba(255,255,255,.16);border-radius:100px;padding:6px 12px;font-size:11.5px;font-weight:700}
+
+.sech{display:flex;align-items:center;gap:11px;margin:26px 0 12px}
+.sech h2{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
+.sech i{flex:1;height:1px;background:var(--line);font-style:normal}
+
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden;scroll-margin-top:calc(var(--hh) + 8px)}
+.card.flash{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-l)}
+
+/* PLAN */
+.day{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.day .top{padding:16px 16px 13px;background:var(--blue-l2);border-bottom:1px solid var(--line)}
+.day .kick{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.day .slot{background:var(--blue);color:#fff;font:700 10.5px/1 Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;border-radius:100px;padding:5px 10px}
+.day .slot.eve{background:var(--amber)}
+.day .slot.opt{background:var(--ink3)}
+.day .when{font-size:12px;font-weight:700;color:var(--ink2)}
+.day h3{font-size:18.5px}
+.day .clock{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+.day .clock b{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--ink2)}
+.day .body{padding:15px 16px 16px}
+.day .body>p{font-size:14.5px;line-height:1.65;color:var(--ink2);margin-bottom:13px}
+.seq{list-style:none;margin:0 0 14px;padding:0}
+.seq li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line2)}
+.seq li:last-child{border-bottom:0}
+.seq .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--blue-l);color:var(--blue-d);display:flex;align-items:center;justify-content:center;font:700 12px/1 Arial,sans-serif;margin-top:1px}
+.seq .n.h{background:var(--ink);color:#fff}
+.seq .n.o{background:var(--surf);color:var(--ink3)}
+.seq .t{flex:1;min-width:0}
+.seq .t b{display:block;font-size:15px;font-weight:700}
+.seq .t i{display:block;font-style:normal;font-size:12.5px;color:var(--ink2);margin-top:1px}
+.seq button{appearance:none;border:0;background:var(--surf);color:var(--blue);font:700 12px/1 Arial,sans-serif;padding:8px 11px;border-radius:8px;cursor:pointer;margin-top:2px}
+.btn{
+  display:block;width:100%;text-align:center;text-decoration:none;cursor:pointer;appearance:none;border:0;
+  background:var(--blue);color:#fff;font:700 14px/1 Arial,sans-serif;padding:14px;border-radius:var(--r2);
 }
-.pop a.p{background:var(--teal);color:#fff}
-.pop a.s{background:var(--clay-l);color:var(--clay)}
-.maphint{
-  padding:10px 14px;background:var(--teal-l);color:var(--teal-d);
-  font-size:12.5px;line-height:1.5;border-bottom:1px solid var(--line);
-}
-.gbar{display:flex;gap:7px;padding:11px 12px;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto}
-.gbar a{
-  flex:0 0 auto;text-decoration:none;background:var(--teal);color:#fff;
-  font-weight:600;font-size:12.5px;padding:9px 13px;border-radius:9px;white-space:nowrap;
-}
-.gbar a.alt{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
-.seg{display:flex;gap:0;padding:9px 12px;background:#fff;border-bottom:1px solid var(--line)}
-.seg button{
-  flex:1;appearance:none;cursor:pointer;background:#f1ece2;color:var(--ink2);border:1px solid var(--line);
-  font:600 13px/1 -apple-system,sans-serif;padding:10px 6px;
-}
-.seg button:first-child{border-radius:9px 0 0 9px}
-.seg button:last-child{border-radius:0 9px 9px 0;border-left:0}
-.seg button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
-#plan{display:none;background:#f6f1e7;padding:6px 0 0}
+.btn.g{background:var(--surf);color:var(--blue);border:1px solid var(--line)}
+.row2{display:flex;gap:8px}
+.row2>*{flex:1}
+.tipbox{background:var(--amber-l);border-radius:var(--r2);padding:13px 15px;margin-top:13px}
+.tipbox ul{margin:0;padding-left:17px}
+.tipbox li{font-size:13.5px;line-height:1.55;margin-bottom:6px;color:#6b4400}
+.tipbox li:last-child{margin-bottom:0}
+
+/* MAP */
+.gbar{display:flex;gap:8px;padding:12px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.gbar::-webkit-scrollbar{display:none}
+.gbar a{flex:0 0 auto;text-decoration:none;background:var(--blue);color:#fff;font:700 12.5px/1 Arial,sans-serif;padding:11px 14px;border-radius:100px;white-space:nowrap}
+.gbar a.alt{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.hint{padding:11px 14px;background:var(--blue-l2);color:var(--blue-d);font-size:12.5px;line-height:1.5;border-bottom:1px solid var(--line)}
+.seg{display:flex;padding:11px 14px;gap:0}
+.seg button{flex:1;appearance:none;cursor:pointer;background:var(--surf);color:var(--ink2);border:1px solid var(--line);font:700 13px/1 Arial,sans-serif;padding:11px 6px}
+.seg button:first-child{border-radius:10px 0 0 10px}
+.seg button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.seg button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+#map{width:100%;height:calc(100vh - 250px - var(--st));height:calc(100dvh - 250px - var(--st));min-height:380px;background:var(--surf)}
+.pin{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font:700 12.5px/1 Arial,sans-serif;box-shadow:0 2px 8px rgba(11,18,32,.35)}
+.pin.x{background:var(--amber)}
+.pin.h{background:var(--ink);border-radius:8px}
+.leaflet-popup-content-wrapper{border-radius:13px}
+.leaflet-popup-content{margin:12px 13px;font:14px/1.45 Arial,sans-serif}
+.pop b{display:block;font-size:15px;margin-bottom:2px}
+.pop i{display:block;font-style:normal;color:var(--ink2);font-size:12px;margin-bottom:9px}
+.pop .r{display:flex;gap:6px}
+.pop a{flex:1;text-align:center;text-decoration:none;font:700 12.5px/1 Arial,sans-serif;padding:9px 8px;border-radius:8px}
+.pop a.p{background:var(--blue);color:#fff}
+.pop a.s{background:var(--blue-l);color:var(--blue-d)}
+#plan{display:none;background:var(--surf)}
 #plan.on{display:block}
-#planSvg{width:100%;height:auto;display:block;touch-action:manipulation}
-#planSvg .hit{cursor:pointer}
-#planSvg .hit:active circle.d{fill:var(--gold)}
-.planfoot{padding:9px 14px 14px;font-size:12px;color:var(--ink2);text-align:center}
-.sheet{
-  position:fixed;left:10px;right:10px;bottom:calc(var(--safe-b) + 10px);z-index:950;
-  background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.28);
-  padding:14px 15px;display:none;
-}
+#planSvg{width:100%;height:auto;display:block}
+.pfoot{padding:10px 14px 16px;font-size:12px;color:var(--ink2);text-align:center}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(var(--sb) + 12px);z-index:950;background:#fff;border-radius:var(--r);box-shadow:0 10px 40px rgba(11,18,32,.25);border:1px solid var(--line);padding:15px;display:none}
 .sheet.on{display:block}
-.sheet b{display:block;font-family:Georgia,serif;font-size:16px;margin-bottom:2px}
-.sheet i{display:block;font-style:normal;color:var(--ink2);font-size:12.5px;margin-bottom:10px}
-.sheet .row{display:flex;gap:7px}
-.sheet .row a,.sheet .row button{
-  flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;
-  font:600 13px/1 -apple-system,sans-serif;padding:11px 6px;border-radius:9px;
-}
-.sheet .row a.p{background:var(--teal);color:#fff}
-.sheet .row a.s{background:var(--clay-l);color:var(--clay)}
-.sheet .row button{background:#f1ece2;color:var(--ink)}
+.sheet b{display:block;font-size:16px;margin-bottom:2px}
+.sheet i{display:block;font-style:normal;color:var(--ink2);font-size:12.5px;margin-bottom:11px}
+.sheet .r{display:flex;gap:7px}
+.sheet .r a,.sheet .r button{flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;font:700 13px/1 Arial,sans-serif;padding:12px 6px;border-radius:10px}
+.sheet .r a.p{background:var(--blue);color:#fff}
+.sheet .r a.s{background:var(--blue-l);color:var(--blue-d)}
+.sheet .r button{background:var(--surf);color:var(--ink2);border:1px solid var(--line)}
 
-/* ---------- stop cards ---------- */
-.wrap{padding:0 12px}
-.intro{
-  background:linear-gradient(160deg,#1f4a58,#17323d);color:#fff;
-  border-radius:var(--r);padding:17px 16px;margin:12px 0 14px;
-}
-.intro h2{font-size:17px;margin-bottom:7px}
-.intro p{margin:0 0 9px;font-size:14px;line-height:1.6;color:rgba(255,255,255,.86)}
-.intro p:last-child{margin-bottom:0}
-.facts{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.facts span{background:rgba(255,255,255,.13);border-radius:20px;padding:5px 11px;font-size:11.5px;font-weight:600}
-
-.card{
-  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-  margin:0 0 13px;overflow:hidden;scroll-margin-top:118px;
-}
-.card.flash{box-shadow:0 0 0 3px var(--gold)}
-.chead{display:flex;gap:12px;padding:15px 15px 12px;align-items:flex-start}
-.num{
-  flex:0 0 34px;height:34px;border-radius:50%;background:var(--teal);color:#fff;
-  display:flex;align-items:center;justify-content:center;font:700 15px/1 -apple-system,sans-serif;
-}
-.card.extra .num{background:var(--clay)}
-.chead h3{font-size:17.5px}
+/* STOPS */
+.chead{display:flex;gap:12px;padding:16px 15px 12px;align-items:flex-start}
+.num{flex:0 0 33px;height:33px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14.5px/1 Arial,sans-serif}
+.card.extra .num{background:var(--amber)}
+.chead h3{font-size:17px}
 .chead .alt{display:block;color:var(--ink2);font-size:12.5px;margin-top:3px;line-height:1.45}
 .meta{display:flex;flex-wrap:wrap;gap:6px;padding:0 15px 13px}
-.meta span{
-  font-size:11px;font-weight:600;background:#f4efe6;color:var(--ink2);
-  border-radius:6px;padding:4px 8px;line-height:1.4;
-}
-.meta span.t{background:var(--teal-l);color:var(--teal-d)}
-.acts{display:flex;gap:7px;padding:0 15px 14px}
-.acts a,.acts button{
-  flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;
-  font:600 13px/1 -apple-system,sans-serif;padding:11px 6px;border-radius:9px;
-}
-.acts a{background:var(--teal);color:#fff}
-.acts button{background:#f1ece2;color:var(--ink)}
-
-.sec{border-top:1px solid var(--line);padding:13px 15px}
-.sec h4{font-size:12px;letter-spacing:1.1px;text-transform:uppercase;color:var(--clay);margin-bottom:9px;font-family:-apple-system,sans-serif;font-weight:700}
+.meta span{font-size:11px;font-weight:700;background:var(--surf);color:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.meta span.t{background:var(--blue-l);color:var(--blue-d);border-color:#d3e4fd}
+.acts{display:flex;gap:8px;padding:0 15px 14px}
+.acts a,.acts button{flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;font:700 13px/1 Arial,sans-serif;padding:12px 6px;border-radius:10px}
+.acts a{background:var(--blue);color:#fff}
+.acts button{background:var(--surf);color:var(--ink2);border:1px solid var(--line)}
+.sec{border-top:1px solid var(--line);padding:14px 15px}
+.sec h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:9px}
 .sec ul{margin:0;padding-left:17px}
 .sec li{margin-bottom:7px;font-size:14.5px;line-height:1.55}
 .sec li:last-child{margin-bottom:0}
-
 details{border-top:1px solid var(--line)}
-details summary{
-  list-style:none;cursor:pointer;padding:14px 15px;
-  display:flex;justify-content:space-between;align-items:center;
-  font:700 13.5px/1 -apple-system,sans-serif;color:var(--teal-d);background:var(--teal-l);
-}
+details summary{list-style:none;cursor:pointer;padding:15px;display:flex;justify-content:space-between;align-items:center;font:700 13.5px/1 Arial,sans-serif;color:var(--blue-d);background:var(--blue-l2)}
 details summary::-webkit-details-marker{display:none}
-details summary::after{content:"＋";font-size:17px;font-weight:400}
-details[open] summary::after{content:"－"}
-.body{padding:4px 16px 18px;background:#fffdf9}
-.body p{margin:0 0 13px;font-size:15.5px;line-height:1.72}
-.body p:last-child{margin-bottom:0}
-.body h4{font-family:Georgia,serif;font-size:16px;color:var(--teal-d);margin:18px 0 8px;text-transform:none;letter-spacing:0}
+details summary::after{content:"+";font-size:19px;font-weight:400;line-height:1}
+details[open] summary::after{content:"–"}
+.body{padding:6px 16px 20px}
+.body p{margin:0 0 13px;font-size:15.5px;line-height:1.72;color:#1a2433}
+.body p:last-child{margin:0}
+.body h4{font-size:15.5px;color:var(--blue-d);margin:19px 0 8px;text-transform:none;letter-spacing:-.01em}
 .body em{color:var(--ink2)}
-.body strong{color:var(--ink)}
 
-/* ---------- practical ---------- */
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:13px}
-.pcard h3{font-size:16.5px;margin-bottom:10px;color:var(--teal-d)}
-.pcard ul{margin:0;padding-left:17px}
-.pcard li{margin-bottom:8px;font-size:14.5px;line-height:1.55}
-.pcard li:last-child{margin-bottom:0}
-.warn{background:var(--clay-l);border-color:#f0cdb8}
-.warn h3{color:var(--clay)}
-.tl{list-style:none;padding:0;margin:0}
-.tl li{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
-.tl li:last-child{border:0}
-.tl b{flex:0 0 74px;color:var(--teal);font-variant-numeric:tabular-nums;font-size:13.5px}
-footer{padding:20px 16px calc(var(--safe-b) + 26px);text-align:center;color:var(--ink2);font-size:12px;line-height:1.6}
-.sechead{font-family:Georgia,serif;font-size:15px;color:var(--ink2);margin:22px 0 11px;padding-bottom:7px;border-bottom:2px solid var(--line);letter-spacing:.3px}
-#top{
-  position:fixed;right:14px;bottom:calc(var(--safe-b) + 16px);z-index:800;
-  width:44px;height:44px;border-radius:50%;border:0;background:var(--hdr);color:#fff;
-  font-size:19px;box-shadow:0 3px 12px rgba(0,0,0,.3);display:none;cursor:pointer;
-}
+/* FOOD */
+.dish{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line2)}
+.dish:last-child{border-bottom:0}
+.dish .dn{flex:0 0 96px;font-weight:700;font-size:14.5px;color:var(--blue-d)}
+.dish .dd{flex:1;font-size:14px;line-height:1.55;color:var(--ink2)}
+.eat{border:1px solid var(--line);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.eat .et{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.eat h4{font-size:16px}
+.eat .pr{font-size:11.5px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.eat .ea{font-size:12px;color:var(--blue);font-weight:700;margin-top:3px}
+.eat p{font-size:14px;line-height:1.6;color:var(--ink2);margin-top:8px}
+.eat a{display:inline-block;margin-top:11px;text-decoration:none;background:var(--surf);border:1px solid var(--line);color:var(--blue);font:700 12.5px/1 Arial,sans-serif;padding:10px 13px;border-radius:9px}
+
+/* INFO */
+.pc{border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.pc h3{font-size:16px;margin-bottom:10px;color:var(--blue-d)}
+.pc ul{margin:0;padding-left:17px}
+.pc li{margin-bottom:8px;font-size:14.5px;line-height:1.55}
+.pc li:last-child{margin-bottom:0}
+.pc.warn{background:var(--amber-l);border-color:#f2dfc0}
+.pc.warn h3{color:var(--amber)}
+.pc.warn li{color:#6b4400}
+footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--ink3);font-size:12px;line-height:1.6}
+#top{position:fixed;right:14px;bottom:calc(var(--sb) + 16px);z-index:800;width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:19px;box-shadow:0 4px 14px rgba(11,18,32,.3);display:none;cursor:pointer}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="brand"><h1>Bukhara on Foot</h1><span>19 stops · 4.7 km</span></div>
+  <div class="hb"><h1>Bukhara</h1><span>2 mornings · 2 evenings</span></div>
   <nav>
-    <button data-p="map" class="on">Map</button>
+    <button data-p="plan" class="on">Plan</button>
+    <button data-p="map">Map</button>
     <button data-p="stops">Stops</button>
-    <button data-p="extra">Beyond</button>
-    <button data-p="info">Practical</button>
+    <button data-p="food">Food</button>
+    <button data-p="info">Info</button>
   </nav>
 </header>
 
 <main>
+  <section class="pane on" id="p-plan"><div class="wrap"><div id="planIntro"></div><div id="days"></div></div></section>
 
-<!-- MAP -->
-<section class="pane on" id="p-map">
-  <div class="gbar">
-    <a id="g1" target="_blank" rel="noopener">▶ Route leg 1 · stops 1–7</a>
-    <a id="g2" class="alt" target="_blank" rel="noopener">Leg 2 · 7–15</a>
-    <a id="g3" class="alt" target="_blank" rel="noopener">Leg 3 · 15–19</a>
-  </div>
-  <div class="maphint">Tap a pin → <b>Read</b> jumps to that stop's description, <b>Maps</b> opens it in Google Maps. Google Maps caps a route at 10 points, so the walk is split into 3 legs.</div>
-  <div class="seg"><button id="tab-live" class="on">Live map</button><button id="tab-plan">Offline plan</button></div>
-  <div id="mapwrap"><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="planfoot">Schematic — true relative positions, no streets. Works with no signal.</div></div></div>
-</section>
+  <section class="pane" id="p-map">
+    <div class="gbar" id="gbar"></div>
+    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at the hotel. Google caps a route at 10 points, so longer days are split.</div>
+    <div class="seg"><button id="tabLive" class="on">Live map</button><button id="tabPlan">Offline plan</button></div>
+    <div><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="pfoot">Schematic — true relative positions, no streets. Works with no signal.</div></div></div>
+  </section>
 
-<!-- STOPS -->
-<section class="pane" id="p-stops">
-  <div class="wrap">
-    <div class="intro">
-      <h2>The walk, west to east</h2>
-      <p>The route runs from the oldest building in Central Asia to the last emir's world, in roughly the order Bukhara was built. It ends at Lyabi Hauz, which is where you want to be having dinner.</p>
-      <p>Doable in one long day, but in August it is better as <strong>two half-days</strong>: stops 1–7 in the morning, 8–19 from late afternoon into the evening.</p>
-      <div class="facts"><span>19 stops</span><span>≈4.7 km</span><span>2h walking</span><span>7–9h with visits</span></div>
-    </div>
-    <div id="stops"></div>
-  </div>
-</section>
-
-<!-- EXTRAS -->
-<section class="pane" id="p-extra">
-  <div class="wrap">
-    <div class="intro">
-      <h2>Worth a taxi</h2>
-      <p>Three sites outside the walkable centre. If you only do one, make it <strong>Sitorai Mokhi-Khosa</strong> — it is the only place that shows you the emirate's final, strangest chapter.</p>
-      <p>Taxis are cheap and everywhere; Yandex Go works in Bukhara and removes the haggling.</p>
-    </div>
-    <div id="extras"></div>
-  </div>
-</section>
-
-<!-- PRACTICAL -->
-<section class="pane" id="p-info">
-  <div class="wrap">
-    <div class="pcard warn" style="margin-top:12px">
-      <h3>August: plan around the heat</h3>
-      <ul>
-        <li>Expect <strong>38–42 °C</strong> in the afternoon, and very little shade at the Ark, Poi Kalyan and the Registan.</li>
-        <li><strong>Walk 07:00–11:30, stop, then resume 17:00 until dark.</strong> The monuments are floodlit in the evening and half-empty.</li>
-        <li>Carry 2 litres of water per person and refill — shops everywhere, roughly 3–5,000 som a bottle.</li>
-        <li>Hats and sunscreen for all three of you. The heat is dry, so you dehydrate without noticing you are sweating.</li>
-      </ul>
-    </div>
-
-    <div class="pcard">
-      <h3>Suggested timing (two half-days)</h3>
-      <ul class="tl">
-        <li><b>07:00</b> Stops 1–3 · Samanid Mausoleum, Chashma Ayub, park</li>
-        <li><b>08:30</b> Stops 4–6 · Bolo Hauz, the Ark, Zindan</li>
-        <li><b>11:00</b> Stop 7 · Poi Kalyan, then lunch and a long break</li>
-        <li><b>17:00</b> Stops 8–15 · madrasas, the four trading domes, Magoki Attori, Gaukushon</li>
-        <li><b>19:00</b> Stop 16 · Lyabi Hauz for dinner under the mulberry trees</li>
-        <li><b>Day 2 am</b> Stops 17–19 · Chor Minor, Jewish quarter, Khodjaev house</li>
-        <li><b>Day 2 pm</b> Taxi to Sitorai Mokhi-Khosa and/or Chor Bakr at golden hour</li>
-      </ul>
-    </div>
-
-    <div class="pcard">
-      <h3>Tickets &amp; money</h3>
-      <ul>
-        <li>Most sites charge <strong>20,000–30,000 som</strong>; the Ark is the expensive one at roughly <strong>60,000 som</strong> for foreigners.</li>
-        <li><strong>Prices rise most years and the figures on this page are indicative.</strong> Verify at the ticket window.</li>
-        <li>Bring <strong>cash in som</strong>. Cards work in hotels and better restaurants, patchily at ticket booths.</li>
-        <li>ATMs cluster around Lyabi Hauz. Some charge; Kapitalbank and Ipoteka generally accept foreign cards.</li>
-        <li>A photo permit is occasionally an extra few thousand som. Tripods usually need permission.</li>
-        <li>Budget roughly <strong>250–350,000 som per adult</strong> for all the entries on this page.</li>
-      </ul>
-    </div>
-
-    <div class="pcard">
-      <h3>Dress &amp; etiquette</h3>
-      <ul>
-        <li>Shoulders and knees covered at all religious sites. A light scarf for your wife at Bolo Hauz, the Kalyan Mosque and — non-negotiable — at Bahauddin Naqshband.</li>
-        <li>Shoes off inside working mosques. Slip-ons save time.</li>
-        <li><strong>Mir-i-Arab is a functioning seminary</strong>: view from the portal, do not enter, keep voices down.</li>
-        <li>Ask before photographing people, especially at prayer and in the Jewish quarter.</li>
-        <li>Bargaining in the trading domes is expected and friendly. Open at about half, settle near two-thirds.</li>
-      </ul>
-    </div>
-
-    <div class="pcard">
-      <h3>With a child</h3>
-      <ul>
-        <li>Cobbles, uneven brick and the Ark's steep entry ramp — a <strong>carrier beats a stroller</strong> across most of this route.</li>
-        <li>Best bits for a child: climbing onto the Chor Minor roof, the donkey statue at Lyabi Hauz, the water tower lift, counting brick patterns at the Samanid Mausoleum, and the bird-and-dragon hunt on the Abdulaziz Khan facade.</li>
-        <li>Consider skipping the Zindan prison (stop 6) — pits and mannequins.</li>
-        <li>Samani Park at stop 1 has shade and a small funfair; the Lyabi Hauz chaikhanas are relaxed about children.</li>
-      </ul>
-    </div>
-
-    <div class="pcard">
-      <h3>Eating and resting on the route</h3>
-      <ul>
-        <li><strong>Chasmai Mirob</strong> — terrace above Poi Kalyan, the classic view with a cold drink. Near stop 7.</li>
-        <li><strong>Lyabi Hauz chaikhanas</strong> — plov, shashlik, tea under the trees. The natural end of the walk.</li>
-        <li><strong>Old Bukhara / Silk Road Teahouse</strong> — near Lyabi Hauz, reliable, English menus.</li>
-        <li><strong>Bukhara Water Tower café</strong> — stop 3, mainly for the view.</li>
-        <li>Try <em>bakhsh</em> (green herb rice) and <em>oshi savo</em> — both Bukharan Jewish dishes that became city standards.</li>
-      </ul>
-    </div>
-
-    <div class="pcard">
-      <h3>Using this page offline</h3>
-      <ul>
-        <li>All descriptions work with no signal. <strong>Only the map tiles need data</strong> — load the Map tab once on wifi and the tiles you have viewed stay cached for a while.</li>
-        <li>Belt and braces: in Google Maps, download the Bukhara area for offline use before you set out.</li>
-        <li>Add this page to your Home Screen (Share → Add to Home Screen) so it opens like an app.</li>
-        <li><strong>Map pins are accurate to roughly a block.</strong> The "Maps" button on each stop searches Google by name, which is exact — use that for actual navigation.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
+  <section class="pane" id="p-stops"><div class="wrap"><div id="stops"></div><div id="extras"></div></div></section>
+  <section class="pane" id="p-food"><div class="wrap"><div id="food"></div></div></section>
+  <section class="pane" id="p-info"><div class="wrap"><div id="info"></div></div></section>
 </main>
 
 <div class="sheet" id="sheet"></div>
-<button id="top" aria-label="Back to top">↑</button>
-
-<footer>
-  Built for Florian · August 2026<br>
-  Prices, hours and opening days in Uzbekistan change often — treat every figure here as indicative and confirm on the door.
-</footer>
+<button id="top" aria-label="Top">&#8593;</button>
+<footer>Bukhara, Uzbekistan · August 2026<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-/* Bukhara walking route data — built into index.html by build.py */
+const CITY = {
+ "name": "Bukhara",
+ "country": "Uzbekistan",
+ "dates": "August 2026",
+ "sub": "2 mornings · 2 evenings",
+ "plan": "Two early mornings out and two evenings out, with the hot middle of the day back at the hotel for lunch, a nap and the pool. The old town is compact but the hotel is a taxi ride east of it, so each block starts with a short hop and ends with one.",
+ "pills": [
+  "2 mornings",
+  "2 evenings",
+  "Out 06:30",
+  "Back ~12:30",
+  "19 stops"
+ ],
+ "hotel": {
+  "name": "Sahid Zarafshon Hotel",
+  "short": "Hotel",
+  "gq": "Sahid Zarafshon Hotel Bukhara",
+  "routeQ": "Sahid Zarafshon Hotel Bukhara",
+  "lat": 39.7705,
+  "lng": 64.438,
+  "alt": "7 M. Iqbol Street — about 2 km east of the old town"
+ }
+};
+
+const DAYS = [
+ {
+  "slot": "Morning",
+  "day": "Day 1",
+  "dayShort": "D1",
+  "out": "06:30",
+  "back": "12:30",
+  "walk": "2.2 km on foot",
+  "after": "Lunch, nap, pool",
+  "title": "The west end: the oldest thing in Central Asia",
+  "intro": "Taxi to Samani Park for first light, walk east through the park to the citadel, and be back before the sun has any real bite. This is the quietest and greenest half of the old town.",
+  "stops": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "optional": [
+   6
+  ],
+  "tips": [
+   "Taxi from the hotel to Samani Park — about 10 minutes, 15–20,000 som. Do not try to walk it.",
+   "Be at the Samanid Mausoleum by 07:00. The low sun is what makes the brickwork work; by 10:00 it goes flat.",
+   "The Ark is the long stop — 1.5 to 2 hours if you do the museums, 1 hour for the highlights. Almost no shade inside.",
+   "Skip the Zindan prison (6) if the child is tired or the heat is winning. It is small and slightly grim.",
+   "Taxi back from the Registan square in front of the Ark."
+  ]
+ },
+ {
+  "slot": "Evening",
+  "day": "Day 1",
+  "dayShort": "D1",
+  "out": "18:30",
+  "back": "21:30",
+  "walk": "600 m on foot",
+  "after": "Late back",
+  "title": "Poi Kalyan floodlit, then dinner by the pool",
+  "intro": "The single best hour in Bukhara. Taxi to Poi Kalyan for sunset, watch the floodlights come up on the minaret, then walk ten minutes east to Lyabi Hauz and eat under the mulberry trees.",
+  "stops": [
+   7,
+   16
+  ],
+  "optional": [],
+  "tips": [
+   "Sunset in Bukhara in August is around 19:15. Aim to be at Poi Kalyan by 18:45.",
+   "Chasmai Mirob has a terrace overlooking the square — a cold drink there while the light goes is the correct move.",
+   "The square empties after dark and the floodlighting is genuinely dramatic. Best photographs of the trip.",
+   "Lyabi Hauz is a 10-minute flat walk east. The chaikhanas are relaxed about children and stay open late."
+  ]
+ },
+ {
+  "slot": "Morning",
+  "day": "Day 2",
+  "dayShort": "D2",
+  "out": "06:30",
+  "back": "12:30",
+  "walk": "2.4 km on foot",
+  "after": "Lunch, nap, pool",
+  "title": "Inside Poi Kalyan, then the trading domes",
+  "intro": "Back to Poi Kalyan to go inside the mosque this time, then downhill through the four covered bazaars — jewellers, silk, hats, money-changers — to Lyabi Hauz. Short distances, lots of shade, plenty of stops.",
+  "stops": [
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   15,
+   16
+  ],
+  "optional": [
+   13,
+   14,
+   18,
+   19
+  ],
+  "tips": [
+   "Kalyan Mosque opens around 08:00. Go in early and walk the shaded arcade rather than crossing the courtyard.",
+   "Mir-i-Arab is a working seminary — look through the portal, do not go in.",
+   "The domes open around 09:00 and are at their best before 10:00: quiet, and shafts of light come down through the roof.",
+   "Tim Abdulla Khan (10) is the coolest room in the old town. Use it when the heat starts.",
+   "Running ahead? Add the hammam (13), Gaukushon (14), the synagogue (18) and the Khodjaev house (19) — all within 500 m."
+  ]
+ },
+ {
+  "slot": "Evening",
+  "day": "Day 2",
+  "dayShort": "D2",
+  "out": "18:30",
+  "back": "21:00",
+  "walk": "1.2 km on foot",
+  "after": "Pack for Samarkand",
+  "title": "Chor Minor at dusk",
+  "intro": "A short, easy last evening. Taxi to the residential lanes north-east of Lyabi Hauz, walk to Chor Minor through the mud-brick alleys as the light goes gold, then back to Lyabi Hauz for dinner.",
+  "stops": [
+   17,
+   16
+  ],
+  "optional": [],
+  "tips": [
+   "The walk through the lanes is half the point — carved doors, cats on walls, families out on the step.",
+   "You can usually climb onto the roof between the towers for a small fee. The child will want to.",
+   "It is much smaller than the photographs suggest. Enjoy how odd it is rather than how big.",
+   "Easy to get lost. Follow the map, and if in doubt ask anyone — everybody knows it."
+  ]
+ }
+];
+
 const STOPS = [
-{
-  n:1, name:"Samanid Mausoleum", alt:"Ismoil Somoniy maqbarasi · c. 892–943",
-  lat:39.7779, lng:64.4056, gq:"Samanid Mausoleum Bukhara",
-  dur:"20 min", fee:"Free (park). ~20,000 som if a caretaker charges", hours:"Park open all day; best 07:00–09:00",
-  block:"Samani Park (west end of the old town)",
-  tips:[
-    "Start here at opening — the low sun rakes across the brickwork and the patterns literally appear and disappear as the light moves.",
-    "Walk a full circle around it. All four sides are different.",
-    "Locals circle it three times and make a wish — a nice ritual to do with a child.",
-    "Shade in Samani Park is the best in Bukhara. There is also a small funfair next door if you need a bribe."
+ {
+  "n": 1,
+  "name": "Samanid Mausoleum",
+  "alt": "Ismoil Somoniy maqbarasi · c. 892–943",
+  "lat": 39.7779,
+  "lng": 64.4056,
+  "gq": "Samanid Mausoleum Bukhara",
+  "dur": "20 min",
+  "fee": "Free (park). ~20,000 som if a caretaker charges",
+  "hours": "Park open all day; best 07:00–09:00",
+  "block": "Samani Park (west end of the old town)",
+  "tips": [
+   "Start here at opening — the low sun rakes across the brickwork and the patterns literally appear and disappear as the light moves.",
+   "Walk a full circle around it. All four sides are different.",
+   "Locals circle it three times and make a wish — a nice ritual to do with a child.",
+   "Shade in Samani Park is the best in Bukhara. There is also a small funfair next door if you need a bribe."
   ],
-  more:`<p>This is the oldest surviving Islamic building in Central Asia, and arguably the most important object in Bukhara. It is a cube roughly 10 metres on each side, with a hemispherical dome resting on four corner squinches, and walls nearly two metres thick. Nothing about it is large. Everything about it is perfect.</p>
-<p>It was built for the Samanid dynasty — the Persian-speaking rulers who, in the 9th and 10th centuries, made Bukhara a rival to Baghdad. Ismail Samani (ruled 892–907) is buried here, along with other family members. Under the Samanids this city produced Rudaki, the father of modern Persian poetry, and educated the young Ibn Sina — Avicenna — whose medical encyclopaedia was still being taught in European universities six hundred years later.</p>
-<p><strong>The brickwork is the whole point.</strong> There is no tile, no paint, no gold. The architect used ordinary baked brick laid in more than fifteen different bonds — basketweave, herringbone, chequerboard, rosettes, a dog-tooth cornice — so that the building decorates itself with its own shadows. At dawn it looks like lace. At noon it goes flat and plain. At sunset it turns orange and the patterns come back. It is a building designed to be watched all day.</p>
-<p><strong>Why it survived.</strong> In 1220 Genghis Khan destroyed Bukhara almost completely. The Samanid Mausoleum lived because by then it had been buried — silt from flooding and centuries of a cemetery growing over it had swallowed it up to the roofline. The Mongols rode past a mound. Soviet archaeologists dug it out between 1926 and 1939 and restored it, which is why it now sits in a shallow bowl below the level of the park.</p>
-<p>Look for the pre-Islamic ideas hiding in it: the cube form echoes a Zoroastrian fire temple, and there are four doors, one on each side — a Sogdian habit, not an Arab one. It is the moment Central Asia translated its old architecture into a new religion. Pakistan's national mausoleum for Muhammad Ali Jinnah in Karachi was modelled on it.</p>`
-},
-{
-  n:2, name:"Chashma Ayub Mausoleum", alt:"Chashmai Ayub · \"Job's Spring\" · 12th–16th c.",
-  lat:39.7785, lng:64.4073, gq:"Chashma Ayub Mausoleum Bukhara",
-  dur:"20 min", fee:"~20,000 som", hours:"09:00–20:00",
-  block:"200 m east of the Samanid Mausoleum, same park",
-  tips:[
-    "The odd pointed cone on top is a Khorezm shape — you will not see another one in Bukhara. Point it out before you go in.",
-    "Inside is the Museum of Water, which is far more interesting than it sounds and is air-conditioned.",
-    "The spring still runs; people fill bottles. Drink at your own judgement — bottled water is safer for the family.",
-    "Small, quick, and a good heat break between two open-air stops."
+  "more": "<p>This is the oldest surviving Islamic building in Central Asia, and arguably the most important object in Bukhara. It is a cube roughly 10 metres on each side, with a hemispherical dome resting on four corner squinches, and walls nearly two metres thick. Nothing about it is large. Everything about it is perfect.</p>\n<p>It was built for the Samanid dynasty — the Persian-speaking rulers who, in the 9th and 10th centuries, made Bukhara a rival to Baghdad. Ismail Samani (ruled 892–907) is buried here, along with other family members. Under the Samanids this city produced Rudaki, the father of modern Persian poetry, and educated the young Ibn Sina — Avicenna — whose medical encyclopaedia was still being taught in European universities six hundred years later.</p>\n<p><strong>The brickwork is the whole point.</strong> There is no tile, no paint, no gold. The architect used ordinary baked brick laid in more than fifteen different bonds — basketweave, herringbone, chequerboard, rosettes, a dog-tooth cornice — so that the building decorates itself with its own shadows. At dawn it looks like lace. At noon it goes flat and plain. At sunset it turns orange and the patterns come back. It is a building designed to be watched all day.</p>\n<p><strong>Why it survived.</strong> In 1220 Genghis Khan destroyed Bukhara almost completely. The Samanid Mausoleum lived because by then it had been buried — silt from flooding and centuries of a cemetery growing over it had swallowed it up to the roofline. The Mongols rode past a mound. Soviet archaeologists dug it out between 1926 and 1939 and restored it, which is why it now sits in a shallow bowl below the level of the park.</p>\n<p>Look for the pre-Islamic ideas hiding in it: the cube form echoes a Zoroastrian fire temple, and there are four doors, one on each side — a Sogdian habit, not an Arab one. It is the moment Central Asia translated its old architecture into a new religion. Pakistan's national mausoleum for Muhammad Ali Jinnah in Karachi was modelled on it.</p>",
+  "short": "Samanid"
+ },
+ {
+  "n": 2,
+  "name": "Chashma Ayub Mausoleum",
+  "alt": "Chashmai Ayub · \"Job's Spring\" · 12th–16th c.",
+  "lat": 39.7785,
+  "lng": 64.4073,
+  "gq": "Chashma Ayub Mausoleum Bukhara",
+  "dur": "20 min",
+  "fee": "~20,000 som",
+  "hours": "09:00–20:00",
+  "block": "200 m east of the Samanid Mausoleum, same park",
+  "tips": [
+   "The odd pointed cone on top is a Khorezm shape — you will not see another one in Bukhara. Point it out before you go in.",
+   "Inside is the Museum of Water, which is far more interesting than it sounds and is air-conditioned.",
+   "The spring still runs; people fill bottles. Drink at your own judgement — bottled water is safer for the family.",
+   "Small, quick, and a good heat break between two open-air stops."
   ],
-  more:`<p>The name means "Job's Spring". The story: the prophet Ayub (Job) passed through this place during a terrible drought, struck the ground with his staff, and a spring of sweet water appeared. The water is still credited with healing properties, and Bukharans still come to draw it.</p>
-<p><strong>The building is a patchwork of four centuries</strong>, and you can read the joins from outside. The oldest core is 12th-century Karakhanid. The main chamber, with an inscription dated 1380, was raised during the reign of Timur (Tamerlane) by master builders he had brought — or deported — from Khorezm, which is why the dome is a tall pointed cone rather than the round Bukharan type. Later Shaybanid rulers, especially Abdullah Khan II, added and repaired. Nobody planned it as one building; it accumulated.</p>
-<p><strong>Why a water museum here is the right idea.</strong> Bukhara is a desert city with no river of its own — it lives off the Zarafshan, brought in by canal. For centuries the city stored its water in more than a hundred open stone pools called <em>hauz</em>. They were beautiful, they were the social centre of every neighbourhood, and they were lethal: the standing water carried the guinea worm, <em>rishta</em>, a parasite that grew a metre long under the skin and had to be wound out on a stick over weeks. Bukhara had one of the worst rates in the world. In the 1920s and 30s the Soviets drained nearly all the pools and piped the water. It is why only a handful of hauz survive today — you will see the most famous one, Lyabi Hauz, at stop 16.</p>`
-},
-{
-  n:3, name:"Bukhara Water Tower", alt:"Shukhov Tower · 1927–29 · viewpoint",
-  lat:39.7773, lng:64.4091, gq:"Bukhara Water Tower observation deck",
-  dur:"25 min", fee:"~40,000 som for the observation deck", hours:"Roughly 10:00–22:00 — confirm at the door",
-  block:"Between the park and the Ark",
-  tips:[
-    "There is a lift. This is the one stop that costs money purely for a view — and it is the only place you can see the whole old town laid out at once.",
-    "Best just before sunset, when the Kalyan minaret throws a long shadow. If you are doing the walk in the morning, come back here in the evening instead.",
-    "There is a café/restaurant at the top. Prices are tourist-level; the view is the product.",
-    "Great orientation stop early on: point out the Ark, the minaret and the domes to the family before you walk to them."
+  "more": "<p>The name means \"Job's Spring\". The story: the prophet Ayub (Job) passed through this place during a terrible drought, struck the ground with his staff, and a spring of sweet water appeared. The water is still credited with healing properties, and Bukharans still come to draw it.</p>\n<p><strong>The building is a patchwork of four centuries</strong>, and you can read the joins from outside. The oldest core is 12th-century Karakhanid. The main chamber, with an inscription dated 1380, was raised during the reign of Timur (Tamerlane) by master builders he had brought — or deported — from Khorezm, which is why the dome is a tall pointed cone rather than the round Bukharan type. Later Shaybanid rulers, especially Abdullah Khan II, added and repaired. Nobody planned it as one building; it accumulated.</p>\n<p><strong>Why a water museum here is the right idea.</strong> Bukhara is a desert city with no river of its own — it lives off the Zarafshan, brought in by canal. For centuries the city stored its water in more than a hundred open stone pools called <em>hauz</em>. They were beautiful, they were the social centre of every neighbourhood, and they were lethal: the standing water carried the guinea worm, <em>rishta</em>, a parasite that grew a metre long under the skin and had to be wound out on a stick over weeks. Bukhara had one of the worst rates in the world. In the 1920s and 30s the Soviets drained nearly all the pools and piped the water. It is why only a handful of hauz survive today — you will see the most famous one, Lyabi Hauz, at stop 16.</p>",
+  "short": "Chashma Ayub"
+ },
+ {
+  "n": 3,
+  "name": "Bukhara Water Tower",
+  "alt": "Shukhov Tower · 1927–29 · viewpoint",
+  "lat": 39.7773,
+  "lng": 64.4091,
+  "gq": "Bukhara Water Tower observation deck",
+  "dur": "25 min",
+  "fee": "~40,000 som for the observation deck",
+  "hours": "Roughly 10:00–22:00 — confirm at the door",
+  "block": "Between the park and the Ark",
+  "tips": [
+   "There is a lift. This is the one stop that costs money purely for a view — and it is the only place you can see the whole old town laid out at once.",
+   "Best just before sunset, when the Kalyan minaret throws a long shadow. If you are doing the walk in the morning, come back here in the evening instead.",
+   "There is a café/restaurant at the top. Prices are tourist-level; the view is the product.",
+   "Great orientation stop early on: point out the Ark, the minaret and the domes to the family before you walk to them."
   ],
-  more:`<p>A steel lattice water tower from the late 1920s, built as Soviet Bukhara got its first piped supply. It is usually attributed to the school of Vladimir Shukhov, the Russian engineer famous for hyperboloid lattice towers — though the direct attribution to Shukhov himself is disputed and you will hear it stated as fact by guides. Treat it as "Shukhov-style".</p>
-<p>It stopped working, burned, stood derelict for years, and was restored in the 2000s with a lift and a viewing platform. Purists find it an eyesore next to a UNESCO site. It is also the only high vantage point in town, and standing on it is the fastest way to understand Bukhara's plan: the citadel and its parade ground to the west, the dense brown maze of the old town to the east, the blue domes punched through it, and the flat desert horizon in every direction.</p>
-<p>Directly below you is the <strong>Registan</strong> — not the famous one in Samarkand, but Bukhara's own, the square in front of the Ark where the emir's justice was administered in public and where, in 1842, two British officers were executed.</p>`
-},
-{
-  n:4, name:"Bolo Hauz Mosque", alt:"Bolo Hovuz · 1712 · \"the mosque above the pool\"",
-  lat:39.7769, lng:64.4094, gq:"Bolo Hauz Mosque Bukhara",
-  dur:"20 min", fee:"Free", hours:"Daylight; a working mosque — avoid prayer times",
-  block:"Facing the Ark across the Registan",
-  tips:[
-    "Photograph it from the far side of the pool: the twenty columns reflect and become forty. That is the whole trick of the building.",
-    "Working mosque: shoes off to enter, shoulders and knees covered, a scarf for women. Ask before photographing people praying.",
-    "The painted ceiling under the portico is the best-preserved traditional woodwork in the city. Look straight up.",
-    "Free, shaded, and cool — a good place to sit for ten minutes before tackling the Ark."
+  "more": "<p>A steel lattice water tower from the late 1920s, built as Soviet Bukhara got its first piped supply. It is usually attributed to the school of Vladimir Shukhov, the Russian engineer famous for hyperboloid lattice towers — though the direct attribution to Shukhov himself is disputed and you will hear it stated as fact by guides. Treat it as \"Shukhov-style\".</p>\n<p>It stopped working, burned, stood derelict for years, and was restored in the 2000s with a lift and a viewing platform. Purists find it an eyesore next to a UNESCO site. It is also the only high vantage point in town, and standing on it is the fastest way to understand Bukhara's plan: the citadel and its parade ground to the west, the dense brown maze of the old town to the east, the blue domes punched through it, and the flat desert horizon in every direction.</p>\n<p>Directly below you is the <strong>Registan</strong> — not the famous one in Samarkand, but Bukhara's own, the square in front of the Ark where the emir's justice was administered in public and where, in 1842, two British officers were executed.</p>",
+  "short": "Water tower"
+ },
+ {
+  "n": 4,
+  "name": "Bolo Hauz Mosque",
+  "alt": "Bolo Hovuz · 1712 · \"the mosque above the pool\"",
+  "lat": 39.7769,
+  "lng": 64.4094,
+  "gq": "Bolo Hauz Mosque Bukhara",
+  "dur": "20 min",
+  "fee": "Free",
+  "hours": "Daylight; a working mosque — avoid prayer times",
+  "block": "Facing the Ark across the Registan",
+  "tips": [
+   "Photograph it from the far side of the pool: the twenty columns reflect and become forty. That is the whole trick of the building.",
+   "Working mosque: shoes off to enter, shoulders and knees covered, a scarf for women. Ask before photographing people praying.",
+   "The painted ceiling under the portico is the best-preserved traditional woodwork in the city. Look straight up.",
+   "Free, shaded, and cool — a good place to sit for ten minutes before tackling the Ark."
   ],
-  more:`<p>Bolo Hauz means "above the pool", and the pool in front of it is one of the very few original <em>hauz</em> the Soviets left. This was the emir's official Friday mosque. He lived in the Ark, two hundred metres away, and would walk out across the Registan to pray here in public — the one weekly moment when the ruler was visible to his subjects.</p>
-<p>The mosque itself dates from 1712, but the part everyone photographs is much younger. The <strong>iwan</strong> — the open portico with twenty slender columns of walnut and elm, twelve metres tall, each capped with a painted stalactite capital (<em>muqarnas</em>) — was added in 1917, in the last years of the emirate. The minaret is from the same moment, built by <strong>Usto Shirin Muradov</strong>, the last of the great Bukharan master builders, who later worked for the Soviets and whose name you will meet again at the emir's summer palace.</p>
-<p>The columns are deliberately thin and set on the edge of the pool so their reflection doubles them. Central Asian architecture has a name for this idea — <em>chil sutun</em>, "forty columns", used for any hall where reflection completes the count. It is a piece of theatre, and it works.</p>
-<p>Two hundred metres further west, if you want a short detour, is the <strong>Kosh Madrasa</strong>: the Modari Khan madrasa (1567) and the Abdullah Khan madrasa (1588–90), a pair built facing each other by a son and for his mother. They are semi-ruined, almost always empty, and quietly atmospheric.</p>`
-},
-{
-  n:5, name:"The Ark Fortress", alt:"Ark qal'asi · 5th c. onward · the citadel",
-  lat:39.7778, lng:64.4108, gq:"Ark of Bukhara",
-  dur:"1h 30 – 2h", fee:"~60,000 som for foreigners (prices rise most years — carry cash)", hours:"09:00–18:00 / 19:00 in summer",
-  block:"East side of the Registan",
-  tips:[
-    "The longest stop of the day. If you are short on time or the child is fading, do the entry ramp, the Juma Mosque and the coronation court, and skip the smaller museums.",
-    "The entrance is a steep cobbled ramp between two towers — hard with a stroller. A carrier is better.",
-    "Almost no shade inside. Do not do this between 12:00 and 16:00 in August.",
-    "About 80% of the interior is empty ground. That is not neglect — it is what the Red Army left in 1920. Knowing that changes the visit.",
-    "Toilets and a café are near the entrance."
+  "more": "<p>Bolo Hauz means \"above the pool\", and the pool in front of it is one of the very few original <em>hauz</em> the Soviets left. This was the emir's official Friday mosque. He lived in the Ark, two hundred metres away, and would walk out across the Registan to pray here in public — the one weekly moment when the ruler was visible to his subjects.</p>\n<p>The mosque itself dates from 1712, but the part everyone photographs is much younger. The <strong>iwan</strong> — the open portico with twenty slender columns of walnut and elm, twelve metres tall, each capped with a painted stalactite capital (<em>muqarnas</em>) — was added in 1917, in the last years of the emirate. The minaret is from the same moment, built by <strong>Usto Shirin Muradov</strong>, the last of the great Bukharan master builders, who later worked for the Soviets and whose name you will meet again at the emir's summer palace.</p>\n<p>The columns are deliberately thin and set on the edge of the pool so their reflection doubles them. Central Asian architecture has a name for this idea — <em>chil sutun</em>, \"forty columns\", used for any hall where reflection completes the count. It is a piece of theatre, and it works.</p>\n<p>Two hundred metres further west, if you want a short detour, is the <strong>Kosh Madrasa</strong>: the Modari Khan madrasa (1567) and the Abdullah Khan madrasa (1588–90), a pair built facing each other by a son and for his mother. They are semi-ruined, almost always empty, and quietly atmospheric.</p>",
+  "short": "Bolo Hauz"
+ },
+ {
+  "n": 5,
+  "name": "The Ark Fortress",
+  "alt": "Ark qal'asi · 5th c. onward · the citadel",
+  "lat": 39.7778,
+  "lng": 64.4108,
+  "gq": "Ark of Bukhara",
+  "dur": "1h 30 – 2h",
+  "fee": "~60,000 som for foreigners (prices rise most years — carry cash)",
+  "hours": "09:00–18:00 / 19:00 in summer",
+  "block": "East side of the Registan",
+  "tips": [
+   "The longest stop of the day. If you are short on time or the child is fading, do the entry ramp, the Juma Mosque and the coronation court, and skip the smaller museums.",
+   "The entrance is a steep cobbled ramp between two towers — hard with a stroller. A carrier is better.",
+   "Almost no shade inside. Do not do this between 12:00 and 16:00 in August.",
+   "About 80% of the interior is empty ground. That is not neglect — it is what the Red Army left in 1920. Knowing that changes the visit.",
+   "Toilets and a café are near the entrance."
   ],
-  more:`<p>The Ark is not a castle inside a city — it is a city inside a wall, and the mound it stands on is entirely artificial, built up over two thousand years from the rubble of each fortress that stood here before. The perimeter is 789.6 metres, the walls 16 to 20 metres high, the enclosure just under four hectares. Archaeological layers go back to the 4th–3rd centuries BC.</p>
-<p><strong>The legend.</strong> Bukharans say the Ark was founded by Siyavush, the tragic prince of the Persian <em>Shahnameh</em>, who built it to win the hand of the local king's daughter. His supposed grave is inside, by the eastern gate, and until modern times cockerels were sacrificed there each spring.</p>
-<p><strong>What it was.</strong> Everything the emirate needed to function: the throne room and the open coronation court, the treasury, the mint, the stables, the prison, the harem quarters, government offices, a Friday mosque for the court, and a library famous across the Islamic world — Avicenna wrote that he found books there he had never seen anywhere else, and that after reading them there was nothing left to learn. When you walk in, the covered ramp between the two 18th-century towers is the original ceremonial approach; the rooms off it were guard posts and, on the left, the drum chamber where the <em>nagora</em> was beaten to mark the hours.</p>
-<p><strong>The Great Game.</strong> In 1842, Emir Nasrullah — nicknamed "the Butcher" — held two British officers here: Colonel Charles Stoddart, who had arrived on a diplomatic mission and offended the emir by riding rather than walking into his presence, and Captain Arthur Conolly, the man who coined the phrase "the Great Game", who came to rescue him. Both were kept for months in a pit crawling with vermin, then beheaded in the square in front of the Ark. It became one of the most notorious episodes of 19th-century Central Asia and did a great deal to shape the British image of Bukhara.</p>
-<p><strong>The end.</strong> In September 1920 the Red Army under Mikhail Frunze shelled and bombed the Ark from the air. The last emir, Alim Khan, fled to Afghanistan and died in Kabul in 1944. Most of the interior burned — one account says the emir's own people set fires so the Bolsheviks could not desecrate the sacred rooms. What you walk through today is roughly a fifth of what stood in 1919. The wide empty terrace beyond the mosque is the footprint of the vanished palace.</p>
-<p>The museums now inside cover archaeology, natural history, the emirate's administration, and manuscripts and calligraphy in the 18th-century <strong>Juma Mosque</strong>, which has a beautiful carved wooden porch and is the single best-preserved interior on the site.</p>`
-},
-{
-  n:6, name:"Zindan — the Emir's Prison", alt:"Zindon · 18th–19th c.",
-  lat:39.7793, lng:64.4104, gq:"Zindan Bukhara prison museum",
-  dur:"20 min", fee:"~20,000 som", hours:"09:00–18:00",
-  block:"150 m north of the Ark",
-  tips:[
-    "Optional, and a judgement call with a child — there are mannequins in cells and a pit you can look down into.",
-    "Small and quick. Skip it without guilt if the day is running long or the heat is bad.",
-    "If you do go, it is the natural counterweight to the Ark's grandeur: same regime, other end of it."
+  "more": "<p>The Ark is not a castle inside a city — it is a city inside a wall, and the mound it stands on is entirely artificial, built up over two thousand years from the rubble of each fortress that stood here before. The perimeter is 789.6 metres, the walls 16 to 20 metres high, the enclosure just under four hectares. Archaeological layers go back to the 4th–3rd centuries BC.</p>\n<p><strong>The legend.</strong> Bukharans say the Ark was founded by Siyavush, the tragic prince of the Persian <em>Shahnameh</em>, who built it to win the hand of the local king's daughter. His supposed grave is inside, by the eastern gate, and until modern times cockerels were sacrificed there each spring.</p>\n<p><strong>What it was.</strong> Everything the emirate needed to function: the throne room and the open coronation court, the treasury, the mint, the stables, the prison, the harem quarters, government offices, a Friday mosque for the court, and a library famous across the Islamic world — Avicenna wrote that he found books there he had never seen anywhere else, and that after reading them there was nothing left to learn. When you walk in, the covered ramp between the two 18th-century towers is the original ceremonial approach; the rooms off it were guard posts and, on the left, the drum chamber where the <em>nagora</em> was beaten to mark the hours.</p>\n<p><strong>The Great Game.</strong> In 1842, Emir Nasrullah — nicknamed \"the Butcher\" — held two British officers here: Colonel Charles Stoddart, who had arrived on a diplomatic mission and offended the emir by riding rather than walking into his presence, and Captain Arthur Conolly, the man who coined the phrase \"the Great Game\", who came to rescue him. Both were kept for months in a pit crawling with vermin, then beheaded in the square in front of the Ark. It became one of the most notorious episodes of 19th-century Central Asia and did a great deal to shape the British image of Bukhara.</p>\n<p><strong>The end.</strong> In September 1920 the Red Army under Mikhail Frunze shelled and bombed the Ark from the air. The last emir, Alim Khan, fled to Afghanistan and died in Kabul in 1944. Most of the interior burned — one account says the emir's own people set fires so the Bolsheviks could not desecrate the sacred rooms. What you walk through today is roughly a fifth of what stood in 1919. The wide empty terrace beyond the mosque is the footprint of the vanished palace.</p>\n<p>The museums now inside cover archaeology, natural history, the emirate's administration, and manuscripts and calligraphy in the 18th-century <strong>Juma Mosque</strong>, which has a beautiful carved wooden porch and is the single best-preserved interior on the site.</p>",
+  "short": "The Ark"
+ },
+ {
+  "n": 6,
+  "name": "Zindan — the Emir's Prison",
+  "alt": "Zindon · 18th–19th c.",
+  "lat": 39.7793,
+  "lng": 64.4104,
+  "gq": "Zindan Bukhara prison museum",
+  "dur": "20 min",
+  "fee": "~20,000 som",
+  "hours": "09:00–18:00",
+  "block": "150 m north of the Ark",
+  "tips": [
+   "Optional, and a judgement call with a child — there are mannequins in cells and a pit you can look down into.",
+   "Small and quick. Skip it without guilt if the day is running long or the heat is bad.",
+   "If you do go, it is the natural counterweight to the Ark's grandeur: same regime, other end of it."
   ],
-  more:`<p>The emirate's jail, restored and turned into a small museum. It held debtors, petty criminals and political prisoners, and its central feature is the <em>kana-khana</em>, the "bug pit" — a shaft roughly six and a half metres deep with no stairs, into which prisoners were lowered on a rope and left. This is the kind of pit Stoddart and Conolly were held in before their execution.</p>
-<p>There is a mosque cell, shackles, and a set of wax figures that are more melancholy than frightening. It takes fifteen minutes. Its value is context: the Ark shows you the court's ceremonial face, and this shows you the machinery underneath it. The emirate's justice was fast, public and physical, and it operated within sight of the mosque where the emir prayed on Fridays.</p>`
-},
-{
-  n:7, name:"Poi Kalyan Ensemble", alt:"Kalyan Minaret (1127) · Kalyan Mosque (1514) · Mir-i-Arab Madrasa (1536)",
-  lat:39.7757, lng:64.4151, gq:"Poi Kalyan Bukhara",
-  dur:"1h", fee:"Square free · Kalyan Mosque ~20,000 som · Mir-i-Arab: exterior only", hours:"08:00–20:00",
-  block:"The centre of the old town",
-  tips:[
-    "The most photographed place in Uzbekistan, and it deserves it. If you only see one thing in Bukhara, this.",
-    "The minaret cannot normally be climbed — access is restricted. Do not promise the family a climb.",
-    "Mir-i-Arab is a working seminary. You can stand at the portal and look into the courtyard; you cannot go in. Be quiet and be quick with the camera.",
-    "Inside the Kalyan Mosque, walk the shaded arcade around the courtyard rather than crossing the middle. 288 domes, and it is 10 degrees cooler.",
-    "Come back after dark. The whole square is floodlit and almost empty, and it is a completely different building.",
-    "The Chasmai Mirob café terrace, just north, has the classic elevated view for a cold drink."
+  "more": "<p>The emirate's jail, restored and turned into a small museum. It held debtors, petty criminals and political prisoners, and its central feature is the <em>kana-khana</em>, the \"bug pit\" — a shaft roughly six and a half metres deep with no stairs, into which prisoners were lowered on a rope and left. This is the kind of pit Stoddart and Conolly were held in before their execution.</p>\n<p>There is a mosque cell, shackles, and a set of wax figures that are more melancholy than frightening. It takes fifteen minutes. Its value is context: the Ark shows you the court's ceremonial face, and this shows you the machinery underneath it. The emirate's justice was fast, public and physical, and it operated within sight of the mosque where the emir prayed on Fridays.</p>",
+  "short": "Zindan"
+ },
+ {
+  "n": 7,
+  "name": "Poi Kalyan Ensemble",
+  "alt": "Kalyan Minaret (1127) · Kalyan Mosque (1514) · Mir-i-Arab Madrasa (1536)",
+  "lat": 39.7757,
+  "lng": 64.4151,
+  "gq": "Poi Kalyan Bukhara",
+  "dur": "1h",
+  "fee": "Square free · Kalyan Mosque ~20,000 som · Mir-i-Arab: exterior only",
+  "hours": "08:00–20:00",
+  "block": "The centre of the old town",
+  "tips": [
+   "The most photographed place in Uzbekistan, and it deserves it. If you only see one thing in Bukhara, this.",
+   "The minaret cannot normally be climbed — access is restricted. Do not promise the family a climb.",
+   "Mir-i-Arab is a working seminary. You can stand at the portal and look into the courtyard; you cannot go in. Be quiet and be quick with the camera.",
+   "Inside the Kalyan Mosque, walk the shaded arcade around the courtyard rather than crossing the middle. 288 domes, and it is 10 degrees cooler.",
+   "Come back after dark. The whole square is floodlit and almost empty, and it is a completely different building.",
+   "The Chasmai Mirob café terrace, just north, has the classic elevated view for a cold drink."
   ],
-  more:`<p><em>Poi Kalyan</em> means "at the foot of the great one" — the great one being the minaret. Three buildings, four hundred years apart, arranged around one square.</p>
-<h4>The Kalyan Minaret (1127)</h4>
-<p>Built by the Karakhanid ruler Arslan Khan, about 46 metres tall, nine metres across at the base, with foundations said to go ten metres down into a bed of reeds laid to absorb earthquakes. Legend says the master builder, Bako, laid the foundation and then disappeared for three years to let it settle before building a single course above it — and that the mortar was mixed with camel's milk and egg yolk. The shaft carries fourteen bands of ornamental brickwork, and no two bands are the same. The inscription band was picked out in glazed blue tile: this is where Bukhara's blue begins, the first use of it in Central Asian architecture.</p>
-<p>It was a lighthouse as much as a minaret. A fire was lit in the sixteen-arched rotunda at the top to guide caravans across the desert at night. There are 105 steps inside.</p>
-<p>Its grimmer nickname is the Tower of Death: from the top, condemned criminals were sewn into sacks and thrown off, a punishment recorded into the 19th century — though guides tend to make it sound more routine than it was.</p>
-<p>In 1220 Genghis Khan levelled Bukhara and burned the mosque beside it, but left the minaret standing. The story Bukharans tell is that he rode up, tilted his head back to see the top, and his hat fell off; bending to pick it up, he decided that a building that had made him bow should not be destroyed. The likelier truth is that it was too useful as a landmark.</p>
-<h4>The Kalyan Mosque (1514)</h4>
-<p>The Friday mosque of the city, rebuilt by the Shaybanid ruler Ubaydullah Khan on the ashes of the one the Mongols burned. It is enormous — 130 by 81 metres, room for roughly twelve thousand worshippers — and it works by a trick: the courtyard is ringed by an arcade of <strong>288 small domes on 208 pillars</strong>, so the mass of the building is pushed to the edges and the empty middle feels vast. The main dome is turquoise on a tall octagonal drum. In the centre of the courtyard is a small octagonal pavilion over a well. During the Soviet period it was closed and used as a warehouse; it returned to worship in 1991.</p>
-<h4>Mir-i-Arab Madrasa (1535–36)</h4>
-<p>Facing the mosque across the square, with two turquoise domes. It is named for Sheikh Abdullah Yamani — "the Arab prince" — a Yemeni spiritual adviser to Ubaydullah Khan; both men are buried inside. The construction was reportedly financed by the ransom of three thousand Persian prisoners taken in the khan's Iranian campaigns.</p>
-<p>Its real distinction is that it never stopped. Through seventy years of Soviet atheism, Mir-i-Arab was one of only two functioning madrasas left in the entire USSR. It is still a seminary today, with students in residence, which is why the doors are shut to visitors. Look at the portal, look at the domes, and leave them in peace.</p>`
-},
-{
-  n:8, name:"Ulugbek & Abdulaziz Khan Madrasas", alt:"1417 and 1651 · facing pair (kosh)",
-  lat:39.7764, lng:64.4162, gq:"Ulugbek Madrasah Bukhara",
-  dur:"30 min", fee:"~20,000 som each", hours:"08:00–18:00",
-  block:"100 m north-east of Poi Kalyan, on the same street",
-  tips:[
-    "Stand in the street between them first. They face each other exactly, and they were built 234 years apart — the whole argument of Bukharan architecture in one glance.",
-    "Ulugbek's is restrained and geometric. Abdulaziz Khan's is a showing-off contest. Ask the family which they prefer.",
-    "Look for the dragon and the mythical birds on the Abdulaziz Khan facade — figurative creatures are rare in Islamic decoration.",
-    "Both now hold craft workshops and shops; the miniature painters and metal-chasers inside are genuine and worth a few minutes."
+  "more": "<p><em>Poi Kalyan</em> means \"at the foot of the great one\" — the great one being the minaret. Three buildings, four hundred years apart, arranged around one square.</p>\n<h4>The Kalyan Minaret (1127)</h4>\n<p>Built by the Karakhanid ruler Arslan Khan, about 46 metres tall, nine metres across at the base, with foundations said to go ten metres down into a bed of reeds laid to absorb earthquakes. Legend says the master builder, Bako, laid the foundation and then disappeared for three years to let it settle before building a single course above it — and that the mortar was mixed with camel's milk and egg yolk. The shaft carries fourteen bands of ornamental brickwork, and no two bands are the same. The inscription band was picked out in glazed blue tile: this is where Bukhara's blue begins, the first use of it in Central Asian architecture.</p>\n<p>It was a lighthouse as much as a minaret. A fire was lit in the sixteen-arched rotunda at the top to guide caravans across the desert at night. There are 105 steps inside.</p>\n<p>Its grimmer nickname is the Tower of Death: from the top, condemned criminals were sewn into sacks and thrown off, a punishment recorded into the 19th century — though guides tend to make it sound more routine than it was.</p>\n<p>In 1220 Genghis Khan levelled Bukhara and burned the mosque beside it, but left the minaret standing. The story Bukharans tell is that he rode up, tilted his head back to see the top, and his hat fell off; bending to pick it up, he decided that a building that had made him bow should not be destroyed. The likelier truth is that it was too useful as a landmark.</p>\n<h4>The Kalyan Mosque (1514)</h4>\n<p>The Friday mosque of the city, rebuilt by the Shaybanid ruler Ubaydullah Khan on the ashes of the one the Mongols burned. It is enormous — 130 by 81 metres, room for roughly twelve thousand worshippers — and it works by a trick: the courtyard is ringed by an arcade of <strong>288 small domes on 208 pillars</strong>, so the mass of the building is pushed to the edges and the empty middle feels vast. The main dome is turquoise on a tall octagonal drum. In the centre of the courtyard is a small octagonal pavilion over a well. During the Soviet period it was closed and used as a warehouse; it returned to worship in 1991.</p>\n<h4>Mir-i-Arab Madrasa (1535–36)</h4>\n<p>Facing the mosque across the square, with two turquoise domes. It is named for Sheikh Abdullah Yamani — \"the Arab prince\" — a Yemeni spiritual adviser to Ubaydullah Khan; both men are buried inside. The construction was reportedly financed by the ransom of three thousand Persian prisoners taken in the khan's Iranian campaigns.</p>\n<p>Its real distinction is that it never stopped. Through seventy years of Soviet atheism, Mir-i-Arab was one of only two functioning madrasas left in the entire USSR. It is still a seminary today, with students in residence, which is why the doors are shut to visitors. Look at the portal, look at the domes, and leave them in peace.</p>",
+  "short": "Poi Kalyan"
+ },
+ {
+  "n": 8,
+  "name": "Ulugbek & Abdulaziz Khan Madrasas",
+  "alt": "1417 and 1651 · facing pair (kosh)",
+  "lat": 39.7764,
+  "lng": 64.4162,
+  "gq": "Ulugbek Madrasah Bukhara",
+  "dur": "30 min",
+  "fee": "~20,000 som each",
+  "hours": "08:00–18:00",
+  "block": "100 m north-east of Poi Kalyan, on the same street",
+  "tips": [
+   "Stand in the street between them first. They face each other exactly, and they were built 234 years apart — the whole argument of Bukharan architecture in one glance.",
+   "Ulugbek's is restrained and geometric. Abdulaziz Khan's is a showing-off contest. Ask the family which they prefer.",
+   "Look for the dragon and the mythical birds on the Abdulaziz Khan facade — figurative creatures are rare in Islamic decoration.",
+   "Both now hold craft workshops and shops; the miniature painters and metal-chasers inside are genuine and worth a few minutes."
   ],
-  more:`<p>A <em>kosh</em> is a pair of buildings placed face to face across a street, mirroring each other. This is the most famous pair in Bukhara, and the joke of it is the gap in time.</p>
-<h4>Ulugbek Madrasa (1417)</h4>
-<p>The oldest surviving madrasa in Central Asia. It was built by <strong>Ulugh Beg</strong>, Timur's grandson — a ruler who was much more interested in astronomy than in governing, who built the great observatory at Samarkand, measured the length of the year to within a minute, and was eventually murdered on his own son's orders. He built three madrasas: this one, one in Samarkand, one in Gijduvan.</p>
-<p>Carved over the entrance is the line that tells you what he was: <em>"The pursuit of knowledge is the duty of every Muslim man and woman."</em> The decoration is disciplined — geometry, star patterns, restrained tilework, ten-pointed stars referencing his astronomy. It is a scholar's building.</p>
-<h4>Abdulaziz Khan Madrasa (1651–52)</h4>
-<p>Built directly opposite, more than two centuries later, and quite deliberately as an answer. Everything Ulugbek held back, this releases: <em>kundal</em> gilding in relief, painted vaults, Chinese-influenced cloud and lotus motifs picked up along the Silk Road, and — remarkably — figurative creatures, including the <em>simurgh</em>, the mythical bird of Persian legend, and a dragon. Depicting living beings is generally avoided in Islamic architecture; Bukhara's rulers periodically decided the rule did not apply to them.</p>
-<p>It was never finished. Abdulaziz Khan lost his throne, work stopped, and if you look carefully you can see the unresolved sections. There is a small museum of woodcarving inside.</p>`
-},
-{
-  n:9, name:"Toqi Zargaron — Jewellers' Dome", alt:"Toqi Zargaron · c. 1570",
-  lat:39.7763, lng:64.4166, gq:"Toqi Zargaron Bukhara",
-  dur:"15 min", fee:"Free", hours:"Roughly 09:00 – late",
-  block:"Immediately south of the madrasas — you walk straight into it",
-  tips:[
-    "First of the four covered markets you pass. Go before 10:00: quieter, and shafts of light come down through the roof openings.",
-    "Still mostly jewellery, gold and silver. Bargaining is expected and good-natured — start around half.",
-    "Stand under the centre and look up before you look at anything for sale."
+  "more": "<p>A <em>kosh</em> is a pair of buildings placed face to face across a street, mirroring each other. This is the most famous pair in Bukhara, and the joke of it is the gap in time.</p>\n<h4>Ulugbek Madrasa (1417)</h4>\n<p>The oldest surviving madrasa in Central Asia. It was built by <strong>Ulugh Beg</strong>, Timur's grandson — a ruler who was much more interested in astronomy than in governing, who built the great observatory at Samarkand, measured the length of the year to within a minute, and was eventually murdered on his own son's orders. He built three madrasas: this one, one in Samarkand, one in Gijduvan.</p>\n<p>Carved over the entrance is the line that tells you what he was: <em>\"The pursuit of knowledge is the duty of every Muslim man and woman.\"</em> The decoration is disciplined — geometry, star patterns, restrained tilework, ten-pointed stars referencing his astronomy. It is a scholar's building.</p>\n<h4>Abdulaziz Khan Madrasa (1651–52)</h4>\n<p>Built directly opposite, more than two centuries later, and quite deliberately as an answer. Everything Ulugbek held back, this releases: <em>kundal</em> gilding in relief, painted vaults, Chinese-influenced cloud and lotus motifs picked up along the Silk Road, and — remarkably — figurative creatures, including the <em>simurgh</em>, the mythical bird of Persian legend, and a dragon. Depicting living beings is generally avoided in Islamic architecture; Bukhara's rulers periodically decided the rule did not apply to them.</p>\n<p>It was never finished. Abdulaziz Khan lost his throne, work stopped, and if you look carefully you can see the unresolved sections. There is a small museum of woodcarving inside.</p>",
+  "short": "Ulugbek"
+ },
+ {
+  "n": 9,
+  "name": "Toqi Zargaron — Jewellers' Dome",
+  "alt": "Toqi Zargaron · c. 1570",
+  "lat": 39.7763,
+  "lng": 64.4166,
+  "gq": "Toqi Zargaron Bukhara",
+  "dur": "15 min",
+  "fee": "Free",
+  "hours": "Roughly 09:00 – late",
+  "block": "Immediately south of the madrasas — you walk straight into it",
+  "tips": [
+   "First of the four covered markets you pass. Go before 10:00: quieter, and shafts of light come down through the roof openings.",
+   "Still mostly jewellery, gold and silver. Bargaining is expected and good-natured — start around half.",
+   "Stand under the centre and look up before you look at anything for sale."
   ],
-  more:`<p>Bukhara's covered bazaars are not buildings with markets inside them; they are <em>crossroads with domes built over them</em>. In the 16th century, under Abdullah Khan II, the city roofed over its four busiest street junctions so that trade could continue through the summer heat and the winter wind. Three of the original domes survive, plus one covered hall. You will walk through all four today, in the order the trades ran.</p>
-<p><strong>Toqi Zargaron</strong> — "the dome of the jewellers" — is the largest, built around 1570, and originally housed some 36 workshops. Look at the structure: a central dome carried on an octagonal drum, surrounded by a ring of smaller cupolas, with the arches arranged so that four streets pass under it without interrupting each other. There is no glass anywhere; the openings do the lighting and the ventilation, and the temperature inside is noticeably lower than in the street.</p>
-<p>The trades were segregated by dome, and the guilds were tightly regulated — weights, purity of metal, and prices were all supervised by the market inspector, the <em>muhtasib</em>. Nine hundred years of the Silk Road passing through, and the shape of the commerce is still legible in the plan of the streets.</p>`
-},
-{
-  n:10, name:"Tim Abdulla Khan — the Silk Hall", alt:"Timi Abdullaxon · 1577",
-  lat:39.7757, lng:64.4170, gq:"Tim Abdulla Khan Bukhara",
-  dur:"20 min", fee:"Free", hours:"Roughly 09:00–19:00",
-  block:"Just south of Toqi Zargaron, tucked off the main lane",
-  tips:[
-    "Easy to walk past — the entrance is a plain arch. Look for the signs for carpets.",
-    "The best interior of all the market buildings, and the coolest room in the old town. A genuine heat refuge.",
-    "This is the place to look at silk carpets and suzani embroidery even if you buy nothing. Ask to see the back of a carpet — knot count is the honest measure.",
-    "No pressure to buy; the sellers here are used to browsers."
+  "more": "<p>Bukhara's covered bazaars are not buildings with markets inside them; they are <em>crossroads with domes built over them</em>. In the 16th century, under Abdullah Khan II, the city roofed over its four busiest street junctions so that trade could continue through the summer heat and the winter wind. Three of the original domes survive, plus one covered hall. You will walk through all four today, in the order the trades ran.</p>\n<p><strong>Toqi Zargaron</strong> — \"the dome of the jewellers\" — is the largest, built around 1570, and originally housed some 36 workshops. Look at the structure: a central dome carried on an octagonal drum, surrounded by a ring of smaller cupolas, with the arches arranged so that four streets pass under it without interrupting each other. There is no glass anywhere; the openings do the lighting and the ventilation, and the temperature inside is noticeably lower than in the street.</p>\n<p>The trades were segregated by dome, and the guilds were tightly regulated — weights, purity of metal, and prices were all supervised by the market inspector, the <em>muhtasib</em>. Nine hundred years of the Silk Road passing through, and the shape of the commerce is still legible in the plan of the streets.</p>",
+  "short": "Zargaron"
+ },
+ {
+  "n": 10,
+  "name": "Tim Abdulla Khan — the Silk Hall",
+  "alt": "Timi Abdullaxon · 1577",
+  "lat": 39.7757,
+  "lng": 64.417,
+  "gq": "Tim Abdulla Khan Bukhara",
+  "dur": "20 min",
+  "fee": "Free",
+  "hours": "Roughly 09:00–19:00",
+  "block": "Just south of Toqi Zargaron, tucked off the main lane",
+  "tips": [
+   "Easy to walk past — the entrance is a plain arch. Look for the signs for carpets.",
+   "The best interior of all the market buildings, and the coolest room in the old town. A genuine heat refuge.",
+   "This is the place to look at silk carpets and suzani embroidery even if you buy nothing. Ask to see the back of a carpet — knot count is the honest measure.",
+   "No pressure to buy; the sellers here are used to browsers."
   ],
-  more:`<p>A <em>tim</em> is different from a <em>toq</em>: not a domed crossroads but an enclosed hall, a covered market building with a single entrance — closer to a caravanserai without the stables. This one was built in 1577 and was the silk market.</p>
-<p>The interior is the point. One large central dome with small light shafts, surrounded by a honeycomb of smaller cupolas over the trading bays, and almost no direct sunlight anywhere. That was deliberate: silk fades. The building is essentially a machine for keeping expensive cloth cool and dark while letting merchants see the colour clearly enough to trade it. Nearly four hundred and fifty years later it still does the job, and it is the one place on this walk where you can stand in genuine cool at two in the afternoon.</p>
-<p>Bukhara sat on the junction where Chinese silk, Indian cotton and muslin, Persian brocade and Russian furs all changed hands. Today the hall sells Bukharan and Turkmen carpets, silk ikat (<em>abrbandi</em> — "cloud-binding", for the way the dyed pattern blurs), and suzani, the large embroidered hangings that a Bukharan bride's family traditionally stitched for her dowry. The motifs on a suzani are not decorative accidents: pomegranates for fertility, chilli peppers against the evil eye, and one deliberate mistake left in the pattern, because only God makes perfect things.</p>`
-},
-{
-  n:11, name:"Toqi Telpak Furushon — Cap-makers' Dome", alt:"Toqi Telpakfurushon · 16th c.",
-  lat:39.7755, lng:64.4172, gq:"Toqi Telpak Furushon Bukhara",
-  dur:"15 min", fee:"Free", hours:"Roughly 09:00 – late",
-  block:"Fifty metres on from the Tim",
-  tips:[
-    "Look up: this is a five-way junction, and the way the vaults resolve five streets into one dome is a piece of real engineering.",
-    "Traditionally hats — including the embroidered doppa skullcap. A doppa is a cheap, genuine, packable souvenir and children like wearing them.",
-    "This was also the book-sellers' dome. Ask an older seller and someone will still tell you so."
+  "more": "<p>A <em>tim</em> is different from a <em>toq</em>: not a domed crossroads but an enclosed hall, a covered market building with a single entrance — closer to a caravanserai without the stables. This one was built in 1577 and was the silk market.</p>\n<p>The interior is the point. One large central dome with small light shafts, surrounded by a honeycomb of smaller cupolas over the trading bays, and almost no direct sunlight anywhere. That was deliberate: silk fades. The building is essentially a machine for keeping expensive cloth cool and dark while letting merchants see the colour clearly enough to trade it. Nearly four hundred and fifty years later it still does the job, and it is the one place on this walk where you can stand in genuine cool at two in the afternoon.</p>\n<p>Bukhara sat on the junction where Chinese silk, Indian cotton and muslin, Persian brocade and Russian furs all changed hands. Today the hall sells Bukharan and Turkmen carpets, silk ikat (<em>abrbandi</em> — \"cloud-binding\", for the way the dyed pattern blurs), and suzani, the large embroidered hangings that a Bukharan bride's family traditionally stitched for her dowry. The motifs on a suzani are not decorative accidents: pomegranates for fertility, chilli peppers against the evil eye, and one deliberate mistake left in the pattern, because only God makes perfect things.</p>",
+  "short": "Tim silk hall"
+ },
+ {
+  "n": 11,
+  "name": "Toqi Telpak Furushon — Cap-makers' Dome",
+  "alt": "Toqi Telpakfurushon · 16th c.",
+  "lat": 39.7755,
+  "lng": 64.4172,
+  "gq": "Toqi Telpak Furushon Bukhara",
+  "dur": "15 min",
+  "fee": "Free",
+  "hours": "Roughly 09:00 – late",
+  "block": "Fifty metres on from the Tim",
+  "tips": [
+   "Look up: this is a five-way junction, and the way the vaults resolve five streets into one dome is a piece of real engineering.",
+   "Traditionally hats — including the embroidered doppa skullcap. A doppa is a cheap, genuine, packable souvenir and children like wearing them.",
+   "This was also the book-sellers' dome. Ask an older seller and someone will still tell you so."
   ],
-  more:`<p>"The dome of the cap sellers". The junction beneath it takes five streets, not four, which makes the vaulting more complicated than at Zargaron — stand in the middle and trace how the arches step around to close the circle. Sixteenth century, same programme of works as the others.</p>
-<p>Headgear mattered in Bukhara in a way that is hard to overstate. A man's turban told you his profession, his status, his religion, and often his neighbourhood; the length of cloth wound around it was regulated. Non-Muslims — the Jewish community in particular — were required to wear distinguishing dress and a rope belt, and were forbidden the turban. The cap you buy here now, the <em>doppa</em>, is the everyday survivor of all that: a stiff square skullcap, black with white almond-shaped embroidery in the Bukharan and Chust styles, worn folded flat in a pocket.</p>
-<p>The dome also held the book and paper sellers, and the scribes who wrote letters for the illiterate. Bukharan paper, made from mulberry bark in Samarkand and Kokand, was prized across the Islamic world before European paper displaced it.</p>`
-},
-{
-  n:12, name:"Magoki Attori Mosque", alt:"Magoki Attori · 12th & 16th c. · \"the mosque in the pit\"",
-  lat:39.7752, lng:64.4176, gq:"Magoki Attori Mosque Bukhara",
-  dur:"25 min", fee:"~20,000 som (carpet museum)", hours:"09:00–18:00",
-  block:"Just south of the cap-makers' dome",
-  tips:[
-    "The most important thing here is not the mosque but the hole it sits in. Look at the street level, then look down at the door.",
-    "The carved 12th-century south portal is the oldest and finest facade left in Bukhara. It is on your right as you approach from the north.",
-    "Inside is a small carpet museum — twenty minutes, air-conditioned, and it teaches you to read the carpets you saw in the Tim.",
-    "A good stop for a story with children: there was a temple here before there was a mosque, and a market before that."
+  "more": "<p>\"The dome of the cap sellers\". The junction beneath it takes five streets, not four, which makes the vaulting more complicated than at Zargaron — stand in the middle and trace how the arches step around to close the circle. Sixteenth century, same programme of works as the others.</p>\n<p>Headgear mattered in Bukhara in a way that is hard to overstate. A man's turban told you his profession, his status, his religion, and often his neighbourhood; the length of cloth wound around it was regulated. Non-Muslims — the Jewish community in particular — were required to wear distinguishing dress and a rope belt, and were forbidden the turban. The cap you buy here now, the <em>doppa</em>, is the everyday survivor of all that: a stiff square skullcap, black with white almond-shaped embroidery in the Bukharan and Chust styles, worn folded flat in a pocket.</p>\n<p>The dome also held the book and paper sellers, and the scribes who wrote letters for the illiterate. Bukharan paper, made from mulberry bark in Samarkand and Kokand, was prized across the Islamic world before European paper displaced it.</p>",
+  "short": "Telpak"
+ },
+ {
+  "n": 12,
+  "name": "Magoki Attori Mosque",
+  "alt": "Magoki Attori · 12th & 16th c. · \"the mosque in the pit\"",
+  "lat": 39.7752,
+  "lng": 64.4176,
+  "gq": "Magoki Attori Mosque Bukhara",
+  "dur": "25 min",
+  "fee": "~20,000 som (carpet museum)",
+  "hours": "09:00–18:00",
+  "block": "Just south of the cap-makers' dome",
+  "tips": [
+   "The most important thing here is not the mosque but the hole it sits in. Look at the street level, then look down at the door.",
+   "The carved 12th-century south portal is the oldest and finest facade left in Bukhara. It is on your right as you approach from the north.",
+   "Inside is a small carpet museum — twenty minutes, air-conditioned, and it teaches you to read the carpets you saw in the Tim.",
+   "A good stop for a story with children: there was a temple here before there was a mosque, and a market before that."
   ],
-  more:`<p>Magoki Attori means roughly "the pit of the herbalists" — <em>attori</em> being the spice and medicine sellers who traded around it. It sits about four and a half metres below the modern street, and it did not sink: the city rose around it. Every generation rebuilt on the rubble of the last, and after a thousand years the ground level had climbed a storey and a half. The mosque was excavated back down to its own floor by Soviet archaeologists in the 1930s.</p>
-<p><strong>What was here before.</strong> This is the oldest continuously sacred spot in Bukhara. Excavation found layers beneath the mosque, and the historical sources describe a pre-Islamic temple on the site, together with a bazaar called <em>Moh</em> — "moon" — held here twice a year, where idols were sold. The temple is usually described as Zoroastrian, sometimes as Buddhist; both faiths were present in Sogdian Bukhara, and the evidence does not settle it cleanly. Be a little sceptical of any guide who is certain.</p>
-<p><strong>The south portal</strong> is the treasure: 12th-century Karakhanid work in carved terracotta and cut brick, with early touches of glaze, an intricate field of geometry and stylised script that survived the Mongols because it was already half-buried. Nothing else of that date survives in the city at that quality. The rest of the building was rebuilt in the 16th century.</p>
-<p>You will also hear that Bukhara's Jewish community prayed in this building — at different hours from the Muslim congregation — before they had a synagogue of their own. It is one of the city's favourite stories about itself and it may well be true, though historians handle the specifics carefully. Whether or not the shared-roof detail is exact, the underlying fact is solid: Zoroastrians, Buddhists, Jews and Muslims all worshipped within a few hundred metres of this spot, and often at the same time.</p>`
-},
-{
-  n:13, name:"Bozori Kord Hammam", alt:"Bozori Kord · 16th c. · working bathhouse",
-  lat:39.7753, lng:64.4180, gq:"Bozori Kord Hammam Bukhara",
-  dur:"10 min to look · 1h+ to bathe", fee:"Look inside free · bath & massage from ~150,000 som", hours:"Varies — ask at the door",
-  block:"Beside Magoki Attori",
-  tips:[
-    "You are not obliged to bathe. Put your head in, see the domed chambers, and move on — it takes five minutes.",
-    "If you do want the experience, come back in the evening rather than mid-walk. Book at the door earlier in the day.",
-    "Gender and hours rotate and are not reliably posted. Ask. The nearby Hammam Kunjak has historically been the women's bath.",
-    "Not really a children's activity."
+  "more": "<p>Magoki Attori means roughly \"the pit of the herbalists\" — <em>attori</em> being the spice and medicine sellers who traded around it. It sits about four and a half metres below the modern street, and it did not sink: the city rose around it. Every generation rebuilt on the rubble of the last, and after a thousand years the ground level had climbed a storey and a half. The mosque was excavated back down to its own floor by Soviet archaeologists in the 1930s.</p>\n<p><strong>What was here before.</strong> This is the oldest continuously sacred spot in Bukhara. Excavation found layers beneath the mosque, and the historical sources describe a pre-Islamic temple on the site, together with a bazaar called <em>Moh</em> — \"moon\" — held here twice a year, where idols were sold. The temple is usually described as Zoroastrian, sometimes as Buddhist; both faiths were present in Sogdian Bukhara, and the evidence does not settle it cleanly. Be a little sceptical of any guide who is certain.</p>\n<p><strong>The south portal</strong> is the treasure: 12th-century Karakhanid work in carved terracotta and cut brick, with early touches of glaze, an intricate field of geometry and stylised script that survived the Mongols because it was already half-buried. Nothing else of that date survives in the city at that quality. The rest of the building was rebuilt in the 16th century.</p>\n<p>You will also hear that Bukhara's Jewish community prayed in this building — at different hours from the Muslim congregation — before they had a synagogue of their own. It is one of the city's favourite stories about itself and it may well be true, though historians handle the specifics carefully. Whether or not the shared-roof detail is exact, the underlying fact is solid: Zoroastrians, Buddhists, Jews and Muslims all worshipped within a few hundred metres of this spot, and often at the same time.</p>",
+  "short": "Magoki"
+ },
+ {
+  "n": 13,
+  "name": "Bozori Kord Hammam",
+  "alt": "Bozori Kord · 16th c. · working bathhouse",
+  "lat": 39.7753,
+  "lng": 64.418,
+  "gq": "Bozori Kord Hammam Bukhara",
+  "dur": "10 min to look · 1h+ to bathe",
+  "fee": "Look inside free · bath & massage from ~150,000 som",
+  "hours": "Varies — ask at the door",
+  "block": "Beside Magoki Attori",
+  "tips": [
+   "You are not obliged to bathe. Put your head in, see the domed chambers, and move on — it takes five minutes.",
+   "If you do want the experience, come back in the evening rather than mid-walk. Book at the door earlier in the day.",
+   "Gender and hours rotate and are not reliably posted. Ask. The nearby Hammam Kunjak has historically been the women's bath.",
+   "Not really a children's activity."
   ],
-  more:`<p>A 16th-century bathhouse that has never stopped working. Below street level again, for the same reason as the mosque next door, and for a practical one too — earth is the cheapest insulation there is, and a hammam is fundamentally a heat-storage problem.</p>
-<p>The plan is the standard Islamic one inherited from Rome: a domed changing hall, then a sequence of progressively hotter chambers heated by a furnace under the floor, with hot air drawn through channels in the stone. The light comes from small glazed eyes punched into the domes, which is why the interior is full of drifting circles of light and steam.</p>
-<p>The bath was a social institution, not just a wash. Business was done here, marriages were arranged, and the <em>tellak</em> — the bath attendant who scrubs and massages you on the hot central slab — was a fixture of city life. The Bukharan treatment still involves a hard scrub with a rough mitt, a massage with ginger oil that will make you gasp, and cold water at the end. It is not gentle and it is not a spa. It is an experience worth having once.</p>`
-},
-{
-  n:14, name:"Gaukushon Ensemble", alt:"Hoja Gaukushon · madrasa 1570 · Khoja Kalon mosque & minaret 1598",
-  lat:39.7741, lng:64.4155, gq:"Gaukushon Madrasah Bukhara",
-  dur:"25 min", fee:"Free", hours:"Daylight",
-  block:"250 m south-west — a short detour off the main tourist strip",
-  tips:[
-    "Almost nobody comes here. That is the reason to go: this is the first stop on the walk where you see ordinary Bukharan life rather than the visitor version.",
-    "The minaret is the second tallest in the city, about 40 m, and looks like a smaller sibling of the Kalyan.",
-    "Great light in the late afternoon and excellent, unposed photographs.",
-    "Tell the family what the name means before you arrive — it always gets a reaction."
+  "more": "<p>A 16th-century bathhouse that has never stopped working. Below street level again, for the same reason as the mosque next door, and for a practical one too — earth is the cheapest insulation there is, and a hammam is fundamentally a heat-storage problem.</p>\n<p>The plan is the standard Islamic one inherited from Rome: a domed changing hall, then a sequence of progressively hotter chambers heated by a furnace under the floor, with hot air drawn through channels in the stone. The light comes from small glazed eyes punched into the domes, which is why the interior is full of drifting circles of light and steam.</p>\n<p>The bath was a social institution, not just a wash. Business was done here, marriages were arranged, and the <em>tellak</em> — the bath attendant who scrubs and massages you on the hot central slab — was a fixture of city life. The Bukharan treatment still involves a hard scrub with a rough mitt, a massage with ginger oil that will make you gasp, and cold water at the end. It is not gentle and it is not a spa. It is an experience worth having once.</p>",
+  "short": "Hammam"
+ },
+ {
+  "n": 14,
+  "name": "Gaukushon Ensemble",
+  "alt": "Hoja Gaukushon · madrasa 1570 · Khoja Kalon mosque & minaret 1598",
+  "lat": 39.7741,
+  "lng": 64.4155,
+  "gq": "Gaukushon Madrasah Bukhara",
+  "dur": "25 min",
+  "fee": "Free",
+  "hours": "Daylight",
+  "block": "250 m south-west — a short detour off the main tourist strip",
+  "tips": [
+   "Almost nobody comes here. That is the reason to go: this is the first stop on the walk where you see ordinary Bukharan life rather than the visitor version.",
+   "The minaret is the second tallest in the city, about 40 m, and looks like a smaller sibling of the Kalyan.",
+   "Great light in the late afternoon and excellent, unposed photographs.",
+   "Tell the family what the name means before you arrive — it always gets a reaction."
   ],
-  more:`<p><em>Gaukushon</em> comes from the Tajik <em>gov-kushon</em>: "where the bulls are slaughtered". This was the cattle market and abattoir quarter, and when the Juybari sheikhs — the powerful Sufi family who effectively ran Bukhara's religious economy in the 16th century — decided to build here, the name stuck to the buildings.</p>
-<p>The ensemble is a madrasa of about 1570, awkwardly and rather beautifully shaped to fit the irregular plot, and the <strong>Khoja Kalon mosque</strong> with its minaret of 1598, roughly forty metres tall — the second highest in Bukhara. The proportions consciously echo the Kalyan minaret without competing with it.</p>
-<p>What makes the detour worth it is not the architecture, which is good but not exceptional, so much as the setting. You have left the polished tourist axis. There are washing lines, children on bicycles, men playing backgammon in the shade, a working neighbourhood mosque. Bukhara's old town is a living residential city of mud-brick courtyard houses, not an open-air museum, and this is where that becomes obvious.</p>`
-},
-{
-  n:15, name:"Toqi Sarrafon — Money-changers' Dome", alt:"Toqi Sarrafon · 16th c.",
-  lat:39.7747, lng:64.4187, gq:"Toqi Sarrafon Bukhara",
-  dur:"10 min", fee:"Free", hours:"Roughly 09:00 – late",
-  block:"On the way back east, just before Lyabi Hauz",
-  tips:[
-    "The smallest and, for most people, the most atmospheric of the three domes.",
-    "It stands where the old Shahrud canal crossed the street — the canal is culverted now, but the dip in the road is the reason the building is where it is.",
-    "Souvenirs, miniatures, scissors shaped like storks (a Bukharan speciality made in Gijduvan)."
+  "more": "<p><em>Gaukushon</em> comes from the Tajik <em>gov-kushon</em>: \"where the bulls are slaughtered\". This was the cattle market and abattoir quarter, and when the Juybari sheikhs — the powerful Sufi family who effectively ran Bukhara's religious economy in the 16th century — decided to build here, the name stuck to the buildings.</p>\n<p>The ensemble is a madrasa of about 1570, awkwardly and rather beautifully shaped to fit the irregular plot, and the <strong>Khoja Kalon mosque</strong> with its minaret of 1598, roughly forty metres tall — the second highest in Bukhara. The proportions consciously echo the Kalyan minaret without competing with it.</p>\n<p>What makes the detour worth it is not the architecture, which is good but not exceptional, so much as the setting. You have left the polished tourist axis. There are washing lines, children on bicycles, men playing backgammon in the shade, a working neighbourhood mosque. Bukhara's old town is a living residential city of mud-brick courtyard houses, not an open-air museum, and this is where that becomes obvious.</p>",
+  "short": "Gaukushon"
+ },
+ {
+  "n": 15,
+  "name": "Toqi Sarrafon — Money-changers' Dome",
+  "alt": "Toqi Sarrafon · 16th c.",
+  "lat": 39.7747,
+  "lng": 64.4187,
+  "gq": "Toqi Sarrafon Bukhara",
+  "dur": "10 min",
+  "fee": "Free",
+  "hours": "Roughly 09:00 – late",
+  "block": "On the way back east, just before Lyabi Hauz",
+  "tips": [
+   "The smallest and, for most people, the most atmospheric of the three domes.",
+   "It stands where the old Shahrud canal crossed the street — the canal is culverted now, but the dip in the road is the reason the building is where it is.",
+   "Souvenirs, miniatures, scissors shaped like storks (a Bukharan speciality made in Gijduvan)."
   ],
-  more:`<p>"The dome of the money-changers". Sixteenth century, built over the point where the main street crossed the Shahrud, the canal that brought Zarafshan water into the heart of the city. Merchants arriving from India, Persia, Muscovy and China all needed their coin converted, weighed and assayed before they could trade in the bazaars, so the exchange sat at the entrance to the market district — the customs post of the Silk Road, in effect.</p>
-<p>The <em>sarrafs</em> were bankers as much as changers: they issued bills of exchange that let a merchant deposit silver in Bukhara and draw it in Kabul or Kashgar without carrying it across bandit country. A large share of them were Indian and Jewish, and the profession was one of the few open to non-Muslims. It is a small building with a very long reach.</p>
-<p>Look for the stork-shaped scissors on the stalls. They are made in Gijduvan, an hour north, and they are a genuine local craft rather than an import — storks nested on Bukhara's minarets for centuries, though almost none remain today.</p>`
-},
-{
-  n:16, name:"Lyabi Hauz", alt:"Labi Hovuz · 1568–1622 · the social heart of the city",
-  lat:39.7752, lng:64.4197, gq:"Lyabi Hauz Bukhara",
-  dur:"1h+ (and dinner)", fee:"Square free · Nadir Divan-Begi Madrasa ~20,000 som", hours:"Open always; best at dusk",
-  block:"The end of the main walk — and where you should eat",
-  tips:[
-    "Do this last. Sit under the mulberry trees, order tea and plov, and let the day settle. The pool cools the air by several degrees.",
-    "Look up at the Nadir Divan-Begi portal: two phoenixes carrying white does towards a sun with a human face. Best photographed in late afternoon light.",
-    "The bronze Hoja Nasreddin on his donkey is the family photo of the trip. Rub the donkey for luck.",
-    "There is usually an evening folklore and fashion show in the Nadir Divan-Begi courtyard — tickets sold at the gate, starts around 19:00. Touristy, but children enjoy it.",
-    "ATMs, pharmacies and taxis are all within a hundred metres of here."
+  "more": "<p>\"The dome of the money-changers\". Sixteenth century, built over the point where the main street crossed the Shahrud, the canal that brought Zarafshan water into the heart of the city. Merchants arriving from India, Persia, Muscovy and China all needed their coin converted, weighed and assayed before they could trade in the bazaars, so the exchange sat at the entrance to the market district — the customs post of the Silk Road, in effect.</p>\n<p>The <em>sarrafs</em> were bankers as much as changers: they issued bills of exchange that let a merchant deposit silver in Bukhara and draw it in Kabul or Kashgar without carrying it across bandit country. A large share of them were Indian and Jewish, and the profession was one of the few open to non-Muslims. It is a small building with a very long reach.</p>\n<p>Look for the stork-shaped scissors on the stalls. They are made in Gijduvan, an hour north, and they are a genuine local craft rather than an import — storks nested on Bukhara's minarets for centuries, though almost none remain today.</p>",
+  "short": "Sarrafon"
+ },
+ {
+  "n": 16,
+  "name": "Lyabi Hauz",
+  "alt": "Labi Hovuz · 1568–1622 · the social heart of the city",
+  "lat": 39.7752,
+  "lng": 64.4197,
+  "gq": "Lyabi Hauz Bukhara",
+  "dur": "1h+ (and dinner)",
+  "fee": "Square free · Nadir Divan-Begi Madrasa ~20,000 som",
+  "hours": "Open always; best at dusk",
+  "block": "The end of the main walk — and where you should eat",
+  "tips": [
+   "Do this last. Sit under the mulberry trees, order tea and plov, and let the day settle. The pool cools the air by several degrees.",
+   "Look up at the Nadir Divan-Begi portal: two phoenixes carrying white does towards a sun with a human face. Best photographed in late afternoon light.",
+   "The bronze Hoja Nasreddin on his donkey is the family photo of the trip. Rub the donkey for luck.",
+   "There is usually an evening folklore and fashion show in the Nadir Divan-Begi courtyard — tickets sold at the gate, starts around 19:00. Touristy, but children enjoy it.",
+   "ATMs, pharmacies and taxis are all within a hundred metres of here."
   ],
-  more:`<p><em>Lyabi Hauz</em> means "beside the pool", and it is the last of Bukhara's great water squares. The pool is 46 by 36 metres and about five metres deep, faced in limestone steps, and shaded by mulberry trees planted — according to the city — in 1477, which would make them among the oldest living things in Bukhara. Of the roughly two hundred <em>hauz</em> that once served the city's neighbourhoods, the Soviets drained nearly all in the anti-<em>rishta</em> campaigns of the 1920s and 30s. This one they kept.</p>
-<p><strong>Three buildings frame it:</strong></p>
-<p><strong>Kukeldash Madrasa</strong> (1568–69), on the north side — the largest madrasa in Bukhara and, when it was built, in Central Asia, with about 160 student cells. <em>Kukeldash</em> means "foster brother of the khan", the title of its founder.</p>
-<p><strong>The Khanaka of Nadir Divan-Begi</strong> (1620), on the west — a lodging house for wandering Sufi dervishes, with cells around a domed hall.</p>
-<p><strong>Nadir Divan-Begi Madrasa</strong> (1622), on the east, with the famous portal. It was built as a caravanserai. At the opening ceremony the khan, Imam Quli, publicly congratulated his uncle Nadir on his fine new <em>madrasa</em> — and a khan's word could not be corrected, so a caravanserai it ceased to be. This is why it has no lecture halls and no proper student cells: it was never designed as a school. The mosaic on the portal shows two <em>simurgh</em>, phoenixes, each carrying a white doe in its claws, flying towards a sun with a human face. Living creatures, and a human face, on a religious building — a deliberate and rather magnificent breach of convention.</p>
-<p><strong>The pool's own legend:</strong> Nadir wanted to build here but an elderly Jewish widow owned a house on the plot and refused to sell. Islamic law protected her property as a taxpaying non-Muslim, so he could not simply take it. Instead he diverted a canal so that water undermined her house — and when she came to complain, he offered her a better plot elsewhere in the city, plus the right to build a synagogue on it. That land, the story goes, became the Jewish quarter you will visit at stop 18.</p>
-<p>The bronze figure on the donkey is <strong>Hoja Nasreddin</strong> (1979), the wise fool of Central Asian, Turkish and Persian folklore — a man who wins every argument by losing it. If you tell one story to your family today, tell this one: Nasreddin's neighbour asked to borrow his donkey. "I'm sorry," said Nasreddin, "the donkey is not here." At that moment the donkey brayed loudly from the yard. "But I hear your donkey!" said the neighbour. Nasreddin drew himself up: "Who are you going to believe — a grey-bearded man of honour, or a donkey?"</p>`
-},
-{
-  n:17, name:"Chor Minor", alt:"Chor Minor · 1807 · \"four minarets\"",
-  lat:39.7770, lng:64.4245, gq:"Chor Minor Bukhara",
-  dur:"30 min including the walk", fee:"Free outside · ~10–20,000 som to climb to the roof", hours:"08:00–20:00",
-  block:"600 m north-east of Lyabi Hauz, deep in the residential lanes",
-  tips:[
-    "The walk there is half the point. You go through narrow mud-brick alleys with carved doors and cats on the walls — this is the real old Bukhara.",
-    "It is much smaller than photographs suggest. Manage expectations, then enjoy how strange it is.",
-    "You can usually climb onto the roof between the towers for a small fee. Children love this bit.",
-    "Late afternoon light is best; the small pool in front gives you the reflection shot.",
-    "Easy to get lost on the way. Follow the map, and if in doubt ask anyone — everybody knows it."
+  "more": "<p><em>Lyabi Hauz</em> means \"beside the pool\", and it is the last of Bukhara's great water squares. The pool is 46 by 36 metres and about five metres deep, faced in limestone steps, and shaded by mulberry trees planted — according to the city — in 1477, which would make them among the oldest living things in Bukhara. Of the roughly two hundred <em>hauz</em> that once served the city's neighbourhoods, the Soviets drained nearly all in the anti-<em>rishta</em> campaigns of the 1920s and 30s. This one they kept.</p>\n<p><strong>Three buildings frame it:</strong></p>\n<p><strong>Kukeldash Madrasa</strong> (1568–69), on the north side — the largest madrasa in Bukhara and, when it was built, in Central Asia, with about 160 student cells. <em>Kukeldash</em> means \"foster brother of the khan\", the title of its founder.</p>\n<p><strong>The Khanaka of Nadir Divan-Begi</strong> (1620), on the west — a lodging house for wandering Sufi dervishes, with cells around a domed hall.</p>\n<p><strong>Nadir Divan-Begi Madrasa</strong> (1622), on the east, with the famous portal. It was built as a caravanserai. At the opening ceremony the khan, Imam Quli, publicly congratulated his uncle Nadir on his fine new <em>madrasa</em> — and a khan's word could not be corrected, so a caravanserai it ceased to be. This is why it has no lecture halls and no proper student cells: it was never designed as a school. The mosaic on the portal shows two <em>simurgh</em>, phoenixes, each carrying a white doe in its claws, flying towards a sun with a human face. Living creatures, and a human face, on a religious building — a deliberate and rather magnificent breach of convention.</p>\n<p><strong>The pool's own legend:</strong> Nadir wanted to build here but an elderly Jewish widow owned a house on the plot and refused to sell. Islamic law protected her property as a taxpaying non-Muslim, so he could not simply take it. Instead he diverted a canal so that water undermined her house — and when she came to complain, he offered her a better plot elsewhere in the city, plus the right to build a synagogue on it. That land, the story goes, became the Jewish quarter you will visit at stop 18.</p>\n<p>The bronze figure on the donkey is <strong>Hoja Nasreddin</strong> (1979), the wise fool of Central Asian, Turkish and Persian folklore — a man who wins every argument by losing it. If you tell one story to your family today, tell this one: Nasreddin's neighbour asked to borrow his donkey. \"I'm sorry,\" said Nasreddin, \"the donkey is not here.\" At that moment the donkey brayed loudly from the yard. \"But I hear your donkey!\" said the neighbour. Nasreddin drew himself up: \"Who are you going to believe — a grey-bearded man of honour, or a donkey?\"</p>",
+  "short": "Lyabi Hauz"
+ },
+ {
+  "n": 17,
+  "name": "Chor Minor",
+  "alt": "Chor Minor · 1807 · \"four minarets\"",
+  "lat": 39.777,
+  "lng": 64.4245,
+  "gq": "Chor Minor Bukhara",
+  "dur": "30 min including the walk",
+  "fee": "Free outside · ~10–20,000 som to climb to the roof",
+  "hours": "08:00–20:00",
+  "block": "600 m north-east of Lyabi Hauz, deep in the residential lanes",
+  "tips": [
+   "The walk there is half the point. You go through narrow mud-brick alleys with carved doors and cats on the walls — this is the real old Bukhara.",
+   "It is much smaller than photographs suggest. Manage expectations, then enjoy how strange it is.",
+   "You can usually climb onto the roof between the towers for a small fee. Children love this bit.",
+   "Late afternoon light is best; the small pool in front gives you the reflection shot.",
+   "Easy to get lost on the way. Follow the map, and if in doubt ask anyone — everybody knows it."
   ],
-  more:`<p><em>Chor Minor</em> is Persian for "four minarets", and the name is wrong. None of the four towers is a minaret; no call to prayer was ever given from them. Three were used for storage and one contains the staircase.</p>
-<p>What you are looking at is a <strong>gatehouse</strong>. In 1807 a rich Turkmen merchant named Khalif Niyazkul built a madrasa complex here, and this was its ceremonial entrance — the <em>darvazakhana</em>. The madrasa itself, with its courtyard and cells, has almost entirely disappeared. The doorway outlived the building it led into, which is a rather good metaphor and completely accidental.</p>
-<p>Each of the four towers is decorated differently, and one popular reading is that they represent four world religions — Islam, Christianity, Zoroastrianism and Buddhism — all of which had a presence in Bukhara. Another says they represent the four daughters of the founder. Both are folk interpretations rather than documented intent; enjoy them as stories, not facts. What is certain is that the shape is unlike anything else in Central Asia, with more of Delhi or Lahore about it than Samarkand — Niyazkul traded with India.</p>
-<p>The interior chamber has unusually good acoustics and is used as a small mosque. In 1995 one of the four towers collapsed, undermined by rising groundwater — the same problem that quietly threatens much of old Bukhara — and it was rebuilt with UNESCO assistance. Storks nested on the towers within living memory; the last of Bukhara's storks are gone, and the nests you may see on other monuments are replicas.</p>`
-},
-{
-  n:18, name:"Jewish Quarter & Synagogue", alt:"Mahalla-i Yahudiyon · synagogue 16th–17th c.",
-  lat:39.7744, lng:64.4200, gq:"Bukhara Synagogue Sarrafon",
-  dur:"30 min", fee:"Free — a donation is appropriate", hours:"Informal; usually mornings and late afternoon",
-  block:"Immediately south of Lyabi Hauz, on and around Sarrafon street",
-  tips:[
-    "Modest dress; men should cover their heads inside (caps are usually available at the door).",
-    "Ring the bell if the gate looks shut. There is often a caretaker who will show you round and is worth listening to.",
-    "Ask before photographing anyone. Leave a donation in the box.",
-    "Combine it with a wander down the lanes — the quarter's houses have particularly fine carved doors and courtyards.",
-    "Opening is genuinely unpredictable. Do not build the day around it."
+  "more": "<p><em>Chor Minor</em> is Persian for \"four minarets\", and the name is wrong. None of the four towers is a minaret; no call to prayer was ever given from them. Three were used for storage and one contains the staircase.</p>\n<p>What you are looking at is a <strong>gatehouse</strong>. In 1807 a rich Turkmen merchant named Khalif Niyazkul built a madrasa complex here, and this was its ceremonial entrance — the <em>darvazakhana</em>. The madrasa itself, with its courtyard and cells, has almost entirely disappeared. The doorway outlived the building it led into, which is a rather good metaphor and completely accidental.</p>\n<p>Each of the four towers is decorated differently, and one popular reading is that they represent four world religions — Islam, Christianity, Zoroastrianism and Buddhism — all of which had a presence in Bukhara. Another says they represent the four daughters of the founder. Both are folk interpretations rather than documented intent; enjoy them as stories, not facts. What is certain is that the shape is unlike anything else in Central Asia, with more of Delhi or Lahore about it than Samarkand — Niyazkul traded with India.</p>\n<p>The interior chamber has unusually good acoustics and is used as a small mosque. In 1995 one of the four towers collapsed, undermined by rising groundwater — the same problem that quietly threatens much of old Bukhara — and it was rebuilt with UNESCO assistance. Storks nested on the towers within living memory; the last of Bukhara's storks are gone, and the nests you may see on other monuments are replicas.</p>",
+  "short": "Chor Minor"
+ },
+ {
+  "n": 18,
+  "name": "Jewish Quarter & Synagogue",
+  "alt": "Mahalla-i Yahudiyon · synagogue 16th–17th c.",
+  "lat": 39.7744,
+  "lng": 64.42,
+  "gq": "Bukhara Synagogue Sarrafon",
+  "dur": "30 min",
+  "fee": "Free — a donation is appropriate",
+  "hours": "Informal; usually mornings and late afternoon",
+  "block": "Immediately south of Lyabi Hauz, on and around Sarrafon street",
+  "tips": [
+   "Modest dress; men should cover their heads inside (caps are usually available at the door).",
+   "Ring the bell if the gate looks shut. There is often a caretaker who will show you round and is worth listening to.",
+   "Ask before photographing anyone. Leave a donation in the box.",
+   "Combine it with a wander down the lanes — the quarter's houses have particularly fine carved doors and courtyards.",
+   "Opening is genuinely unpredictable. Do not build the day around it."
   ],
-  more:`<p>Bukharan Jews are one of the oldest Jewish communities in the world outside the Middle East. Community tradition traces the presence to the Babylonian exile; documented evidence is firm from the early medieval period onward. They spoke <strong>Bukhori</strong>, a Judeo-Tajik dialect of Persian written in Hebrew characters, and for centuries they were the city's dyers — the indigo and madder trades were almost entirely in Jewish hands — as well as silk merchants, money-changers and musicians.</p>
-<p>Life under the emirate was legally constrained. Jews paid the <em>jizya</em> poll tax, were barred from riding horses inside the city, had to wear a distinctive rope belt and cap rather than a turban, and were restricted in where they could build. Within those limits the community thrived and produced something remarkable: the <em>shashmaqam</em>, the classical six-<em>maqam</em> song cycle of Bukhara and Samarkand, which was largely preserved and performed by Jewish musicians and is now a UNESCO-listed intangible heritage of Uzbekistan and Tajikistan.</p>
-<p>The main synagogue on Sarrafon street dates from around the 16th–17th century and is traditionally linked to the Lyabi Hauz widow's legend you heard at stop 16. It is a modest courtyard building, not a monument — a prayer hall, a Torah ark, worn carpets, a school room.</p>
-<p>The community numbered in the tens of thousands into the 20th century. After the 1970s, and en masse in the 1990s, almost all emigrated to Israel and the United States — the largest Bukharan Jewish population in the world is now in Queens, New York. A few dozen families remain in Bukhara, and the synagogue still holds services. That is what makes the visit worth the twenty minutes: it is not a heritage display, it is the tail end of a two-thousand-year-old story, and it is still going.</p>`
-},
-{
-  n:19, name:"Fayzulla Khodjaev House Museum", alt:"Fayzulla Xo‘jayev uyi · 19th-century merchant mansion",
-  lat:39.7736, lng:64.4218, gq:"Fayzulla Khodjaev House Museum Bukhara",
-  dur:"45 min", fee:"~25–30,000 som", hours:"09:00–17:00 · often closed Mondays or Wednesdays — check",
-  block:"400 m south-east of Lyabi Hauz, on Tukaeva street",
-  tips:[
-    "The best-value and least crowded museum in Bukhara, and the only place that shows you how people actually lived rather than how they prayed and traded.",
-    "Shaded courtyards throughout — a comfortable stop even in the afternoon.",
-    "Children respond to this one: real rooms, costumes, a bride's chamber, painted ceilings you can stand under.",
-    "Closing days shift. Confirm before making the walk down."
+  "more": "<p>Bukharan Jews are one of the oldest Jewish communities in the world outside the Middle East. Community tradition traces the presence to the Babylonian exile; documented evidence is firm from the early medieval period onward. They spoke <strong>Bukhori</strong>, a Judeo-Tajik dialect of Persian written in Hebrew characters, and for centuries they were the city's dyers — the indigo and madder trades were almost entirely in Jewish hands — as well as silk merchants, money-changers and musicians.</p>\n<p>Life under the emirate was legally constrained. Jews paid the <em>jizya</em> poll tax, were barred from riding horses inside the city, had to wear a distinctive rope belt and cap rather than a turban, and were restricted in where they could build. Within those limits the community thrived and produced something remarkable: the <em>shashmaqam</em>, the classical six-<em>maqam</em> song cycle of Bukhara and Samarkand, which was largely preserved and performed by Jewish musicians and is now a UNESCO-listed intangible heritage of Uzbekistan and Tajikistan.</p>\n<p>The main synagogue on Sarrafon street dates from around the 16th–17th century and is traditionally linked to the Lyabi Hauz widow's legend you heard at stop 16. It is a modest courtyard building, not a monument — a prayer hall, a Torah ark, worn carpets, a school room.</p>\n<p>The community numbered in the tens of thousands into the 20th century. After the 1970s, and en masse in the 1990s, almost all emigrated to Israel and the United States — the largest Bukharan Jewish population in the world is now in Queens, New York. A few dozen families remain in Bukhara, and the synagogue still holds services. That is what makes the visit worth the twenty minutes: it is not a heritage display, it is the tail end of a two-thousand-year-old story, and it is still going.</p>",
+  "short": "Synagogue"
+ },
+ {
+  "n": 19,
+  "name": "Fayzulla Khodjaev House Museum",
+  "alt": "Fayzulla Xo‘jayev uyi · 19th-century merchant mansion",
+  "lat": 39.7736,
+  "lng": 64.4218,
+  "gq": "Fayzulla Khodjaev House Museum Bukhara",
+  "dur": "45 min",
+  "fee": "~25–30,000 som",
+  "hours": "09:00–17:00 · often closed Mondays or Wednesdays — check",
+  "block": "400 m south-east of Lyabi Hauz, on Tukaeva street",
+  "tips": [
+   "The best-value and least crowded museum in Bukhara, and the only place that shows you how people actually lived rather than how they prayed and traded.",
+   "Shaded courtyards throughout — a comfortable stop even in the afternoon.",
+   "Children respond to this one: real rooms, costumes, a bride's chamber, painted ceilings you can stand under.",
+   "Closing days shift. Confirm before making the walk down."
   ],
-  more:`<p>This was the family house of one of the richest merchants in the emirate of Bukhara — a courtyard mansion built to the classic plan, with a strict division between the <em>beruni</em>, the outer men's courtyard where business was done and guests received, and the <em>daruni</em>, the inner women's courtyard where the family actually lived. Walking from one to the other tells you more about Bukharan society than any label.</p>
-<p>The interiors are the reason to come: carved and painted ganch plasterwork, alcoves lined with mirrors and niches for porcelain, wooden ceilings painted in the <em>kundal</em> technique with gold relief, a room set up as it would have been for a bride, and displays of the heavy embroidered coats and silver jewellery of the period. Nothing here is grand in the way the Ark is grand. It is domestic, and it is intact.</p>
-<p><strong>The man it is named after had an extraordinary and very short life.</strong> Fayzulla Khodjaev (1896–1938) was the merchant's son, sent to Moscow to be educated. He came back a <em>Jadid</em> — one of the young Muslim reformers who wanted to modernise Bukhara from within, with new-method schools, printing presses and a constitution. The emir was not interested. Khodjaev turned to the Bolsheviks, helped bring the Red Army to Bukhara in 1920, and at twenty-four became the head of the new Bukharan People's Soviet Republic, then chairman of the Council of People's Commissars of Soviet Uzbekistan.</p>
-<p>In 1937 he was arrested. In March 1938 he was tried in Moscow in the last of Stalin's great show trials — the same dock as Bukharin and Rykov — and shot. He was rehabilitated in 1966. His father's house, nationalised by the state his son helped create, is now his memorial.</p>`
-}
+  "more": "<p>This was the family house of one of the richest merchants in the emirate of Bukhara — a courtyard mansion built to the classic plan, with a strict division between the <em>beruni</em>, the outer men's courtyard where business was done and guests received, and the <em>daruni</em>, the inner women's courtyard where the family actually lived. Walking from one to the other tells you more about Bukharan society than any label.</p>\n<p>The interiors are the reason to come: carved and painted ganch plasterwork, alcoves lined with mirrors and niches for porcelain, wooden ceilings painted in the <em>kundal</em> technique with gold relief, a room set up as it would have been for a bride, and displays of the heavy embroidered coats and silver jewellery of the period. Nothing here is grand in the way the Ark is grand. It is domestic, and it is intact.</p>\n<p><strong>The man it is named after had an extraordinary and very short life.</strong> Fayzulla Khodjaev (1896–1938) was the merchant's son, sent to Moscow to be educated. He came back a <em>Jadid</em> — one of the young Muslim reformers who wanted to modernise Bukhara from within, with new-method schools, printing presses and a constitution. The emir was not interested. Khodjaev turned to the Bolsheviks, helped bring the Red Army to Bukhara in 1920, and at twenty-four became the head of the new Bukharan People's Soviet Republic, then chairman of the Council of People's Commissars of Soviet Uzbekistan.</p>\n<p>In 1937 he was arrested. In March 1938 he was tried in Moscow in the last of Stalin's great show trials — the same dock as Bukharin and Rykov — and shot. He was rehabilitated in 1966. His father's house, nationalised by the state his son helped create, is now his memorial.</p>",
+  "short": "Khodjaev house"
+ }
 ];
 
 const EXTRAS = [
+ {
+  "n": "A",
+  "name": "Sitorai Mokhi-Khosa Palace",
+  "alt": "\"Palace of Moon-like Stars\" · 1912–18",
+  "lat": 39.8114,
+  "lng": 64.4407,
+  "gq": "Sitorai Mokhi Khosa Palace Bukhara",
+  "dist": "4 km north · 15 min by taxi (~15–25,000 som each way)",
+  "dur": "1h 15",
+  "fee": "~30–40,000 som · camera extra",
+  "hours": "09:00–17:00",
+  "more": "<p>The country residence of the last emirs of Bukhara, and the strangest building in the region. Emir Alim Khan sent his master craftsmen to St Petersburg to study Russian and European architecture, then brought them home to build this. The result is a genuine hybrid: European facades, columns and glazed verandas on the outside; pure Bukharan ganch, mirror-work and painted ceilings inside.</p>\n<p>The showpiece is the <strong>White Hall</strong> (Oq Zal), executed by Usto Shirin Muradov — the same master who built the columns at Bolo Hauz — in white ganch fretwork backed with mirror, so the whole room glitters. It reportedly took years. There is also a harem building, a pool where the story goes the emir watched his women swim from a balcony, and a garden that once held peacocks (some still do).</p>\n<p>Alim Khan enjoyed it for a very short time. He fled to Afghanistan in 1920 and never came back. The palace became a museum of applied arts, and its collection of suzani and royal robes is the best in the country.</p>\n<p><em>Best combined with:</em> a morning taxi loop, or on the way out of town.</p>",
+  "short": "Mokhi-Khosa"
+ },
+ {
+  "n": "B",
+  "name": "Bahauddin Naqshband Complex",
+  "alt": "Shrine of the founder of the Naqshbandi Sufi order",
+  "lat": 39.7642,
+  "lng": 64.5271,
+  "gq": "Bahauddin Naqshband Memorial Complex Bukhara",
+  "dist": "12 km east · 25 min by taxi (~40–60,000 som each way)",
+  "dur": "1h",
+  "fee": "Free · donations",
+  "hours": "Dawn to dusk",
+  "more": "<p>Not a tourist site — a living pilgrimage shrine, and one of the most important in the Islamic world. Baha-ud-Din Naqshband Bukhari (1318–1389) founded the Naqshbandi order, the most widespread Sufi brotherhood on earth, with followers today from Turkey to Indonesia. Bukharans say that three pilgrimages here equal one to Mecca — a claim scholars reject and locals repeat anyway.</p>\n<p>His teaching was famously practical, summed up in a Persian phrase you will see everywhere: <em>\"Dil ba yor-u dast ba kor\"</em> — heart with the Beloved, hands at work. No withdrawal from the world, no visible ecstasy, silent rather than vocal remembrance of God. It is an unusually sober kind of mysticism and it suited a city of merchants.</p>\n<p>The complex has a mosque, a khanaka, the tombs of the emirs of Bukhara, and the saint's grave, which pilgrims circle three times. There is a fallen mulberry trunk which people crawl under for blessing. It is crowded, entirely unselfconscious, and moving in a way none of the museums in town are.</p>\n<p><strong>Dress conservatively — this matters here more than anywhere else in Bukhara.</strong> Women should cover hair, arms and legs. Photograph the architecture, not the people at prayer.</p>",
+  "short": "Naqshband"
+ },
+ {
+  "n": "C",
+  "name": "Chor Bakr Necropolis",
+  "alt": "\"Town of the Dead\" · 16th c.",
+  "lat": 39.7735,
+  "lng": 64.352,
+  "gq": "Chor Bakr Necropolis Bukhara",
+  "dist": "6 km west · 15 min by taxi (~25–35,000 som each way)",
+  "dur": "1h",
+  "fee": "Small charge or free",
+  "hours": "Daylight · go at golden hour",
+  "more": "<p>A whole miniature city built for the dead: courtyards, gateways, a mosque, a khanaka and hundreds of roofless walled burial enclosures (<em>dakhma</em>) laid out along streets, built in the 1560s–80s under Abdullah Khan II for the Juybari sheikhs, the dynasty of Sufi leaders who were the real power behind the Shaybanid throne.</p>\n<p>The name means \"four brothers\", after four descendants of the caliph Abu Bakr buried here. The scale is what surprises people — you walk down lanes between tomb walls as if through an abandoned village, and it goes on much further than you expect.</p>\n<p>Almost no tour buses come. There are peacocks. In the late afternoon the low sun runs down the brick lanes and it is, for photography, probably the best hour of the whole trip.</p>",
+  "short": "Chor Bakr"
+ }
+];
+const FOOD = {
+  intro:"Bukhara's food is the most distinctive in Uzbekistan, largely because of the city's Jewish and Persian layers: green herb rice, sour milk soups, and a plov that is steamed rather than stirred. The old town restaurants around Lyabi Hauz and Poi Kalyan are tourist-priced but pleasant; the honest food is in the neighbourhood places.",
+  dishes:[
+    {name:"Bakhsh", note:"The Bukharan dish. Rice turned bright green with a huge quantity of coriander, dill and parsley, cooked with liver or lamb — traditionally in a cloth bag inside a pot of boiling water (<em>bakhshi jizza</em>). Bukharan Jewish in origin, now a city standard. Order it once."},
+    {name:"Oshi savo", note:"A Bukharan soup of rice, meat and vegetables finished with sour milk or <em>suzma</em>. Sharp, light, and the antidote to three days of lamb fat."},
+    {name:"Bukhara plov", note:"Steamed rather than fried, often with raisins and chickpeas, lighter than the Tashkent version. A lunch dish — do not order it at 20:00."},
+    {name:"Kazan-kebab", note:"Lamb and potato slow-fried in a cast-iron kazan until the outside crisps. Rich, simple, excellent."},
+    {name:"Alat samsa", note:"A Bukhara-region speciality from the town of Alat — samsa with a thinner, crisper pastry. Look for it on menus specifically; it is not the same as ordinary samsa."},
+    {name:"Shurpa", note:"Clear lamb broth with whole chunks of meat and vegetables. Uzbek breakfast as much as lunch."},
+    {name:"Dolma", note:"Vine leaves stuffed with rice and minced lamb, served with sour cream. The Persian and Caucasian layer of the city's cooking."},
+    {name:"Non", note:"Bukharan bread is thinner and less dense than Samarkand's, often sprinkled with sesame and nigella. Baked in a tandir and best within the hour."},
+    {name:"Nabot &amp; halva", note:"Crystallised sugar on a string for tea, and dense nut halva. Sold in the trading domes and the bazaar."},
+    {name:"Green tea", note:"<em>Kok choy</em>, drunk all day, poured back into the pot three times before serving. Refusing tea is close to rude; a half-full cup means \"stay longer\"."}
+  ],
+  places:[
+    {name:"La Cafe", gq:"La Cafe Restaurant Bukhara M Ikbol", type:"Uzbek &amp; grills", area:"M. Iqbol St — your street", price:"Cheap–mid",
+     note:"On the same street as your hotel, which makes it the default for a night when nobody wants to go anywhere. Shashlik, manti, Uyghur fried beef, soups and desserts. Not scenic, but close, quick and reliable."},
+    {name:"Chasmai Mirob", gq:"Chasmai Mirob restaurant Bukhara", type:"Terrace restaurant", area:"Overlooking Poi Kalyan", price:"Mid–high",
+     note:"The terrace with the view of the Kalyan minaret. Food is decent rather than exceptional and you are paying for the position — which on your first evening is exactly what you want. Go up for a drink at 18:45 and watch the floodlights come on."},
+    {name:"Minzifa", gq:"Minzifa Restaurant Bukhara", type:"Rooftop, Uzbek", area:"Khujarushnoy St, near Lyabi Hauz", price:"Mid",
+     note:"Rooftop terrace in the old town with a wide view over the domes and minarets. Good plov, grills and salads. Popular, small, and the best tables go first — send someone up to reserve when you pass in the morning."},
+    {name:"Old Bukhara", gq:"Old Bukhara Restaurant Samarkand Street Bukhara", type:"Traditional Uzbek", area:"3 Samarkand St", price:"Mid",
+     note:"Reliable old-town standard: Alat samsa, Bukhara samsa, kazan-kebab, stewed lamb with onions, manti. Menus in English, staff used to families, and portions that will defeat you."},
+    {name:"Doston House", gq:"Doston House Restaurant Bukhara", type:"Traditional Uzbek", area:"K. Kalon St, old town", price:"Mid",
+     note:"Set in a restored merchant's house with a courtyard. Bukhara plov, shurpa, meatball soup, dolma, vegetable salads and somsa — the broadest run at genuinely local dishes in the tourist quarter. Ask whether they have bakhsh."},
+    {name:"Lyabi Hauz chaikhanas", gq:"Lyabi Hauz Bukhara restaurants", type:"Teahouses", area:"Around the pool", price:"Cheap–mid",
+     note:"Not one restaurant but a row of them under 500-year-old mulberry trees beside the water. Food is ordinary; the setting is the best in the city and the pool cools the air by several degrees. This is where both of your evenings should end."},
+    {name:"Silk Road Teahouse", gq:"Silk Road Teahouse Bukhara", type:"Teahouse &amp; café", area:"Near Lyabi Hauz", price:"Cheap",
+     note:"Small, friendly, good tea and light meals, English spoken. Useful for breakfast if you leave the hotel early, and a calm place to sit with a child who has run out of monuments."}
+  ],
+  tips:[
+    "<b>On sources:</b> you asked for Condé Nast recommendations. Their site is blocked from this environment, so nothing here is from them — these come from Advantour's Bukhara restaurant listing and current guides, cross-checked where they overlap. Worth checking their site yourself on your phone.",
+    "Plov is a midday dish everywhere in Uzbekistan. Evening plov is usually reheated.",
+    "Most old-town places take cash only. ATMs cluster around Lyabi Hauz.",
+    "Tap water is not for drinking. Bottled water is 3–5,000 som.",
+    "Alcohol is served in tourist restaurants but not in teahouses.",
+    "Ask for <em>bakhsh</em> specifically — it is often not on the English menu but many kitchens will make it."
+  ]
+};
+
+const PRACTICAL = [
 {
-  n:"A", name:"Sitorai Mokhi-Khosa Palace", alt:"\"Palace of Moon-like Stars\" · 1912–18",
-  lat:39.8114, lng:64.4407, gq:"Sitorai Mokhi Khosa Palace Bukhara",
-  dist:"4 km north · 15 min by taxi (~15–25,000 som each way)", dur:"1h 15",
-  fee:"~30–40,000 som · camera extra", hours:"09:00–17:00",
-  more:`<p>The country residence of the last emirs of Bukhara, and the strangest building in the region. Emir Alim Khan sent his master craftsmen to St Petersburg to study Russian and European architecture, then brought them home to build this. The result is a genuine hybrid: European facades, columns and glazed verandas on the outside; pure Bukharan ganch, mirror-work and painted ceilings inside.</p>
-<p>The showpiece is the <strong>White Hall</strong> (Oq Zal), executed by Usto Shirin Muradov — the same master who built the columns at Bolo Hauz — in white ganch fretwork backed with mirror, so the whole room glitters. It reportedly took years. There is also a harem building, a pool where the story goes the emir watched his women swim from a balcony, and a garden that once held peacocks (some still do).</p>
-<p>Alim Khan enjoyed it for a very short time. He fled to Afghanistan in 1920 and never came back. The palace became a museum of applied arts, and its collection of suzani and royal robes is the best in the country.</p>
-<p><em>Best combined with:</em> a morning taxi loop, or on the way out of town.</p>`
+  warn:true, title:"August heat — this is the whole plan",
+  items:[
+    "Expect <b>38–42 °C</b> in the afternoon, and very little shade at the Ark, Poi Kalyan or the Registan square.",
+    "That is why both days are <b>out at 06:30, back at the hotel by ~12:30</b> for lunch, a nap and the pool, then out again at 18:30.",
+    "Carry 2 litres of water per person and refill as you go.",
+    "Hats and sunscreen for all three of you. The heat is dry, so you dehydrate without noticing you are sweating.",
+    "The monuments are floodlit in the evening and almost empty. The evenings are not a consolation prize — they are the best part."
+  ]
 },
 {
-  n:"B", name:"Bahauddin Naqshband Complex", alt:"Shrine of the founder of the Naqshbandi Sufi order",
-  lat:39.7642, lng:64.5271, gq:"Bahauddin Naqshband Memorial Complex Bukhara",
-  dist:"12 km east · 25 min by taxi (~40–60,000 som each way)", dur:"1h",
-  fee:"Free · donations", hours:"Dawn to dusk",
-  more:`<p>Not a tourist site — a living pilgrimage shrine, and one of the most important in the Islamic world. Baha-ud-Din Naqshband Bukhari (1318–1389) founded the Naqshbandi order, the most widespread Sufi brotherhood on earth, with followers today from Turkey to Indonesia. Bukharans say that three pilgrimages here equal one to Mecca — a claim scholars reject and locals repeat anyway.</p>
-<p>His teaching was famously practical, summed up in a Persian phrase you will see everywhere: <em>"Dil ba yor-u dast ba kor"</em> — heart with the Beloved, hands at work. No withdrawal from the world, no visible ecstasy, silent rather than vocal remembrance of God. It is an unusually sober kind of mysticism and it suited a city of merchants.</p>
-<p>The complex has a mosque, a khanaka, the tombs of the emirs of Bukhara, and the saint's grave, which pilgrims circle three times. There is a fallen mulberry trunk which people crawl under for blessing. It is crowded, entirely unselfconscious, and moving in a way none of the museums in town are.</p>
-<p><strong>Dress conservatively — this matters here more than anywhere else in Bukhara.</strong> Women should cover hair, arms and legs. Photograph the architecture, not the people at prayer.</p>`
+  title:"Getting around from the Sahid Zarafshon",
+  items:[
+    "You are about 2 km east of the old town. Every block on the Plan tab starts and ends with a short taxi — 10 minutes, 15–20,000 som.",
+    "Do not attempt to walk between the hotel and the old town in August. It is a hot, dull road with no shade.",
+    "<b>Yandex Go</b> works in Bukhara and removes the haggling. Download it before you go out.",
+    "Inside the old town everything is walkable — the whole historic centre is about 1.5 km across.",
+    "Ask the hotel to arrange the same driver each time; worth a small premium."
+  ]
 },
 {
-  n:"C", name:"Chor Bakr Necropolis", alt:"\"Town of the Dead\" · 16th c.",
-  lat:39.7735, lng:64.3520, gq:"Chor Bakr Necropolis Bukhara",
-  dist:"6 km west · 15 min by taxi (~25–35,000 som each way)", dur:"1h",
-  fee:"Small charge or free", hours:"Daylight · go at golden hour",
-  more:`<p>A whole miniature city built for the dead: courtyards, gateways, a mosque, a khanaka and hundreds of roofless walled burial enclosures (<em>dakhma</em>) laid out along streets, built in the 1560s–80s under Abdullah Khan II for the Juybari sheikhs, the dynasty of Sufi leaders who were the real power behind the Shaybanid throne.</p>
-<p>The name means "four brothers", after four descendants of the caliph Abu Bakr buried here. The scale is what surprises people — you walk down lanes between tomb walls as if through an abandoned village, and it goes on much further than you expect.</p>
-<p>Almost no tour buses come. There are peacocks. In the late afternoon the low sun runs down the brick lanes and it is, for photography, probably the best hour of the whole trip.</p>`
+  title:"Tickets and money",
+  items:[
+    "Rough foreigner prices: the Ark ~60,000 som · Kalyan Mosque ~20,000 · Ulugbek and Abdulaziz Khan madrasas ~20,000 each · Magoki Attori ~20,000 · Chashma Ayub ~20,000 · Nadir Divan-Begi ~20,000. Lyabi Hauz, Bolo Hauz, the trading domes, Chor Minor and the Samanid Mausoleum are free.",
+    "<b>Sources disagree on the Ark — 15,000 to 60,000 som. Treat every figure here as indicative and confirm at the window.</b>",
+    "Carry cash in som. Ticket booths rarely take cards; ATMs are around Lyabi Hauz.",
+    "Budget roughly 250–350,000 som per adult for all the entries on this page.",
+    "A photo permit is occasionally an extra few thousand som."
+  ]
+},
+{
+  title:"Dress and etiquette",
+  items:[
+    "Shoulders and knees covered at religious sites. A light scarf for hair at Bolo Hauz and the Kalyan Mosque.",
+    "Shoes off inside working mosques. Slip-ons save time.",
+    "<b>Mir-i-Arab is a functioning seminary</b> — view from the portal, do not enter, keep voices down.",
+    "Ask before photographing people, especially at prayer and in the Jewish quarter.",
+    "Bargaining in the trading domes is expected and friendly. Open at about half, settle near two-thirds."
+  ]
+},
+{
+  title:"With a small child",
+  items:[
+    "<b>Carrier beats stroller</b>: cobbles, uneven brick, and the Ark's steep entry ramp.",
+    "Best bits for a child: climbing onto the Chor Minor roof, the donkey statue at Lyabi Hauz, the water tower lift, counting brick patterns at the Samanid Mausoleum, and hunting the birds and dragon on the Abdulaziz Khan façade.",
+    "Consider skipping the Zindan prison (6) — pits and mannequins.",
+    "Samani Park at stop 1 has the best shade in the city and a small funfair next door.",
+    "Pool time every afternoon is what makes the early starts possible. Do not trade it away."
+  ]
+},
+{
+  title:"Using this page offline",
+  items:[
+    "Every description, tip and plan works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself and always works.",
+    "Download the Bukhara area in Google Maps for offline use before you set out.",
+    "Add this page to your Home Screen: Share → Add to Home Screen.",
+    "<b>Map pins are accurate to roughly a block</b>, and the hotel pin is an estimate. The <b>Open in Google Maps</b> button on each stop searches by name, which is exact — use that for navigation."
+  ]
 }
 ];
 
 
-/* ---------- Google Maps links ---------- */
-const gSearch = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const gS = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+const byN = {}; STOPS.concat(EXTRAS).forEach(s => byN[s.n] = s);
 function gRoute(list){
-  const c = s => s.lat + "," + s.lng;
-  const o = list[0], d = list[list.length-1], w = list.slice(1,-1).map(c).join("|");
-  return "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=" + c(o) +
-         "&destination=" + c(d) + (w ? "&waypoints=" + encodeURIComponent(w) : "");
+  const c = p => p.routeQ ? p.routeQ : (p.lat.toFixed(6) + "," + p.lng.toFixed(6));
+  if(list.length < 2) return gS(list[0] ? list[0].gq : CITY.name);
+  const w = list.slice(1,-1).map(c).join("|");
+  return "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=" + c(list[0]) +
+         "&destination=" + c(list[list.length-1]) + (w ? "&waypoints=" + encodeURIComponent(w) : "");
 }
-document.getElementById("g1").href = gRoute(STOPS.slice(0,7));
-document.getElementById("g2").href = gRoute(STOPS.slice(6,15));
-document.getElementById("g3").href = gRoute(STOPS.slice(14,19));
+/* hotel -> stops -> hotel, split into legs of <=10 points */
+function dayLegs(nums){
+  const pts = [CITY.hotel].concat(nums.map(n => byN[n]).filter(Boolean)).concat([CITY.hotel]);
+  const legs = [];
+  for(let i = 0; i < pts.length - 1; i += 9) legs.push(pts.slice(i, i + 10));
+  return legs;
+}
 
-/* ---------- render cards ---------- */
-const esc = s => String(s);
+/* ---------- PLAN ---------- */
+$("#planIntro").innerHTML = `<div class="hero">
+  <h2>${CITY.dates}</h2>
+  <p>${CITY.plan}</p>
+  <p><b>Base:</b> ${CITY.hotel.name}. Every route below leaves from the hotel and comes back to it.</p>
+  <div class="pills">${CITY.pills.map(p=>`<span>${p}</span>`).join("")}</div>
+</div>`;
+
+$("#days").innerHTML = DAYS.map(d => {
+  const legs = dayLegs(d.stops);
+  const line = (n, cls) => {
+    const s = byN[n]; if(!s) return "";
+    return `<li><span class="n ${cls||''}">${s.n}</span><span class="t"><b>${s.name}</b><i>${s.dur} · ${s.fee}</i></span><button data-read="${s.n}">Read</button></li>`;
+  };
+  return `<article class="day">
+    <div class="top">
+      <div class="kick"><span class="slot ${d.slot==='Evening'?'eve':''}">${d.slot}</span><span class="when">${d.day}</span></div>
+      <h3>${d.title}</h3>
+      <div class="clock"><b>Out ${d.out}</b><b>Back ${d.back}</b><b>${d.walk}</b></div>
+    </div>
+    <div class="body">
+      <p>${d.intro}</p>
+      <ul class="seq">
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>Leave at ${d.out}</i></span></li>
+        ${d.stops.map(n => line(n)).join("")}
+        ${(d.optional||[]).length ? `<li style="padding-top:13px"><span class="n o">+</span><span class="t"><b style="color:var(--ink2)">If you are going faster</b><i>Optional — skip without guilt</i></span></li>` : ""}
+        ${(d.optional||[]).map(n => line(n,"o")).join("")}
+        <li><span class="n h">H</span><span class="t"><b>Back at ${CITY.hotel.name}</b><i>${d.after}</i></span></li>
+      </ul>
+      ${legs.map((L,i) => `<a class="btn${i?' g':''}" style="margin-bottom:8px" target="_blank" rel="noopener" href="${gRoute(L)}">Open ${legs.length>1?('leg '+(i+1)+' '):''}in Google Maps</a>`).join("")}
+      ${d.tips && d.tips.length ? `<div class="tipbox"><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : ""}
+    </div>
+  </article>`;
+}).join("");
+
+/* ---------- STOPS ---------- */
 function card(s, extra){
   const meta = extra
     ? `<span class="t">${s.dist}</span><span>${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span>`
     : `<span class="t">${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span><span>${s.block}</span>`;
-  const tips = (s.tips && s.tips.length)
-    ? `<div class="sec"><h4>Good to know</h4><ul>${s.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : "";
-  const mapBtn = extra ? "" : `<button data-go="${s.n}">Show on map</button>`;
   return `<article class="card${extra?" extra":""}" id="s${s.n}">
-    <div class="chead">
-      <div class="num">${s.n}</div>
-      <div><h3>${s.name}</h3><span class="alt">${s.alt}</span></div>
-    </div>
+    <div class="chead"><div class="num">${s.n}</div><div><h3>${s.name}</h3><span class="alt">${s.alt}</span></div></div>
     <div class="meta">${meta}</div>
-    <div class="acts"><a href="${gSearch(s.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>${mapBtn}</div>
-    ${tips}
+    <div class="acts"><a href="${gS(s.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>${extra?"":`<button data-go="${s.n}">Show on map</button>`}</div>
+    ${s.tips&&s.tips.length?`<div class="sec"><h4>Good to know</h4><ul>${s.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`:""}
     <details><summary>Know more — read this out</summary><div class="body">${s.more}</div></details>
   </article>`;
 }
-document.getElementById("stops").innerHTML  = STOPS.map(s=>card(s,false)).join("");
-document.getElementById("extras").innerHTML = EXTRAS.map(s=>card(s,true)).join("");
+$("#stops").innerHTML  = `<div class="sech"><h2>On foot</h2><i></i></div>` + STOPS.map(s=>card(s,false)).join("");
+$("#extras").innerHTML = EXTRAS.length ? `<div class="sech"><h2>Worth a taxi</h2><i></i></div>` + EXTRAS.map(s=>card(s,true)).join("") : "";
 
-/* ---------- tabs ---------- */
-const panes = {map:"p-map", stops:"p-stops", extra:"p-extra", info:"p-info"};
+/* ---------- FOOD ---------- */
+$("#food").innerHTML = `
+  <div class="hero"><h2>Eating in ${CITY.name}</h2><p>${FOOD.intro}</p></div>
+  <div class="sech"><h2>What to order</h2><i></i></div>
+  <div class="card" style="padding:4px 15px">${FOOD.dishes.map(d=>`<div class="dish"><div class="dn">${d.name}</div><div class="dd">${d.note}</div></div>`).join("")}</div>
+  <div class="sech"><h2>Where to eat</h2><i></i></div>
+  ${FOOD.places.map(p=>`<div class="eat">
+      <div class="et"><h4>${p.name}</h4><span class="pr">${p.price}</span></div>
+      <div class="ea">${p.type} · ${p.area}</div>
+      <p>${p.note}</p>
+      <a href="${gS(p.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>`).join("")}
+  <div class="pc warn" style="margin-top:16px"><h3>Before you book</h3><ul>${FOOD.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`;
+
+/* ---------- INFO ---------- */
+$("#info").innerHTML = PRACTICAL.map(b => `<div class="pc${b.warn?" warn":""}" style="margin-top:14px">
+  <h3>${b.title}</h3><ul>${b.items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`).join("");
+
+/* ---------- tabs & nav ---------- */
+const PANES = {plan:"p-plan", map:"p-map", stops:"p-stops", food:"p-food", info:"p-info"};
 function show(p){
   document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on", b.dataset.p===p));
-  Object.entries(panes).forEach(([k,id])=>document.getElementById(id).classList.toggle("on", k===p));
+  Object.entries(PANES).forEach(([k,id])=>$("#"+id).classList.toggle("on", k===p));
   if(p==="map" && window._map) setTimeout(()=>window._map.invalidateSize(), 60);
 }
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{show(b.dataset.p); window.scrollTo(0,0);});
-
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{show(b.dataset.p);scrollTo(0,0);});
 function goStop(n){
-  show(/^\d+$/.test(String(n)) ? "stops" : "extra");
-  const el = document.getElementById("s"+n);
-  if(!el) return;
+  show("stops");
+  const el = document.getElementById("s"+n); if(!el) return;
   const d = el.querySelector("details"); if(d) d.open = true;
-  setTimeout(()=>{
-    el.scrollIntoView({behavior:"smooth", block:"start"});
-    el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"), 1600);
-  }, 70);
+  setTimeout(()=>{el.scrollIntoView({behavior:"smooth",block:"start"});
+    el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);},70);
 }
 window.goStop = goStop;
 document.addEventListener("click", e=>{
-  const b = e.target.closest("[data-go]");
-  if(b){ showOnMap(+b.dataset.go); }
+  const r = e.target.closest("[data-read]"); if(r){ goStop(r.dataset.read); return; }
+  const g = e.target.closest("[data-go]");   if(g){ showOnMap(+g.dataset.go); }
 });
 
-/* ---------- offline schematic plan (no library, no tiles) ---------- */
+/* ---------- map route buttons ---------- */
+$("#gbar").innerHTML = DAYS.map((d,i)=>{
+  const legs = dayLegs(d.stops);
+  return legs.map((L,j)=>`<a class="${i?'alt':''}" target="_blank" rel="noopener" href="${gRoute(L)}">${d.slot} ${d.dayShort}${legs.length>1?' · leg '+(j+1):''}</a>`).join("");
+}).join("");
+
+/* ---------- offline schematic ---------- */
 (function(){
-  const W = 1000, H = 720, PAD = 86;
-  const lat0 = 39.776, k = Math.cos(lat0*Math.PI/180);          // lon compression at this latitude
-  const xs = STOPS.map(s=>s.lng*k), ys = STOPS.map(s=>-s.lat);
-  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
-  const sc = Math.min((W-2*PAD)/(x1-x0), (H-2*PAD)/(y1-y0));
-  const ox = (W - (x1-x0)*sc)/2 - x0*sc, oy = (H - (y1-y0)*sc)/2 - y0*sc;
-  const PX = s => [s.lng*k*sc+ox, -s.lat*sc+oy];
+  const W=1000, H=720, PAD=88;
+  const P = [CITY.hotel].concat(STOPS);
+  const k = Math.cos(CITY.hotel.lat*Math.PI/180);
+  const xs=P.map(s=>s.lng*k), ys=P.map(s=>-s.lat);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const sc=Math.min((W-2*PAD)/((x1-x0)||1e-6),(H-2*PAD)/((y1-y0)||1e-6));
+  const ox=(W-(x1-x0)*sc)/2-x0*sc, oy=(H-(y1-y0)*sc)/2-y0*sc;
+  const PX=s=>[s.lng*k*sc+ox, -s.lat*sc+oy];
+  let bar=200, mpu=1/(sc/111320);
+  while(bar/mpu>270) bar/=2; while(bar/mpu<90) bar*=2;
 
-  // metres per svg unit -> scale bar
-  const mPerDeg = 111320, mPerUnit = 1/(sc/mPerDeg);
-  let bar = 200; while(bar/mPerUnit > 260) bar/=2; while(bar/mPerUnit < 90) bar*=2;
-
-  const pts = STOPS.map(PX);
-  const line = pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
-
-  const short = {1:"Samanid",2:"Chashma Ayub",3:"Water tower",4:"Bolo Hauz",5:"The Ark",
-    6:"Zindan",7:"Poi Kalyan",8:"Ulugbek",9:"Zargaron",10:"Tim silk hall",11:"Telpak",
-    12:"Magoki",13:"Hammam",14:"Gaukushon",15:"Sarrafon",16:"Lyabi Hauz",17:"Chor Minor",
-    18:"Synagogue",19:"Khodjaev house"};
-
-  /* greedy label placement: try 8 slots round each pin, take the first that is free */
-  const FS = 16, CH = 7.4, LH = 19;
-  const slots = [];
-  [[0,1,"middle"],[0,-1,"middle"],[1,0,"start"],[-1,0,"end"],
-   [.72,-.72,"start"],[-.72,-.72,"end"],[.72,.72,"start"],[-.72,.72,"end"]]
-   .forEach(([ux,uy,an])=>[26,44,64,86,110].forEach(r=>
-      slots.push([ux*r, uy*r + (uy>0?8:uy<0?-2:6), an])));
-  slots.sort((a,b)=>(Math.hypot(a[0],a[1])-Math.hypot(b[0],b[1])));
-  const boxes = STOPS.map(s=>{ const [x,y]=PX(s); return [x-17,y-17,x+17,y+17]; });
-  const hits = (a,b) => !(a[2]<b[0]||a[0]>b[2]||a[3]<b[1]||a[1]>b[3]);
-  const labels = [];
-  STOPS.forEach(s=>{
-    const [x,y] = PX(s), w = short[s.n].length*CH;
-    let best = null;
-    for(const [dx,dy,an] of slots){
-      const lx = x+dx, ly = y+dy;
-      const x0b = an==="start" ? lx : an==="end" ? lx-w : lx-w/2;
-      const box = [x0b-3, ly-LH+3, x0b+w+3, ly+5];
-      if(box[0] < 6 || box[2] > W-6 || box[1] < 6 || box[3] > H-34) continue;
-      if(!boxes.some(b=>hits(box,b))){ best = {lx,ly,an,box,dx,dy}; break; }
-    }
-    if(!best){ const dx=0,dy=34,lx=x,ly=y+dy;
-      best = {lx,ly,an:"middle",box:[lx-w/2,ly-LH,lx+w/2,ly+4],dx,dy}; }
-    boxes.push(best.box);
-    labels.push({s,x,y,...best,w});
+  let g=`<rect width="${W}" height="${H}" fill="#F7F9FC"/>`;
+  for(let i=0;i<=W;i+=50) g+=`<line x1="${i}" y1="0" x2="${i}" y2="${H}" stroke="#E9EEF5" stroke-width="1"/>`;
+  for(let i=0;i<=H;i+=50) g+=`<line x1="0" y1="${i}" x2="${W}" y2="${i}" stroke="#E9EEF5" stroke-width="1"/>`;
+  DAYS.forEach(d=>{
+    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
+    if(!inner.length) return;
+    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(PX);
+    g+=`<path d="${pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${d.slot==='Evening'?'#B26A00':'#0A5FE0'}" stroke-width="3.5" stroke-opacity=".3" stroke-dasharray="10 8" stroke-linejoin="round"/>`;
   });
 
-  let g = `<rect width="${W}" height="${H}" fill="#f6f1e7"/>`;
-  for(let i=0;i<=W;i+=50) g += `<line x1="${i}" y1="0" x2="${i}" y2="${H}" stroke="#e8dfcd" stroke-width="1"/>`;
-  for(let i=0;i<=H;i+=50) g += `<line x1="0" y1="${i}" x2="${W}" y2="${i}" stroke="#e8dfcd" stroke-width="1"/>`;
-  g += `<path d="${line}" fill="none" stroke="#1c6b7a" stroke-width="4" stroke-opacity=".38" stroke-dasharray="11 9" stroke-linejoin="round"/>`;
-
-  labels.forEach(L=>{
-    const far = Math.hypot(L.dx, L.dy) > 38;
-    const leader = far ? `<line x1="${L.x}" y1="${L.y}" x2="${L.lx + (L.an==="end"?-2:L.an==="start"?2:0)}" y2="${L.ly-5}" stroke="#b9ac96" stroke-width="1.5"/>` : "";
-    g += `<g class="hit" data-n="${L.s.n}">
-      ${leader}
-      <circle cx="${L.x}" cy="${L.y}" r="22" fill="#fff" fill-opacity="0"/>
-      <circle class="d" cx="${L.x}" cy="${L.y}" r="14" fill="#1c6b7a" stroke="#fff" stroke-width="3"/>
-      <text x="${L.x}" y="${L.y+5}" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#fff">${L.s.n}</text>
-      <text x="${L.lx}" y="${L.ly}" text-anchor="${L.an}" font-family="-apple-system,sans-serif" font-size="${FS}" font-weight="600" fill="#5c5044" stroke="#f6f1e7" stroke-width="4.5" paint-order="stroke">${short[L.s.n]}</text>
+  const FS=16, CH=8.4, LH=19;
+  const slots=[];
+  [[0,1,"middle"],[0,-1,"middle"],[1,0,"start"],[-1,0,"end"],[.72,-.72,"start"],[-.72,-.72,"end"],[.72,.72,"start"],[-.72,.72,"end"]]
+    .forEach(([ux,uy,an])=>[26,44,64,86,110].forEach(r=>slots.push([ux*r, uy*r+(uy>0?8:uy<0?-2:6), an])));
+  slots.sort((a,b)=>Math.hypot(a[0],a[1])-Math.hypot(b[0],b[1]));
+  const boxes=P.map(s=>{const[x,y]=PX(s);return[x-17,y-17,x+17,y+17];});
+  const hit=(a,b)=>!(a[2]<b[0]||a[0]>b[2]||a[3]<b[1]||a[1]>b[3]);
+  const L=[];
+  P.forEach(s=>{
+    const [x,y]=PX(s), txt = s.short || s.name, w=txt.length*CH;
+    let best=null;
+    for(const [dx,dy,an] of slots){
+      const lx=x+dx, ly=y+dy;
+      const bx = an==="start"?lx: an==="end"?lx-w: lx-w/2;
+      const box=[bx-3, ly-LH+3, bx+w+3, ly+5];
+      if(box[0]<14||box[2]>W-14||box[1]<10||box[3]>H-38) continue;
+      if(!boxes.some(b=>hit(box,b))){best={lx,ly,an,box,dx,dy};break;}
+    }
+    if(!best){best={lx:x,ly:y+34,an:"middle",box:[x-w/2,y+15,x+w/2,y+38],dx:0,dy:34};}
+    boxes.push(best.box); L.push({s,x,y,txt,...best});
+  });
+  L.forEach(o=>{
+    const isH = o.s === CITY.hotel;
+    const far = Math.hypot(o.dx,o.dy)>38;
+    g += `<g class="hit" data-n="${isH?'H':o.s.n}">
+      ${far?`<line x1="${o.x}" y1="${o.y}" x2="${o.lx+(o.an==="end"?-2:o.an==="start"?2:0)}" y2="${o.ly-5}" stroke="#B9C4D2" stroke-width="1.5"/>`:""}
+      <circle cx="${o.x}" cy="${o.y}" r="22" fill="#fff" fill-opacity="0"/>
+      ${isH ? `<rect x="${o.x-14}" y="${o.y-14}" width="28" height="28" rx="8" fill="#0B1220"/>`
+            : `<circle cx="${o.x}" cy="${o.y}" r="14" fill="#0A5FE0" stroke="#fff" stroke-width="3"/>`}
+      <text x="${o.x}" y="${o.y+5}" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="700" fill="#fff">${isH?'H':o.s.n}</text>
+      <text x="${o.lx}" y="${o.ly}" text-anchor="${o.an}" font-family="Arial" font-size="${FS}" font-weight="700" fill="#5A6675" stroke="#F7F9FC" stroke-width="4.5" paint-order="stroke">${o.txt}</text>
     </g>`;
   });
+  const bx=PAD, by=H-26, bw=bar/mpu;
+  g+=`<line x1="${bx}" y1="${by}" x2="${bx+bw}" y2="${by}" stroke="#5A6675" stroke-width="3"/>
+      <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
+      <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
+      <text x="${bx+bw+10}" y="${by+6}" font-family="Arial" font-size="16" fill="#5A6675">${bar} m</text>
+      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = hotel · N &#8593;</text>`;
 
-  const bx = PAD, by = H-26, bw = bar/mPerUnit;
-  g += `<line x1="${bx}" y1="${by}" x2="${bx+bw}" y2="${by}" stroke="#5c5044" stroke-width="3"/>
-        <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5c5044" stroke-width="3"/>
-        <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5c5044" stroke-width="3"/>
-        <text x="${bx+bw+10}" y="${by+6}" font-family="-apple-system,sans-serif" font-size="16" fill="#5c5044">${bar} m</text>
-        <text x="${W-PAD}" y="${PAD-24}" text-anchor="end" font-family="-apple-system,sans-serif" font-size="15" fill="#a89b88">N ↑ · west ← old town → east</text>`;
-
-  const svg = document.getElementById("planSvg");
-  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-  svg.innerHTML = g;
-
-  const sheet = document.getElementById("sheet");
+  const svg=$("#planSvg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML=g;
+  const sheet=$("#sheet");
   svg.addEventListener("click", e=>{
-    const hit = e.target.closest(".hit"); if(!hit) return;
-    const s = STOPS.find(t=>t.n === +hit.dataset.n);
-    sheet.innerHTML = `<b>${s.n}. ${s.name}</b><i>${s.alt}</i>
-      <div class="row">
-        <a class="p" href="#" onclick="goStop(${s.n});closeSheet();return false;">Read</a>
-        <a class="s" href="${gSearch(s.gq)}" target="_blank" rel="noopener">Google Maps</a>
-        <button onclick="closeSheet()">Close</button>
-      </div>`;
+    const h=e.target.closest(".hit"); if(!h) return;
+    const id=h.dataset.n;
+    const s = id==="H" ? CITY.hotel : byN[+id];
+    const isH = id==="H";
+    sheet.innerHTML = `<b>${isH?"":s.n+". "}${s.name}</b><i>${isH?"Your base — routes start and end here":s.alt}</i>
+      <div class="r">${isH?"":`<a class="p" href="#" onclick="goStop(${s.n});closeSheet();return false;">Read</a>`}
+      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Google Maps</a>
+      <button onclick="closeSheet()">Close</button></div>`;
     sheet.classList.add("on");
   });
-  window.closeSheet = ()=>sheet.classList.remove("on");
+  window.closeSheet=()=>sheet.classList.remove("on");
 })();
 
 /* ---------- live / offline toggle ---------- */
-const tabLive = document.getElementById("tab-live"), tabPlan = document.getElementById("tab-plan");
+const tL=$("#tabLive"), tP=$("#tabPlan");
 function mapMode(m){
-  tabLive.classList.toggle("on", m==="live"); tabPlan.classList.toggle("on", m==="plan");
-  document.getElementById("map").style.display = m==="live" ? "" : "none";
-  document.getElementById("plan").classList.toggle("on", m==="plan");
+  tL.classList.toggle("on",m==="live"); tP.classList.toggle("on",m==="plan");
+  $("#map").style.display = m==="live" ? "" : "none";
+  $("#plan").classList.toggle("on", m==="plan");
   if(m!=="plan") closeSheet();
-  if(m==="live" && window._map) setTimeout(()=>window._map.invalidateSize(), 60);
+  if(m==="live" && window._map) setTimeout(()=>window._map.invalidateSize(),60);
 }
-tabLive.onclick = ()=>mapMode("live"); tabPlan.onclick = ()=>mapMode("plan");
+tL.onclick=()=>mapMode("live"); tP.onclick=()=>mapMode("plan");
 
-/* ---------- map ---------- */
+/* ---------- leaflet ---------- */
 if(typeof L === "undefined"){
-  tabLive.textContent = "Live map (offline)";
-  tabLive.onclick = ()=>alert("The live street map needs an internet connection. The Offline plan works without one.");
+  tL.textContent="Live map (offline)";
+  tL.onclick=()=>alert("The live street map needs an internet connection. The offline plan works without one.");
   mapMode("plan");
-  window.showOnMap = n => { show("map"); window.scrollTo(0,0); mapMode("plan"); };
+  window.showOnMap = n => { show("map"); scrollTo(0,0); mapMode("plan"); };
 } else {
-const map = L.map("map", {zoomControl:true, attributionControl:true}).setView([39.7768, 64.4155], 15);
-window._map = map;
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom:19, attribution:"© OpenStreetMap contributors"
-}).addTo(map);
-
-const markers = {};
-const all = STOPS.concat(EXTRAS);
-all.forEach(s=>{
-  const isX = typeof s.n === "string";
-  const m = L.marker([s.lat, s.lng], {
-    icon: L.divIcon({className:"", html:`<div class="pin${isX?" x":""}">${s.n}</div>`, iconSize:[29,29], iconAnchor:[14,14]})
-  }).addTo(map);
-  m.bindPopup(`<div class="pop"><b>${s.n}. ${s.name}</b><i>${s.alt}</i>
-    <div class="row">
-      <a class="p" href="#" onclick="goStop('${s.n}');return false;">Read</a>
-      <a class="s" href="${gSearch(s.gq)}" target="_blank" rel="noopener">Maps</a>
-    </div></div>`, {maxWidth:250});
-  markers[s.n] = m;
-});
-
-L.polyline(STOPS.map(s=>[s.lat,s.lng]), {color:"#1c6b7a", weight:3.5, opacity:.55, dashArray:"7 7"}).addTo(map);
-map.fitBounds(L.latLngBounds(STOPS.map(s=>[s.lat,s.lng])).pad(0.16));
-
-function showOnMap(n){
-  show("map"); window.scrollTo(0,0);
-  setTimeout(()=>{
-    map.invalidateSize();
-    map.setView(markers[n].getLatLng(), 17, {animate:true});
-    markers[n].openPopup();
-  }, 120);
-}
-window.showOnMap = showOnMap;
+  const map = L.map("map",{zoomControl:true}).setView([CITY.hotel.lat, CITY.hotel.lng], 15);
+  window._map = map;
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
+  const M = {};
+  const mk = (s, cls, label) => {
+    const m = L.marker([s.lat,s.lng],{icon:L.divIcon({className:"",html:`<div class="pin ${cls}">${label}</div>`,iconSize:[28,28],iconAnchor:[14,14]})}).addTo(map);
+    m.bindPopup(`<div class="pop"><b>${label==="H"?"":label+". "}${s.name}</b><i>${s.alt||"Your base"}</i><div class="r">
+      ${label==="H"?"":`<a class="p" href="#" onclick="goStop('${label}');return false;">Read</a>`}
+      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Maps</a></div></div>`,{maxWidth:250});
+    return m;
+  };
+  M["H"] = mk(CITY.hotel,"h","H");
+  STOPS.forEach(s=>M[s.n]=mk(s,"",s.n));
+  EXTRAS.forEach(s=>M[s.n]=mk(s,"x",s.n));
+  DAYS.forEach(d=>{
+    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
+    if(!inner.length) return;
+    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(s=>[s.lat,s.lng]);
+    L.polyline(pts,{color:d.slot==="Evening"?"#B26A00":"#0A5FE0",weight:3.5,opacity:.5,dashArray:"8 8"}).addTo(map);
+  });
+  map.fitBounds(L.latLngBounds([CITY.hotel].concat(STOPS).map(s=>[s.lat,s.lng])).pad(0.16));
+  window.showOnMap = n => { show("map"); scrollTo(0,0);
+    setTimeout(()=>{map.invalidateSize(); map.setView(M[n].getLatLng(),17,{animate:true}); M[n].openPopup();},120); };
 }
 
-/* ---------- back to top ---------- */
-const topBtn = document.getElementById("top");
-topBtn.onclick = ()=>window.scrollTo({top:0, behavior:"smooth"});
-addEventListener("scroll", ()=>{ topBtn.style.display = scrollY > 500 ? "block" : "none"; });
+const topB=$("#top");
+topB.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+addEventListener("scroll",()=>{topB.style.display = scrollY>520 ? "block" : "none";});
 </script>
 </body>
 </html>

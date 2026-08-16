@@ -2,124 +2,119 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Travels">
-<meta name="theme-color" content="#17323d">
+<meta name="theme-color" content="#0A5FE0">
 <title>Travels</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2317323d'/><text x='32' y='45' font-size='36' text-anchor='middle' fill='%23fff' font-family='Georgia'>T</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%230A5FE0'/><circle cx='32' cy='27' r='9' fill='none' stroke='%23fff' stroke-width='5'/><path d='M32 39v13' stroke='%23fff' stroke-width='5' stroke-linecap='round'/></svg>">
 <style>
 :root{
-  --ink:#221a12; --ink2:#5c5044; --line:#e3d9c8;
-  --paper:#faf6ef; --card:#fff;
-  --teal:#1c6b7a; --teal-d:#11414b;
-  --clay:#b4552d; --hdr:#17323d;
-  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  --blue:#0A5FE0; --blue-d:#0742A8; --blue-x:#053174;
+  --blue-l:#EAF2FE; --blue-l2:#F5F9FF;
+  --ink:#0B1220; --ink2:#5A6675; --ink3:#8D98A6;
+  --line:#E4E9F0; --line2:#F0F3F7; --surf:#F7F9FC;
+  --amber:#B26A00; --amber-l:#FFF6E8;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  margin:0;background:var(--paper);color:var(--ink);
-  font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
-  -webkit-text-size-adjust:100%;
-}
-h1,h2,h3{font-family:"New York","Iowan Old Style",Georgia,serif;font-weight:600;margin:0;line-height:1.2}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.6 Arial,"Helvetica Neue",Helvetica,sans-serif}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+p{margin:0}
 
-header{
-  background:linear-gradient(165deg,#1f4a58,#12242c);color:#fff;
-  padding:calc(var(--safe-t) + 30px) 20px 26px;
-}
-header h1{font-size:31px;letter-spacing:.3px}
-header p{margin:8px 0 0;font-size:14.5px;color:rgba(255,255,255,.68);max-width:34em}
+header{background:linear-gradient(155deg,var(--blue),var(--blue-x));color:#fff;padding:calc(var(--st) + 34px) 20px 30px}
+header h1{font-size:34px;letter-spacing:-.03em}
+header p{margin-top:9px;font-size:15px;color:rgba(255,255,255,.8);max-width:33em}
+header .stat{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+header .stat span{background:rgba(255,255,255,.16);border-radius:100px;padding:6px 13px;font-size:12px;font-weight:700}
 
-main{padding:0 14px calc(var(--safe-b) + 40px);max-width:720px;margin:0 auto}
-.sec{margin:26px 0 12px;display:flex;align-items:center;gap:10px}
-.sec h2{font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:var(--clay);font-family:-apple-system,sans-serif;font-weight:700}
-.sec .rule{flex:1;height:1px;background:var(--line)}
+main{padding:0 14px calc(var(--sb) + 44px);max-width:760px;margin:0 auto}
+
+.month{display:flex;align-items:center;gap:12px;margin:30px 0 4px}
+.month h2{font-size:20px;letter-spacing:-.02em}
+.month i{flex:1;height:2px;background:var(--line);font-style:normal}
+.month b{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase}
+
+.country{display:flex;align-items:center;gap:8px;margin:18px 0 10px}
+.country h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.country em{font-style:normal;font-size:11px;font-weight:700;color:var(--ink3);background:var(--surf);border:1px solid var(--line);border-radius:100px;padding:3px 9px}
 
 a.trip{
-  display:block;text-decoration:none;color:inherit;
-  background:var(--card);border:1px solid var(--line);border-radius:15px;
-  margin-bottom:12px;overflow:hidden;position:relative;
-  transition:transform .12s ease;
+  display:block;position:relative;text-decoration:none;color:inherit;
+  border:1px solid var(--line);border-radius:16px;margin-bottom:11px;overflow:hidden;
+  transition:transform .12s ease, box-shadow .12s ease;
 }
-a.trip:active{transform:scale(.985)}
-a.trip .bar{position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--teal)}
-a.trip .in{display:block;padding:16px 16px 16px 22px}
-.ttop{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.ttop h3{font-size:20px}
-.ttop .when{font-size:12.5px;color:var(--ink2);font-weight:600;white-space:nowrap}
-.tsub{display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:var(--ink2);font-size:13px;margin-top:3px}
-.tag{
-  display:block;width:fit-content;margin-top:11px;font-size:11.5px;font-weight:700;
-  background:#eef4f5;color:var(--teal-d);border-radius:20px;padding:5px 11px;
-}
-.blurb{display:block;margin:11px 0 0;font-size:14.5px;line-height:1.6;color:var(--ink2)}
-.go{display:block;margin-top:13px;font-size:13.5px;font-weight:700;color:var(--teal)}
-.badge{
-  font-size:10px;font-weight:800;letter-spacing:.7px;
-  text-transform:uppercase;background:var(--clay);color:#fff;border-radius:20px;padding:3px 9px;
-}
+a.trip:active{transform:scale(.985);box-shadow:0 3px 14px rgba(11,18,32,.08)}
+a.trip .bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--blue)}
+a.trip .in{display:block;padding:16px 16px 16px 21px}
+.t1{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.t1 h4{font-size:21px}
+.t1 .when{font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.t2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:5px}
+.hot{font-size:12.5px;color:var(--ink2)}
+.badge{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--amber);color:#fff;border-radius:100px;padding:3px 8px}
+.badge.now{background:#0F9D58}
+.tag{display:block;width:fit-content;margin-top:11px;font-size:11.5px;font-weight:700;background:var(--blue-l);color:var(--blue-d);border-radius:100px;padding:6px 12px}
+.blurb{display:block;margin-top:11px;font-size:14.5px;line-height:1.6;color:var(--ink2)}
+.go{display:block;margin-top:13px;font-size:13.5px;font-weight:700;color:var(--blue)}
 
-.note{
-  background:#fff;border:1px solid var(--line);border-radius:15px;margin-top:22px;overflow:hidden;
-}
-.note summary{
-  list-style:none;cursor:pointer;padding:15px 16px;background:#eef4f5;color:var(--teal-d);
-  font:700 13.5px/1 -apple-system,sans-serif;display:flex;justify-content:space-between;align-items:center;
-}
+.note{border:1px solid var(--line);border-radius:16px;margin-top:26px;overflow:hidden}
+.note summary{list-style:none;cursor:pointer;padding:16px;background:var(--blue-l2);color:var(--blue-d);font:700 13.5px/1 Arial,sans-serif;display:flex;justify-content:space-between;align-items:center}
 .note summary::-webkit-details-marker{display:none}
-.note summary::after{content:"＋";font-size:17px;font-weight:400}
-.note[open] summary::after{content:"－"}
+.note summary::after{content:"+";font-size:19px;font-weight:400;line-height:1}
+.note[open] summary::after{content:"–"}
 .note .body{padding:6px 18px 20px}
-.note h4{margin:16px 0 7px;font:700 13px/1.4 -apple-system,sans-serif;color:var(--clay);text-transform:uppercase;letter-spacing:.8px}
+.note h5{margin:17px 0 7px;font:700 11px/1.4 Arial,sans-serif;color:var(--blue);text-transform:uppercase;letter-spacing:.1em}
 .note ol{margin:0;padding-left:20px}
 .note li{margin-bottom:9px;font-size:14.5px;line-height:1.6}
-.note code,pre{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
-.note code{background:#f2ede3;padding:2px 5px;border-radius:5px}
-pre{background:#20313a;color:#e9e2d4;padding:13px 14px;border-radius:11px;overflow-x:auto;line-height:1.55}
-.err{background:#fbeade;border:1px solid #f0cdb8;color:#8a3f1e;border-radius:14px;padding:16px;font-size:14.5px;line-height:1.6}
-footer{text-align:center;color:var(--ink2);font-size:12px;padding:26px 16px calc(var(--safe-b) + 26px)}
+code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--surf);border:1px solid var(--line);padding:2px 6px;border-radius:5px}
+pre{background:#0B1220;color:#DCE6F5;padding:14px;border-radius:12px;overflow-x:auto;font:12.5px/1.6 ui-monospace,Menlo,monospace}
+.err{background:var(--amber-l);border:1px solid #f2dfc0;color:#6b4400;border-radius:16px;padding:17px;font-size:14.5px;line-height:1.6;margin-top:20px}
+footer{text-align:center;color:var(--ink3);font-size:12px;padding:26px 16px calc(var(--sb) + 28px)}
 </style>
 </head>
 <body>
 
 <header>
   <h1>Travels</h1>
-  <p>City guides, built to be read on the move. Each one works offline once it has loaded.</p>
+  <p>City guides built for the phone. Each one plans the day around the heat, starts and ends at the hotel, and works offline.</p>
+  <div class="stat" id="stat"></div>
 </header>
 
 <main>
-  <div id="list"><p style="color:var(--ink2);padding:20px 4px">Loading…</p></div>
+  <div id="list"><p style="color:var(--ink2);padding:24px 4px">Loading…</p></div>
 
   <details class="note">
     <summary>How to add the next city</summary>
     <div class="body">
-      <h4>Two steps. The home page never changes.</h4>
+      <h5>Two steps — the home page never changes</h5>
       <ol>
-        <li>Upload the new guide to the repo root, named after the city — <code>khiva.html</code>, <code>samarkand.html</code>. Lower case, no spaces.</li>
-        <li>Open <code>trips.json</code> → pencil icon → add one block to the <code>trips</code> list → Commit.</li>
+        <li>Upload the guide to the repo root, named after the city: <code>khiva.html</code>. Lower case, no spaces.</li>
+        <li>Open <code>trips.json</code> → pencil → add one block to the <code>trips</code> list → Commit.</li>
       </ol>
-      <h4>The block to copy</h4>
+      <h5>The block to copy</h5>
 <pre>{
   "city": "Khiva",
   "country": "Uzbekistan",
-  "dates": "August 2026",
-  "start": "2026-08-20",
+  "dates": "21–22 August 2026",
+  "start": "2026-08-21",
   "file": "khiva.html",
-  "tag": "14 stops · 3 km · walking",
-  "blurb": "One sentence about the guide.",
-  "accent": "#b4552d"
+  "hotel": "Orient Star Khiva",
+  "tag": "14 stops · 2 mornings",
+  "blurb": "One sentence.",
+  "accent": "#0A5FE0"
 }</pre>
-      <h4>Watch out for</h4>
+      <h5>Watch out for</h5>
       <ol>
         <li>Put a <b>comma</b> after the previous block's closing <code>}</code> — a missing comma is the only thing that breaks this page.</li>
-        <li><code>start</code> is <code>YYYY-MM-DD</code>. It sorts the list and decides Upcoming vs Past. Nothing else uses it.</li>
-        <li><code>accent</code> is any hex colour — it tints the card stripe.</li>
-        <li>GitHub Pages takes about a minute to rebuild. Pull down to refresh if you don't see it.</li>
+        <li><code>start</code> is <code>YYYY-MM-DD</code>. It sets the month heading and the sort order.</li>
+        <li><code>country</code> drives the country sub-heading, even when there is only one city in it.</li>
+        <li>GitHub Pages takes about a minute to rebuild.</li>
       </ol>
-      <h4>Add this page to your Home Screen</h4>
+      <h5>Home Screen</h5>
       <ol>
-        <li>Safari → Share → <b>Add to Home Screen</b>. The icon always opens this list, and every new city appears in it automatically.</li>
+        <li>Safari → Share → <b>Add to Home Screen</b>. The icon always opens this list and picks up new cities automatically.</li>
       </ol>
     </div>
   </details>
@@ -130,16 +125,24 @@ footer{text-align:center;color:var(--ink2);font-size:12px;padding:26px 16px calc
 <script>
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MON = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-function card(t, upcoming){
-  const accent = /^#[0-9a-f]{3,8}$/i.test(t.accent || "") ? t.accent : "#1c6b7a";
+function monthKey(t){
+  const m = /^(\d{4})-(\d{2})/.exec(t.start || "");
+  return m ? {k:m[1]+"-"+m[2], label:MON[+m[2]-1]+" "+m[1]} : {k:"0000-00", label:"Undated"};
+}
+
+function card(t, state){
+  const accent = /^#[0-9a-fA-F]{3,8}$/.test(t.accent || "") ? t.accent : "#0A5FE0";
+  const badge = state === "now" ? '<span class="badge now">Here now</span>'
+              : state === "next" ? '<span class="badge">Upcoming</span>' : "";
   return `<a class="trip" href="${esc(t.file)}">
     <span class="bar" style="background:${accent}"></span>
     <span class="in">
-      <span class="ttop"><h3>${esc(t.city)}</h3><span class="when">${esc(t.dates)}</span></span>
-      <span class="tsub">${esc(t.country)}${upcoming ? '<span class="badge">Upcoming</span>' : ''}</span>
+      <span class="t1"><h4>${esc(t.city)}</h4><span class="when">${esc(t.dates)}</span></span>
+      <span class="t2">${t.hotel ? `<span class="hot">${esc(t.hotel)}</span>` : ""}${badge}</span>
       ${t.tag ? `<span class="tag">${esc(t.tag)}</span>` : ""}
-      ${t.blurb ? `<p class="blurb">${esc(t.blurb)}</p>` : ""}
+      ${t.blurb ? `<span class="blurb">${esc(t.blurb)}</span>` : ""}
       <span class="go">Open guide →</span>
     </span>
   </a>`;
@@ -149,30 +152,49 @@ function render(trips){
   const today = new Date().toISOString().slice(0,10);
   const ok = trips.filter(t => t && t.city && t.file);
   ok.sort((a,b) => String(b.start||"").localeCompare(String(a.start||"")));
-  const up   = ok.filter(t => (t.start||"") >= today);
-  const past = ok.filter(t => (t.start||"") <  today);
+
+  // state: the most recent trip whose start <= today is "now"; anything in the future is "next"
+  const future = ok.filter(t => (t.start||"") > today);
+  const current = ok.find(t => (t.start||"") <= today);
+  const stateOf = t => t === current ? "now" : (t.start||"") > today ? "next" : "";
+
+  // group by month, then country
+  const months = [];
+  ok.forEach(t => {
+    const mk = monthKey(t);
+    let m = months.find(x => x.k === mk.k);
+    if(!m){ m = {k:mk.k, label:mk.label, countries:[]}; months.push(m); }
+    let c = m.countries.find(x => x.name === (t.country || "—"));
+    if(!c){ c = {name:t.country || "—", trips:[]}; m.countries.push(c); }
+    c.trips.push(t);
+  });
+  months.forEach(m => m.countries.sort((a,b)=>a.name.localeCompare(b.name)));
 
   let h = "";
   if(!ok.length) h = `<div class="err">No trips listed yet. Add one to <b>trips.json</b> — see the panel below.</div>`;
-  if(up.length){
-    h += `<div class="sec"><h2>Upcoming</h2><span class="rule"></span></div>`;
-    h += up.map(t => card(t, true)).join("");
-  }
-  if(past.length){
-    h += `<div class="sec"><h2>${up.length ? "Been there" : "Guides"}</h2><span class="rule"></span></div>`;
-    h += past.map(t => card(t, false)).join("");
-  }
+  months.forEach(m => {
+    const n = m.countries.reduce((s,c)=>s+c.trips.length,0);
+    h += `<div class="month"><h2>${m.label}</h2><i></i><b>${n} ${n===1?"city":"cities"}</b></div>`;
+    m.countries.forEach(c => {
+      h += `<div class="country"><h3>${esc(c.name)}</h3><em>${c.trips.length}</em></div>`;
+      h += c.trips.map(t => card(t, stateOf(t))).join("");
+    });
+  });
   $("#list").innerHTML = h;
-  $("#foot").textContent = ok.length + (ok.length === 1 ? " guide" : " guides") + " · updated automatically from trips.json";
+
+  const countries = new Set(ok.map(t=>t.country).filter(Boolean));
+  $("#stat").innerHTML = `<span>${ok.length} ${ok.length===1?"guide":"guides"}</span>`
+    + `<span>${countries.size} ${countries.size===1?"country":"countries"}</span>`
+    + (future.length ? `<span>${future.length} upcoming</span>` : "");
+  $("#foot").textContent = "Updated automatically from trips.json";
 }
 
 fetch("trips.json?v=" + Date.now())
   .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
   .then(d => render(Array.isArray(d) ? d : (d.trips || [])))
   .catch(e => {
-    $("#list").innerHTML = `<div class="err"><b>Could not read trips.json.</b><br>
-      ${esc(e.message)}<br><br>
-      Usually one of two things: a <b>missing or extra comma</b> in trips.json, or the file isn't in the repo root next to this page.
+    $("#list").innerHTML = `<div class="err"><b>Could not read trips.json.</b><br>${esc(e.message)}<br><br>
+      Usually a <b>missing or extra comma</b> in trips.json, or the file is not in the repo root next to this page.
       Open trips.json on GitHub — if it shows raw text instead of a formatted table, the JSON is invalid.</div>`;
     $("#foot").textContent = "";
   });
