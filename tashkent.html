@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0A5FE0">
+<title>Tashkent — August 2026 — dates to confirm</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%230A5FE0'/><circle cx='32' cy='27' r='9' fill='none' stroke='%23fff' stroke-width='5'/><path d='M32 39v13' stroke='%23fff' stroke-width='5' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --blue:#0A5FE0; --blue-d:#0742A8; --blue-x:#053174;
+  --blue-l:#EAF2FE; --blue-l2:#F5F9FF;
+  --ink:#0B1220; --ink2:#5A6675; --ink3:#8D98A6;
+  --line:#E4E9F0; --line2:#F0F3F7;
+  --bg:#FFFFFF; --surf:#F7F9FC;
+  --amber:#B26A00; --amber-l:#FFF6E8;
+  --r:16px; --r2:12px;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+  --hh:112px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 Arial,"Helvetica Neue",Helvetica,sans-serif;
+  overscroll-behavior-y:none;
+}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.25;letter-spacing:-.015em}
+p{margin:0}
+a{color:var(--blue)}
+
+/* header */
+header{position:sticky;top:0;z-index:900;background:var(--blue);color:#fff}
+.hb{padding:calc(var(--st) + 13px) 16px 11px;display:flex;align-items:baseline;gap:10px}
+.hb h1{font-size:19px}
+.hb span{font-size:12px;opacity:.8;font-weight:700;letter-spacing:.02em}
+nav{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 8px;background:var(--blue)}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:1 0 auto;min-width:66px;appearance:none;border:0;background:transparent;cursor:pointer;
+  color:rgba(255,255,255,.72);font:700 13px/1 Arial,sans-serif;
+  padding:12px 12px 11px;border-bottom:3px solid transparent;white-space:nowrap;
+}
+nav button.on{color:#fff;border-bottom-color:#fff}
+
+main{padding-bottom:calc(var(--sb) + 40px)}
+.pane{display:none}
+.pane.on{display:block}
+.wrap{padding:0 14px;max-width:760px;margin:0 auto}
+
+/* generic blocks */
+.hero{
+  background:linear-gradient(150deg,var(--blue),var(--blue-x));color:#fff;
+  border-radius:var(--r);padding:18px;margin:14px 0;
+}
+.hero h2{font-size:19px;margin-bottom:8px}
+.hero p{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.88);margin-bottom:9px}
+.hero p:last-of-type{margin-bottom:0}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.pills span{background:rgba(255,255,255,.16);border-radius:100px;padding:6px 12px;font-size:11.5px;font-weight:700}
+
+.sech{display:flex;align-items:center;gap:11px;margin:26px 0 12px}
+.sech h2{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
+.sech i{flex:1;height:1px;background:var(--line);font-style:normal}
+
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden;scroll-margin-top:calc(var(--hh) + 8px)}
+.card.flash{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-l)}
+
+/* PLAN */
+.day{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.day .top{padding:16px 16px 13px;background:var(--blue-l2);border-bottom:1px solid var(--line)}
+.day .kick{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.day .slot{background:var(--blue);color:#fff;font:700 10.5px/1 Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;border-radius:100px;padding:5px 10px}
+.day .slot.eve{background:var(--amber)}
+.day .slot.opt{background:var(--ink3)}
+.day .when{font-size:12px;font-weight:700;color:var(--ink2)}
+.day h3{font-size:18.5px}
+.day .clock{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+.day .clock b{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--ink2)}
+.day .body{padding:15px 16px 16px}
+.day .body>p{font-size:14.5px;line-height:1.65;color:var(--ink2);margin-bottom:13px}
+.seq{list-style:none;margin:0 0 14px;padding:0}
+.seq li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line2)}
+.seq li:last-child{border-bottom:0}
+.seq .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--blue-l);color:var(--blue-d);display:flex;align-items:center;justify-content:center;font:700 12px/1 Arial,sans-serif;margin-top:1px}
+.seq .n.h{background:var(--ink);color:#fff}
+.seq .n.o{background:var(--surf);color:var(--ink3)}
+.seq .t{flex:1;min-width:0}
+.seq .t b{display:block;font-size:15px;font-weight:700}
+.seq .t i{display:block;font-style:normal;font-size:12.5px;color:var(--ink2);margin-top:1px}
+.seq button{appearance:none;border:0;background:var(--surf);color:var(--blue);font:700 12px/1 Arial,sans-serif;padding:8px 11px;border-radius:8px;cursor:pointer;margin-top:2px}
+.btn{
+  display:block;width:100%;text-align:center;text-decoration:none;cursor:pointer;appearance:none;border:0;
+  background:var(--blue);color:#fff;font:700 14px/1 Arial,sans-serif;padding:14px;border-radius:var(--r2);
+}
+.btn.g{background:var(--surf);color:var(--blue);border:1px solid var(--line)}
+.row2{display:flex;gap:8px}
+.row2>*{flex:1}
+.tipbox{background:var(--amber-l);border-radius:var(--r2);padding:13px 15px;margin-top:13px}
+.tipbox ul{margin:0;padding-left:17px}
+.tipbox li{font-size:13.5px;line-height:1.55;margin-bottom:6px;color:#6b4400}
+.tipbox li:last-child{margin-bottom:0}
+
+/* MAP */
+.gbar{display:flex;gap:8px;padding:12px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.gbar::-webkit-scrollbar{display:none}
+.gbar a{flex:0 0 auto;text-decoration:none;background:var(--blue);color:#fff;font:700 12.5px/1 Arial,sans-serif;padding:11px 14px;border-radius:100px;white-space:nowrap}
+.gbar a.alt{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.hint{padding:11px 14px;background:var(--blue-l2);color:var(--blue-d);font-size:12.5px;line-height:1.5;border-bottom:1px solid var(--line)}
+.seg{display:flex;padding:11px 14px;gap:0}
+.seg button{flex:1;appearance:none;cursor:pointer;background:var(--surf);color:var(--ink2);border:1px solid var(--line);font:700 13px/1 Arial,sans-serif;padding:11px 6px}
+.seg button:first-child{border-radius:10px 0 0 10px}
+.seg button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.seg button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+#map{width:100%;height:calc(100vh - 250px - var(--st));height:calc(100dvh - 250px - var(--st));min-height:380px;background:var(--surf)}
+.pin{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font:700 12.5px/1 Arial,sans-serif;box-shadow:0 2px 8px rgba(11,18,32,.35)}
+.pin.x{background:var(--amber)}
+.pin.h{background:var(--ink);border-radius:8px}
+.leaflet-popup-content-wrapper{border-radius:13px}
+.leaflet-popup-content{margin:12px 13px;font:14px/1.45 Arial,sans-serif}
+.pop b{display:block;font-size:15px;margin-bottom:2px}
+.pop i{display:block;font-style:normal;color:var(--ink2);font-size:12px;margin-bottom:9px}
+.pop .r{display:flex;gap:6px}
+.pop a{flex:1;text-align:center;text-decoration:none;font:700 12.5px/1 Arial,sans-serif;padding:9px 8px;border-radius:8px}
+.pop a.p{background:var(--blue);color:#fff}
+.pop a.s{background:var(--blue-l);color:var(--blue-d)}
+#plan{display:none;background:var(--surf)}
+#plan.on{display:block}
+#planSvg{width:100%;height:auto;display:block}
+.pfoot{padding:10px 14px 16px;font-size:12px;color:var(--ink2);text-align:center}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(var(--sb) + 12px);z-index:950;background:#fff;border-radius:var(--r);box-shadow:0 10px 40px rgba(11,18,32,.25);border:1px solid var(--line);padding:15px;display:none}
+.sheet.on{display:block}
+.sheet b{display:block;font-size:16px;margin-bottom:2px}
+.sheet i{display:block;font-style:normal;color:var(--ink2);font-size:12.5px;margin-bottom:11px}
+.sheet .r{display:flex;gap:7px}
+.sheet .r a,.sheet .r button{flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;font:700 13px/1 Arial,sans-serif;padding:12px 6px;border-radius:10px}
+.sheet .r a.p{background:var(--blue);color:#fff}
+.sheet .r a.s{background:var(--blue-l);color:var(--blue-d)}
+.sheet .r button{background:var(--surf);color:var(--ink2);border:1px solid var(--line)}
+
+/* STOPS */
+.chead{display:flex;gap:12px;padding:16px 15px 12px;align-items:flex-start}
+.num{flex:0 0 33px;height:33px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font:700 14.5px/1 Arial,sans-serif}
+.card.extra .num{background:var(--amber)}
+.chead h3{font-size:17px}
+.chead .alt{display:block;color:var(--ink2);font-size:12.5px;margin-top:3px;line-height:1.45}
+.meta{display:flex;flex-wrap:wrap;gap:6px;padding:0 15px 13px}
+.meta span{font-size:11px;font-weight:700;background:var(--surf);color:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.meta span.t{background:var(--blue-l);color:var(--blue-d);border-color:#d3e4fd}
+.acts{display:flex;gap:8px;padding:0 15px 14px}
+.acts a,.acts button{flex:1;appearance:none;border:0;cursor:pointer;text-align:center;text-decoration:none;font:700 13px/1 Arial,sans-serif;padding:12px 6px;border-radius:10px}
+.acts a{background:var(--blue);color:#fff}
+.acts button{background:var(--surf);color:var(--ink2);border:1px solid var(--line)}
+.sec{border-top:1px solid var(--line);padding:14px 15px}
+.sec h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:9px}
+.sec ul{margin:0;padding-left:17px}
+.sec li{margin-bottom:7px;font-size:14.5px;line-height:1.55}
+.sec li:last-child{margin-bottom:0}
+details{border-top:1px solid var(--line)}
+details summary{list-style:none;cursor:pointer;padding:15px;display:flex;justify-content:space-between;align-items:center;font:700 13.5px/1 Arial,sans-serif;color:var(--blue-d);background:var(--blue-l2)}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-size:19px;font-weight:400;line-height:1}
+details[open] summary::after{content:"–"}
+.body{padding:6px 16px 20px}
+.body p{margin:0 0 13px;font-size:15.5px;line-height:1.72;color:#1a2433}
+.body p:last-child{margin:0}
+.body h4{font-size:15.5px;color:var(--blue-d);margin:19px 0 8px;text-transform:none;letter-spacing:-.01em}
+.body em{color:var(--ink2)}
+
+/* FOOD */
+.dish{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line2)}
+.dish:last-child{border-bottom:0}
+.dish .dn{flex:0 0 96px;font-weight:700;font-size:14.5px;color:var(--blue-d)}
+.dish .dd{flex:1;font-size:14px;line-height:1.55;color:var(--ink2)}
+.eat{border:1px solid var(--line);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.eat .et{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.eat h4{font-size:16px}
+.eat .pr{font-size:11.5px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.eat .ea{font-size:12px;color:var(--blue);font-weight:700;margin-top:3px}
+.eat p{font-size:14px;line-height:1.6;color:var(--ink2);margin-top:8px}
+.eat a{display:inline-block;margin-top:11px;text-decoration:none;background:var(--surf);border:1px solid var(--line);color:var(--blue);font:700 12.5px/1 Arial,sans-serif;padding:10px 13px;border-radius:9px}
+
+/* INFO */
+.pc{border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.pc h3{font-size:16px;margin-bottom:10px;color:var(--blue-d)}
+.pc ul{margin:0;padding-left:17px}
+.pc li{margin-bottom:8px;font-size:14.5px;line-height:1.55}
+.pc li:last-child{margin-bottom:0}
+.pc.warn{background:var(--amber-l);border-color:#f2dfc0}
+.pc.warn h3{color:var(--amber)}
+.pc.warn li{color:#6b4400}
+footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--ink3);font-size:12px;line-height:1.6}
+#top{position:fixed;right:14px;bottom:calc(var(--sb) + 16px);z-index:800;width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:19px;box-shadow:0 4px 14px rgba(11,18,32,.3);display:none;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hb"><h1>Tashkent</h1><span>Top 10 · 2 mornings</span></div>
+  <nav>
+    <button data-p="plan" class="on">Plan</button>
+    <button data-p="map">Map</button>
+    <button data-p="stops">Stops</button>
+    <button data-p="food">Food</button>
+    <button data-p="info">Info</button>
+  </nav>
+</header>
+
+<main>
+  <section class="pane on" id="p-plan"><div class="wrap"><div id="planIntro"></div><div id="days"></div></div></section>
+
+  <section class="pane" id="p-map">
+    <div class="gbar" id="gbar"></div>
+    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at your base. Google caps a route at 10 points, so longer days are split.</div>
+    <div class="seg"><button id="tabLive" class="on">Live map</button><button id="tabPlan">Offline plan</button></div>
+    <div><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="pfoot">Schematic — true relative positions, no streets. Works with no signal.</div></div></div>
+  </section>
+
+  <section class="pane" id="p-stops"><div class="wrap"><div id="stops"></div><div id="extras"></div></div></section>
+  <section class="pane" id="p-food"><div class="wrap"><div id="food"></div></div></section>
+  <section class="pane" id="p-info"><div class="wrap"><div id="info"></div></div></section>
+</main>
+
+<div class="sheet" id="sheet"></div>
+<button id="top" aria-label="Top">&#8593;</button>
+<footer>Tashkent, Uzbekistan · August 2026 — dates to confirm<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const CITY = {
+  name:"Tashkent", country:"Uzbekistan",
+  dates:"August 2026 — dates to confirm",
+  sub:"Top 10 · 2 mornings",
+  plan:"Tashkent is huge, flat and modern, and its sights are spread across two clusters: the old town in the north-west and the Soviet-and-after centre. Two early mornings covers all ten, with the hot middle of the day back at the base and one evening out.",
+  baseLine:"<b>Base: not booked yet.</b> Routes below currently start and end at <b>Amir Timur Square</b> in the centre. Tell me your hotel and every route re-anchors to it.",
+  pills:["Top 10","2 mornings","1 evening","Metro city","Out 07:00"],
+  hotel:{ name:"Amir Timur Square", short:"Base", gq:"Amir Timur Square Tashkent",
+          routeQ:"Amir Timur Square, Tashkent",
+          leaveLabel:"Placeholder start — replace with your hotel",
+          backLabel:"Back to base",
+          lat:41.3098, lng:69.2820,
+          alt:"Placeholder base — the geographic centre of the sights" }
+};
+
+const DAYS = [
+{
+  slot:"Morning", day:"Day 1", dayShort:"D1", out:"07:00", back:"12:30",
+  walk:"2.5 km on foot + metro", after:"Lunch, nap, pool",
+  title:"Old Tashkent: the metro, the bazaar, the Qur'an",
+  intro:"Ride the metro out to Chorsu — the ride is one of the ten things, not a way of getting to them — then the bazaar at its busiest, the madrasa above it, and a short taxi north to the holiest site in the country.",
+  stops:[1,2,3,4],
+  optional:[],
+  tips:[
+    "Chorsu opens at 05:00 and is at its best before 09:00 — full of traders, empty of tourists, and cool.",
+    "Get off at Chorsu station: the station itself is one of the prettiest on the network.",
+    "Khast Imam is a 1.5 km walk or a 5-minute taxi north of Chorsu. In August, take the taxi.",
+    "Dress properly for Khast Imam — it is a working religious complex and the most conservative place you will visit in Uzbekistan.",
+    "Breakfast in Chorsu: samsa straight from the tandir on the lower level, then non and dried fruit under the dome."
+  ]
+},
+{
+  slot:"Morning", day:"Day 2", dayShort:"D2", out:"07:30", back:"12:30",
+  walk:"3 km on foot", after:"Lunch, nap, pool",
+  title:"The centre: squares, opera, applied arts",
+  intro:"The other Tashkent — Soviet planning, fountains, plane trees and marble. Almost all of it is walkable in one loop from Amir Timur Square, and much of it is shaded.",
+  stops:[5,6,8,9],
+  optional:[10],
+  tips:[
+    "Start at Amir Timur Square for the shade. The plane trees here are the oldest thing in the centre.",
+    "The Applied Arts Museum is the sleeper hit — a 19th-century Russian diplomat's house covered inside in carved ganch and painted ceilings. Better than the building it is in suggests.",
+    "Independence Square has been under large-scale redevelopment; parts may be fenced. Check before making a special trip.",
+    "The State History Museum has been closed for renovation since 2024 — confirm before going.",
+    "Minor Mosque (10) is 4 km north and needs a taxi. Best in the late afternoon when the white marble goes warm."
+  ]
+},
+{
+  slot:"Evening", day:"Day 2", dayShort:"D2", out:"18:30", back:"21:30",
+  walk:"1.5 km on foot", after:"Late back",
+  title:"Broadway and the fountains",
+  intro:"Sayilgoh Street — everyone calls it Broadway — runs between the two great squares and comes alive after dark: portrait painters, food stalls, fairground games, families out in the cool. Then the fountains at Tashkent City Park.",
+  stops:[7],
+  optional:[],
+  tips:[
+    "This is the most relaxed evening of the whole trip and by far the easiest with a child.",
+    "Tashkent City Park (extra B) is a 15-minute walk west, with a musical fountain show after dark and a lot of Uzbek families doing exactly the same thing.",
+    "Street food along Broadway is fine, but eat properly first — Central Asian Plov Centre is lunch-only, so pick a restaurant near Amir Timur Square.",
+    "Cash for the stalls and the portrait painters."
+  ]
+}
+];
+
+const STOPS = [
+{
+  n:1, name:"Tashkent Metro", short:"Metro", alt:"Opened 1977 · the first metro in Central Asia",
+  lat:41.3040, lng:69.2725, gq:"Kosmonavtlar metro station Tashkent",
+  dur:"45 min", fee:"~2,000 som a ride", hours:"05:00–24:00",
+  block:"Start at Kosmonavtlar or Alisher Navoi",
+  tips:[
+    "<b>Photography is allowed</b> — the ban was lifted in 2018. For decades this was a military secret.",
+    "The three to see: <b>Kosmonavtlar</b> (space, blue glass medallions of cosmonauts), <b>Alisher Navoi</b> (domed ceilings like a madrasa), <b>Mustaqillik Maydoni</b> (marble and chandeliers). All on or one stop from your route.",
+    "Buy a plastic token at the booth. Around 2,000 som a ride, flat fare, no zones.",
+    "Air-conditioned and about 15 degrees cooler than the street. In August that alone justifies it.",
+    "Trains every 3–5 minutes. Signs are in Latin script and increasingly in English."
+  ],
+  more:`<p>Most cities' metros are transport. Tashkent's is a sight, and it belongs on any top ten list of things to see here.</p>
+<p>It opened in 1977, the first underground railway in Central Asia and the seventh in the Soviet Union. It was built after the 1966 earthquake levelled much of the city, and it was engineered to survive another one — the tunnels are designed to withstand a magnitude 9 event, and the stations doubled as nuclear shelters. That second function is why <strong>photography was banned until 2018</strong>: the metro was formally a military installation, and taking pictures could get you arrested. The ban was lifted, and the stations turned out to be one of the best things in the country.</p>
+<p><strong>Each station is themed and individually designed</strong>, by different architects, with mosaic, majolica, carved marble, ganch plasterwork and chandeliers. <em>Kosmonavtlar</em> is the famous one: a dark blue tunnel like deep space, with ceramic medallions of Icarus, Ulugh Beg, Gagarin and Valentina Tereshkova floating along the walls. <em>Alisher Navoi</em> is the beautiful one — domes and pointed arches in blue and white, deliberately echoing a madrasa, decorated with scenes from the poet's work. <em>Mustaqillik Maydoni</em> is the grand one, all white marble and chandeliers. <em>Pakhtakor</em> has cotton-flower mosaics. <em>Chorsu</em> has ceramic panels of the bazaar above it.</p>
+<p>Ride two or three stops, get out, look, get back on. It costs about fifteen cents a journey and it is, in August, the coldest place in Tashkent.</p>`
+},
+{
+  n:2, name:"Chorsu Bazaar", short:"Chorsu", alt:"The great blue dome · old town market",
+  lat:41.3262, lng:69.2345, gq:"Chorsu Bazaar Tashkent",
+  dur:"1h", fee:"Free", hours:"05:00–20:15 · from 04:30 Sunday",
+  block:"Chorsu metro station",
+  tips:[
+    "Go early. It opens at five and the serious trading is done by nine.",
+    "The blue dome is the food hall: meat and dairy on the ground floor, spices and dried fruit on the gallery above. Go up for the view down.",
+    "Outside the dome: bread, pottery, knives, hats, hardware, and a whole street of tandir ovens.",
+    "Everything is tasted before it is bought. Accept the taste; it is not a sales trick, it is the etiquette.",
+    "Watch bags in the crowded aisles. It is safe, but it is busy."
+  ],
+  more:`<p>Chorsu means "four ways" — the crossroads where the roads from Samarkand, the Fergana valley, the steppe and the Chimgan mountains met. There has been a market on this spot for more than a thousand years, and it is still the beating heart of the old city.</p>
+<p><strong>The dome</strong> is a Soviet building from the 1980s and it is magnificent: a shallow turquoise-tiled cupola 300-odd metres round, ribbed and ringed with ceramic ornament, covering a two-level food hall. Under it, the layout is by trade, as it has always been. Butchers occupy the centre in a ring, then dairy — sour cream, <em>suzma</em>, curd balls of <em>kurt</em> dried hard as stone — then pickles, then the gallery above for spices, nuts, dried apricots, raisins, tea and halva.</p>
+<p>Outside the dome the market sprawls for blocks: a bread row where women sit behind towers of stamped <em>non</em>; a pottery row from Rishtan and Gijduvan; knife-makers from Chust; hats, cradles, saddles, plastic buckets. The <strong>samsa ovens</strong> are worth finding — clay tandirs with the pastries stuck to the inner wall, pulled out with a hook.</p>
+<p>This is the least curated place on your whole trip. Nobody built Chorsu for you to look at, which is exactly why it is worth an hour.</p>`
+},
+{
+  n:3, name:"Kukeldash Madrasa", short:"Kukeldash", alt:"1560s · Tashkent's largest surviving madrasa",
+  lat:41.3245, lng:69.2352, gq:"Kukeldash Madrasa Tashkent",
+  dur:"25 min", fee:"Small charge or free", hours:"09:00–18:00",
+  block:"On the rise directly above Chorsu",
+  tips:[
+    "Two minutes' walk uphill from the bazaar — you can see it from the dome.",
+    "A working madrasa again since 1990s independence. Students in residence; be discreet.",
+    "The terrace in front is the best place to photograph the Chorsu dome from above.",
+    "Shoulders and knees covered; a scarf for hair inside the courtyard."
+  ],
+  more:`<p>Built in the 1560s by a vizier of the Shaybanid khans of Tashkent whose title was <em>kukeldash</em> — "the khan's foster brother", the same honorific behind the Kukeldash madrasa you saw at Lyabi Hauz in Bukhara. It is the largest medieval building left in Tashkent, which says as much about what the city has lost as about the building.</p>
+<p><strong>Tashkent has almost no old architecture</strong>, and there are three reasons. It was sacked repeatedly — by Genghis Khan, by the Shaybanids, by the Kokand khanate, by the Russians in 1865. It was then rebuilt by the Soviets as a showcase modern capital. And on 26 April 1966 an earthquake with a shallow focus directly beneath the city destroyed the centre, leaving 300,000 people homeless and flattening most of what was left of the mud-brick old town. Kukeldash survived all three, and it is the exception that shows you the rule.</p>
+<p>Its own history is grim in places. Used as a caravanserai in the eighteenth century and as a fortress by the Kokand khans, it was the site — according to nineteenth-century accounts — of public executions in which women convicted of adultery were thrown from the top of the portal in sacks. It was a museum of atheism under the Soviets. Since independence it has been a working seminary again.</p>
+<p>The building itself is plain by Samarkand standards: a big portal, a courtyard, two storeys of cells, restored fairly heavily in the 1950s and again in the 2000s. Come for the fact that it is still here.</p>`
+},
+{
+  n:4, name:"Khast Imam Complex", short:"Khast Imam", alt:"Hazrati Imam · 16th c. and 2007 · the Uthman Qur'an",
+  lat:41.3337, lng:69.2374, gq:"Khast Imam Complex Tashkent",
+  dur:"1h 15", fee:"Complex free · Muyi Muborak library ~30,000 som", hours:"09:00–21:00",
+  block:"1.5 km north of Chorsu — short taxi",
+  tips:[
+    "The most conservative site on your trip. Women: hair covered, arms and legs covered. Men: long trousers.",
+    "<b>The Uthman Qur'an is the reason to come.</b> It is in the Muyi Muborak library, a small building on the left of the square, and photography of it is not allowed.",
+    "The huge mosque is from 2007, not the 16th century. The old buildings are the Barak Khan Madrasa and the Tilla Sheikh Mosque around the square.",
+    "Very little shade on the marble square, and white marble reflects heat. Go early.",
+    "Fridays are extremely busy. Avoid midday prayer unless you want to see it."
+  ],
+  more:`<p>The religious centre of Uzbekistan, and the seat of the country's Muslim Board. The square is large, white-marbled and mostly modern — the enormous Hazrati Imam Friday mosque with its two minarets was built in 2007 on presidential orders, in a sixteenth-century style. The genuinely old buildings sit around the edges: the <strong>Barak Khan Madrasa</strong> (1530s–50s, blue-tiled portal, now craft shops), the <strong>Tilla Sheikh Mosque</strong> (1850s), and the tomb of Abu Bakr Kaffal Shashi, the tenth-century scholar and saint the complex is named for — <em>hazrati imam</em>, "the holy imam", worn down in speech to <em>khast imam</em>.</p>
+<h4>The Uthman Qur'an</h4>
+<p>In the small <strong>Muyi Muborak</strong> library on the square sits a very large, very worn manuscript on deerskin, written in an early angular Kufic script. It is traditionally identified as the personal Qur'an of <strong>Uthman ibn Affan</strong>, the third caliph, who was assassinated in 656 AD while reading it — and the dark stains on the pages are said to be his blood.</p>
+<p>The traditional account is that Timur brought it from Iraq to Samarkand; the Russians took it to St Petersburg in 1869; Lenin returned it to the Muslims of Russia in 1924 as a gesture; it went to Ufa, then Tashkent. Roughly a third of the original survives here, with leaves in Istanbul, Cairo and St Petersburg.</p>
+<p><strong>Scholars date it later than the tradition claims</strong> — most radiocarbon and palaeographic work puts it in the eighth or ninth century rather than the 650s, so it is probably not Uthman's own copy. UNESCO listed it on the Memory of the World register in 1997 regardless, because whatever its exact date it is one of the oldest substantial Qur'an manuscripts in existence. Say the caveat once, then look at it properly: the sheer physical presence of the thing — enormous pages, thick deerskin, a script that predates the dots and vowel marks that make Arabic easy to read — is the point.</p>`
+},
+{
+  n:5, name:"Amir Timur Square & Museum", short:"Amir Timur Sq", alt:"1882 park · museum opened 1996",
+  lat:41.3111, lng:69.2797, gq:"Amir Timur Square Tashkent",
+  dur:"45 min", fee:"Square free · museum ~40,000 som", hours:"Museum 10:00–18:00, closed Mondays",
+  block:"The centre of the modern city",
+  tips:[
+    "The shadiest spot in central Tashkent — mature plane trees, benches, and a fountain. Start here.",
+    "The equestrian statue has occupied this plinth after Konstantin von Kaufman, Stalin, Marx and Lenin. The plinth is the real exhibit.",
+    "The museum's exterior is a copy of Gur-e-Amir, which you will just have seen for real in Samarkand. Caravanistan flatly advises skipping the interior; it is heavy on nation-building and light on objects.",
+    "Closed Mondays. The square is always open."
+  ],
+  more:`<p>The centre of Tashkent, laid out as a park by the Russians in 1882 at the junction of their new colonial city's main avenues, and a good place to watch a country decide who it is.</p>
+<p><strong>The plinth in the middle has held five different men.</strong> First Konstantin von Kaufman, the general who conquered Turkestan for the Tsar. Then, after the revolution, a Soviet star. Then Stalin. Then Karl Marx, whose enormous head sat there through the 1970s and 80s. Since 1993, Amir Timur — Tamerlane — on horseback, with the inscription <em>"Strength is in justice"</em>. Each replacement was a statement about which past the state wanted to claim.</p>
+<p>The <strong>Amir Timur Museum</strong> behind it, opened in 1996 for the 660th anniversary of his birth, is a domed rotunda of blue tile modelled on Gur-e-Amir. Inside are manuscripts, weapons, a letter from Timur to Charles VI of France, and a great deal of interpretation. It is the clearest single expression of independent Uzbekistan's official history, in which Timur — a Soviet-era villain — became the national founding father almost overnight. Worth twenty minutes for that reason. Several good guides suggest skipping it altogether; if you are short of time or patience, sit under the plane trees instead.</p>
+<p>Also on the square: the <strong>Hotel Uzbekistan</strong>, a colossal curved concrete slab from 1974 and the most photographed piece of Soviet modernism in the country. You can walk into the foyer, and there is a bar upstairs with a view.</p>`
+},
+{
+  n:6, name:"Alisher Navoi Opera & Ballet Theatre", short:"Navoi Opera", alt:"1947 · built by Japanese prisoners of war",
+  lat:41.3105, lng:69.2740, gq:"Alisher Navoi Opera and Ballet Theatre Tashkent",
+  dur:"30 min outside · 2h+ for a performance", fee:"Tickets from ~50,000 som", hours:"Box office daytime; performances evenings",
+  block:"400 m west of Amir Timur Square",
+  tips:[
+    "<b>Tickets are absurdly cheap</b> — a good seat for an opera or ballet costs a few dollars. If there is a performance while you are there, go.",
+    "Six foyers, each decorated in the style of a different Uzbek region — Tashkent, Bukhara, Samarkand, Khiva, Fergana, Termez. Worth seeing even without a ticket if they let you in.",
+    "The fountain plaza in front is a good evening stop with a child.",
+    "Check the schedule at the box office or online — the season pauses in high summer, so August performances are not guaranteed."
+  ],
+  more:`<p>A grand neoclassical theatre with an Uzbek skin, finished in 1947 and designed by <strong>Alexey Shchusev</strong> — the architect of Lenin's mausoleum on Red Square. It is named for Alisher Navoi, the fifteenth-century poet who wrote in Chagatai Turkic rather than Persian and effectively founded Uzbek literature.</p>
+<p><strong>It was built largely by Japanese prisoners of war.</strong> After the Soviet invasion of Manchuria in 1945, several hundred thousand captured Japanese soldiers were sent to labour camps across the USSR; around 25,000 came to Uzbekistan, and a few hundred worked on this building. They finished it in two years. When the 1966 earthquake destroyed most of central Tashkent, the theatre stood without a crack, and the story of the Japanese builders became famous — there is a commemorative plaque, and Japanese visitors still come specifically to see it. Uzbeks tend to tell the story warmly, which is not always how prisoner-of-war labour is remembered.</p>
+<p>Inside, the six foyers are each decorated in the carved ganch and painted style of a different Uzbek region, so the building doubles as a tour of the country's craft traditions. The auditorium seats about 1,400.</p>
+<p>Tickets cost a few dollars. Whatever is on, it is worth the money.</p>`
+},
+{
+  n:7, name:"Broadway (Sayilgoh Street)", short:"Broadway", alt:"Pedestrian street between the two squares",
+  lat:41.3110, lng:69.2755, gq:"Sayilgoh Street Broadway Tashkent",
+  dur:"1h", fee:"Free", hours:"Best after 18:30",
+  block:"Links Amir Timur Square to Independence Square",
+  tips:[
+    "An evening thing. In the daytime it is a hot empty street; after dark it is the city's living room.",
+    "Portrait painters, souvenir stalls, fairground games, ice cream, buskers, families out walking in the cool.",
+    "Cash for everything here.",
+    "Ten minutes end to end if you walk it. Plan an hour if you have a child with you."
+  ],
+  more:`<p>Officially Sayilgoh Street. Everybody calls it Broadway, and has since the late 1980s, when it became the one place in Soviet Tashkent where artists could sell work in the open, unofficially and then officially, along with the black-market money changers.</p>
+<p>It is a short tree-lined pedestrian street running the few hundred metres between Amir Timur Square and Independence Square, and it is the best free entertainment in the city. In the evening it fills with portrait painters working in charcoal at folding tables, stalls selling suzani and fridge magnets and Soviet badges of doubtful provenance, air-rifle shooting galleries, candyfloss, and an enormous number of Uzbek families walking slowly up and down in the cool.</p>
+<p>That last part is the point. Uzbek city life happens outdoors after sunset in summer, and Broadway is where Tashkent does it. Buy an ice cream, sit on a bench, and watch. It will be the least demanding and possibly the most enjoyable hour of your time in the city — and the easiest with a small child, who can run.</p>`
+},
+{
+  n:8, name:"Independence Square & Monument of Courage", short:"Mustaqillik",
+  alt:"Mustaqillik Maydoni · Soviet then national ceremonial space",
+  lat:41.3111, lng:69.2703, gq:"Independence Square Tashkent",
+  dur:"40 min", fee:"Free", hours:"Daylight · fountains in the evening",
+  block:"Western end of Broadway",
+  tips:[
+    "<b>Under large-scale redevelopment.</b> Parts may be fenced off. Check before making a special trip.",
+    "The Monument of Courage — the split stone and the bronze family — is a few hundred metres away on Sharaf Rashidov Avenue, and is the more moving of the two.",
+    "Big, open, marble, and no shade at all. Early morning or after dark only.",
+    "Fountains run in the evening and children are allowed near them."
+  ],
+  more:`<p>This was Lenin Square, and it held the largest statue of Lenin in Central Asia. In 1991 the statue came down and a globe went up in its place, with Uzbekistan alone picked out on it. The square was renamed <em>Mustaqillik Maydoni</em> — Independence Square. It is the national ceremonial space: parades, independence day, the state's picture of itself. Marble, fountains, arches topped with storks, and the Monument to the Independence and Humanism, showing a mother holding a child.</p>
+<p>It has been rebuilt more than once since independence and, as of recent reporting, is being substantially redeveloped again. Expect hoardings.</p>
+<h4>The Monument of Courage</h4>
+<p>A short walk away, and the thing actually worth seeing. At 05:23 on <strong>26 April 1966</strong>, an earthquake struck directly beneath central Tashkent. The magnitude was moderate — around 5.2 — but the focus was shallow and the city was built of unreinforced mud brick. Some 300,000 people lost their homes. The official death toll was low and is widely doubted.</p>
+<p>The monument marks the epicentre. A cube of black granite is split by a jagged crack, with the date and time carved on it; a bronze woman and man shield a child, the man's arm thrown out against the fault. Behind them a relief shows the reconstruction, which was carried out by work brigades sent from every Soviet republic and which rebuilt Tashkent in three years as a modern city of wide avenues and prefabricated blocks. That is why the capital of Uzbekistan looks the way it does, and why so little of the old city survives — the earthquake is the single most important fact about the shape of modern Tashkent.</p>`
+},
+{
+  n:9, name:"State Museum of Applied Arts", short:"Applied Arts", alt:"In the Polovtsev house, 1890s",
+  lat:41.2985, lng:69.2723, gq:"State Museum of Applied Arts Tashkent",
+  dur:"1h", fee:"~30,000 som", hours:"09:00–18:00",
+  block:"1.5 km south of the centre — short taxi",
+  tips:[
+    "<b>The best museum in Tashkent</b>, and the one most people miss.",
+    "The building is the exhibit as much as the collection — go for the carved ganch and the painted ceilings.",
+    "Small, cool, quiet and quick. Ideal for the end of a hot morning.",
+    "There is a decent craft shop attached, with better quality than the bazaar stalls."
+  ],
+  more:`<p>Alexander Polovtsev was a Russian diplomat posted to Turkestan in the 1890s, and a serious collector of local craft. He commissioned a house in the Uzbek style and imported the best masters in the region — carvers, plasterers, painters — to decorate it. The result is a set of rooms whose walls and ceilings are entirely covered in carved <em>ganch</em> fretwork, mirrored niches, and painted timber in the <em>kundal</em> gold-relief technique, all done by hand in the 1890s at a moment when the craft was at its last high point.</p>
+<p>The house was nationalised after the revolution and became a museum of applied arts in 1937. The collection now runs to several thousand pieces: suzani embroidery from every region, each with its own vocabulary of motifs; ceramics from Rishtan in that particular unrepeatable blue; skullcaps, jewellery, carved doors, copperware, silk ikat.</p>
+<p><strong>Why it beats the bigger museums.</strong> The State History Museum has been closed for renovation since 2024. The Amir Timur Museum is mostly interpretation. This is the one place in Tashkent where you can look closely at the actual objects — and at a complete interior — after a week of looking at buildings from thirty metres away. If your family has enjoyed the tilework and the woodwork on this trip, this is where they find out how it was made.</p>`
+},
+{
+  n:10, name:"Minor Mosque", short:"Minor Mosque", alt:"Opened 2014 · white marble",
+  lat:41.3399, lng:69.2668, gq:"Minor Mosque Tashkent",
+  dur:"30 min", fee:"Free", hours:"Daylight · avoid prayer times",
+  block:"4 km north of the centre, on the Ankhor canal",
+  tips:[
+    "Optional, and it needs a taxi. Go late afternoon when the white marble turns warm and gold.",
+    "Completely modern — 2014 — and it makes no claim otherwise. Come for the calm and the light, not the history.",
+    "Working mosque: shoes off, hair covered, quiet. Non-Muslims are welcome outside prayer times.",
+    "The canal-side park next to it is pleasant and shaded, and a good place to sit."
+  ],
+  more:`<p>A white marble mosque on the bank of the Ankhor canal, opened in 2014, with two slender minarets and a turquoise dome. It is the newest thing on this list by four hundred years and it is on it deliberately.</p>
+<p>Almost everything you will have seen in Uzbekistan on this trip is old, restored, and looked at. Minor is in daily use, and it is the current answer to the question those old buildings were answering: what should a mosque look like here, now? The response was to strip out the polychrome tile that defines Samarkand and Bukhara and go almost entirely white — Turkish and Gulf influence as much as Central Asian — with the traditional decoration reduced to a band of turquoise, carved marble screens and a mihrab of gilded ganch. The interior is bright, spare and genuinely beautiful, with a green mihrab wall and verses in gold.</p>
+<p>It seats around 2,400 and it fills on Fridays. Locals photograph it constantly; it has become the picture people post of contemporary Tashkent.</p>
+<p>Twenty minutes and a taxi fare. Worth it in the last hour of daylight, when the marble stops being white and turns the colour of butter.</p>`
+}
+];
+
+const EXTRAS = [
+{
+  n:"A", name:"Chimgan Mountains & Charvak Lake", short:"Chimgan",
+  alt:"The Western Tian Shan · 1,500–3,300 m",
+  lat:41.5700, lng:70.0100, gq:"Chimgan Mountains Uzbekistan",
+  dist:"80–90 km north-east · 1h 30 by car", dur:"Full day", fee:"Car and driver ~600–900,000 som for the day",
+  hours:"Go early, back by evening",
+  more:`<p><strong>The single best thing you can do in Tashkent in August is leave it.</strong> Ninety minutes north-east, the Chimgan range rises out of the plain to over 3,000 metres and the temperature drops by ten to fifteen degrees. On the way is the Charvak reservoir, a large turquoise lake ringed by mountains, with beaches, boat hire, and a chairlift at Chimgan for the view.</p>
+<p>It is where Tashkent families go at weekends, which means it is busy on Saturday and Sunday and comparatively empty midweek. There are yurt camps and roadside cafés doing shashlik, a via ferrata and zip line at Amirsoy, and easy walking rather than serious hiking if you have a child.</p>
+<p>Hire a car and driver for the day through your hotel rather than a tour — it costs less, you set your own pace, and you can stop wherever the view is good. Take swimming things for the lake.</p>`
+},
+{
+  n:"B", name:"Tashkent City Park & Magic City", short:"City Park",
+  alt:"Opened 2019–21 · fountains, gardens, night lights",
+  lat:41.3125, lng:69.2645, gq:"Tashkent City Park",
+  dist:"1.5 km west of Broadway · walkable", dur:"1–2h", fee:"Park free · Magic City rides charged",
+  hours:"Best after 19:00",
+  more:`<p>A large new landscaped park in the middle of the redeveloped Tashkent City district, with lawns, water channels, a big musical fountain that runs in the evening, and a lot of families out after dark.</p>
+<p>Nearby, <strong>Magic City</strong> is an unabashedly kitsch theme park of miniature European castles, illuminated at night, with rides, restaurants and a light show. It has no cultural value whatsoever and small children find it wonderful.</p>
+<p>Together they make the easiest evening in Tashkent: flat paths, shade, water, ice cream, no steps, no dress code, no tickets required for the park itself. If the trip has been heavy on monuments, spend an evening here without guilt.</p>`
+},
+{
+  n:"C", name:"Tashkent TV Tower", short:"TV Tower", alt:"1985 · 375 m · viewing platform at 100 m",
+  lat:41.3480, lng:69.2879, gq:"Tashkent TV Tower",
+  dist:"6 km north · 15 min taxi", dur:"1h", fee:"~40,000 som",
+  hours:"10:00–22:00",
+  more:`<p>A 375-metre Soviet television tower finished in 1985, standing on three splayed legs with a lattice spire — a design that would look at home in a science-fiction paperback of the period. For a while it was among the tallest free-standing towers in the world; it is still the tallest structure in Central Asia.</p>
+<p>The viewing platform is at 100 metres, which is a quarter of the way up and lower than the marketing suggests. The view is of a flat green city stretching to the horizon, with the mountains visible to the north-east on a clear day. There is a revolving restaurant.</p>
+<p><strong>Bring passports</strong> — it is still treated as a strategic installation and there is a security check. Photography of the exterior is fine. Best at dusk. Whether it is worth the trip depends entirely on how much you like Soviet engineering; if you do, it is a highlight, and if you do not, skip it.</p>`
+}
+];
+
+const FOOD = {
+  intro:"Tashkent is where Uzbek food stops being regional and becomes a capital city's: the plov centres are institutions, but there is also Korean food from the deported Koryo-saram community, Uyghur noodle houses, Georgian restaurants and a real coffee scene. It is the best eating of the whole trip.",
+  dishes:[
+    {name:"Tashkent plov", note:"Darker and richer than Samarkand's, stirred rather than layered, often topped with quail eggs, horse sausage (<em>kazy</em>) and chickpeas. Cooked in kazans the size of a paddling pool. A lunch dish, gone by early afternoon."},
+    {name:"Samsa", note:"Tashkent bakes them in every shape — triangular, square, round — from clay tandirs. The best are pulled off the oven wall in front of you."},
+    {name:"Lagman", note:"Hand-pulled Uyghur noodles, either in broth (<em>suyuq</em>) or fried (<em>quruq</em>). The fried version is the one to order here."},
+    {name:"Koryo-saram salads", note:"Korean-style spiced carrot (<em>morkovcha</em>), kimchi and marinated vegetables, sold by the kilo at Chorsu and Alay bazaars. A legacy of the Koreans deported to Central Asia by Stalin in 1937, and now completely Uzbek."},
+    {name:"Manti &amp; chuchvara", note:"Big steamed dumplings and tiny ones in broth. Reliable with children."},
+    {name:"Shashlik &amp; kazan-kebab", note:"Skewered charcoal-grilled lamb; or lamb and potato crisped in a cast-iron kazan."},
+    {name:"Norin", note:"A Tashkent speciality — cold hand-cut noodles with sliced boiled horsemeat and onion. Genuinely local, and an acquired taste worth acquiring."},
+    {name:"Achichuk &amp; herb salads", note:"Tomato, onion and chilli in vinegar. Order with everything grilled."},
+    {name:"Non", note:"Tashkent <em>obi non</em> is softer and thinner than Samarkand's. Buy it hot from a bread row."},
+    {name:"Chak-chak &amp; halva", note:"Fried dough in honey, and dense nut halva. Both by weight in the bazaars."},
+    {name:"Coffee", note:"Tashkent has a genuinely good third-wave coffee scene — a surprise after a week of green tea. Look for it around Amir Timur Square and Broadway."}
+  ],
+  places:[
+    {name:"Central Asian Plov Centre", gq:"Central Asian Plov Center Tashkent", type:"Plov institution", area:"Near the TV Tower, north", price:"Cheap",
+     note:"Also called Besh Qozon — \"five cauldrons\". An open-sided hall with enormous kazans out front, feeding hundreds at a sitting. <b>Open roughly 08:00 to 12:00 or until the plov runs out</b>, so it is an early lunch or nothing. The single most photographed food scene in Uzbekistan and entirely worth the trip north."},
+    {name:"Chorsu Bazaar food hall", gq:"Chorsu Bazaar Tashkent", type:"Market eating", area:"Old town, under the blue dome", price:"Very cheap",
+     note:"Breakfast on your first morning. Samsa from the tandirs outside, non from the bread row, Korean salads by the kilo on the gallery, and tea. Cheaper and better than any café, and part of the sightseeing."},
+    {name:"Afsona", gq:"Afsona Restaurant Tashkent", type:"Modern Uzbek", area:"Central, near Amir Timur Square", price:"Mid",
+     note:"Longstanding favourite for Uzbek cooking done with care rather than volume — proper plov, good salads, English menus, air conditioning. The safe choice for a family dinner in the centre."},
+    {name:"Caravan", gq:"Caravan Restaurant Tashkent", type:"Uzbek, courtyard", area:"Central, Mirabad", price:"Mid",
+     note:"Courtyard restaurant done up with craft and lanterns — touristy in a pleasant way, with live music some evenings and a craft shop attached. Broad menu, reliable, easy with children."},
+    {name:"Plov &amp; lagman houses on Broadway", gq:"Sayilgoh Street Tashkent restaurants", type:"Street food &amp; cafés", area:"Sayilgoh (Broadway)", price:"Cheap",
+     note:"Not one place but the run of cafés and stalls along the pedestrian street. Ice cream, samsa, grilled corn, shashlik. This is the evening — eat as you walk rather than sitting down."},
+    {name:"Alay Bazaar", gq:"Alay Bazaar Tashkent", type:"Market", area:"Central, near Amir Timur Square", price:"Cheap",
+     note:"Smaller, tidier and more central than Chorsu, with an excellent dried fruit and nut section and prepared Korean salads. The right place to buy things to take home — apricots, pistachios, saffron, nabot."},
+    {name:"City Grill / Bon!", gq:"Bon restaurant Tashkent", type:"European &amp; pizza", area:"Central, several branches", price:"Mid",
+     note:"Filed here for the evening when the child will not eat another piece of lamb. Reliable pizza and pasta, air conditioning, quick service. No shame in it on day nine."}
+  ],
+  tips:[
+    "<b>On sources:</b> you asked for Condé Nast recommendations. Their site is blocked from this environment (HTTP 403), so nothing here comes from them. These draw on Caravanistan, Advantour and current independent guides, cross-checked where they overlap.",
+    "<b>Plov centres close at lunchtime.</b> Besh Qozon is done by about noon. Plan around it or miss it.",
+    "Tashkent has the best restaurant range in the country — use it for the meals that Bukhara and Samarkand could not provide.",
+    "Cards are accepted more widely here than elsewhere in Uzbekistan, but carry cash for bazaars and street food.",
+    "Tap water is not for drinking. Bottled water is 3–5,000 som.",
+    "Alcohol is freely available in restaurants in the centre."
+  ]
+};
+
+const PRACTICAL = [
+{
+  warn:true, title:"Read this first — the base is not set",
+  items:[
+    "<b>You have not booked a hotel yet</b>, so every route on this page currently starts and ends at <b>Amir Timur Square</b>, which is roughly the geographic centre of the sights.",
+    "Tell me the hotel and I will re-anchor every route, redraw both maps, and adjust the taxi times in the tips.",
+    "If you end up at the Hilton in Tashkent City or the Hyatt, you are already inside the Day 2 loop and a short taxi from Day 1.",
+    "Dates on this page say \"August 2026 — to confirm\". Give me the days and I will split the stops properly."
+  ]
+},
+{
+  warn:true, title:"August heat",
+  items:[
+    "Expect <b>35–38 °C</b> in the afternoon. Tashkent is greener and leafier than Bukhara or Samarkand, so it feels marginally better, but the marble squares are brutal.",
+    "Same rhythm as the rest of the trip: <b>out by 07:00, back at the base by ~12:30</b> for lunch, nap and pool, out again at 18:30.",
+    "<b>The metro is the coolest place in the city.</b> Use it as air conditioning, not just transport.",
+    "Chorsu opens at 05:00 and Khast Imam at 09:00 — the first morning can start very early.",
+    "Carry 2 litres of water per person."
+  ]
+},
+{
+  title:"Getting around",
+  items:[
+    "<b>The metro is excellent</b> — clean, frequent, air-conditioned, about 2,000 som a flat-fare ride, and three of the stations are on this list of things to see.",
+    "Tashkent is much bigger than the other cities. Do not plan to walk between the old town and the centre; it is 5 km.",
+    "<b>Yandex Go</b> is the default for taxis and is cheap — most city rides are 15–30,000 som.",
+    "Signs are in Latin script and increasingly bilingual. Russian is more useful than English with drivers.",
+    "The airport is only 15 minutes from the centre, so there is no reason to stay near it."
+  ]
+},
+{
+  title:"Tickets, hours and closures",
+  items:[
+    "Rough foreigner prices: Amir Timur Museum ~40,000 som · Applied Arts Museum ~30,000 · Muyi Muborak library ~30,000 · TV Tower ~40,000 · metro ~2,000 a ride. Chorsu, Khast Imam square, Minor Mosque, Broadway and the parks are free.",
+    "<b>The State Museum of History has been closed for renovation since 2024.</b> Confirm before going.",
+    "<b>Independence Square is under large-scale redevelopment.</b> Expect hoardings.",
+    "Most museums close on Mondays.",
+    "<b>All prices indicative — they rise most years. Confirm at the window.</b>",
+    "Bring passports for the TV Tower; there is a security check."
+  ]
+},
+{
+  title:"Dress and etiquette",
+  items:[
+    "<b>Khast Imam is the most conservative site of the trip.</b> Hair, arms and legs covered for women; long trousers for men.",
+    "Shoes off in working mosques, including Minor.",
+    "Photography of the Uthman Qur'an is not allowed. Ask before photographing worshippers anywhere.",
+    "Tashkent is a big secular capital and dress in the centre is entirely European. The old town is more traditional.",
+    "Bargaining is normal at Chorsu, less so at Alay."
+  ]
+},
+{
+  title:"With a small child",
+  items:[
+    "Tashkent is <b>the easiest city of the trip</b> for a child: flat, green, full of parks and fountains, and a stroller actually works here.",
+    "Best bits: riding the metro and hunting for the cosmonaut medallions, the fountains at Tashkent City Park, Magic City after dark, ice cream on Broadway, and the samsa ovens at Chorsu.",
+    "The Chimgan and Charvak day trip is the one to do if the heat has worn everyone down — a lake, a chairlift and ten degrees cooler.",
+    "Skip: the Amir Timur Museum interior and Independence Square in the daytime."
+  ]
+},
+{
+  title:"Using this page offline",
+  items:[
+    "Every description, tip and plan works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself.",
+    "Download the Tashkent area in Google Maps for offline use before you set out.",
+    "Add this page to your Home Screen: Share → Add to Home Screen.",
+    "<b>Map pins are accurate to roughly a block.</b> The <b>Open in Google Maps</b> button on each stop searches by name, which is exact — use that for navigation."
+  ]
+}
+];
+
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const gS = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+const byN = {}; STOPS.concat(EXTRAS).forEach(s => byN[s.n] = s);
+function gRoute(list){
+  const c = p => p.routeQ ? p.routeQ : (p.lat.toFixed(6) + "," + p.lng.toFixed(6));
+  if(list.length < 2) return gS(list[0] ? list[0].gq : CITY.name);
+  const w = list.slice(1,-1).map(c).join("|");
+  return "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=" + c(list[0]) +
+         "&destination=" + c(list[list.length-1]) + (w ? "&waypoints=" + encodeURIComponent(w) : "");
+}
+/* hotel -> stops -> hotel, split into legs of <=10 points */
+function dayLegs(nums){
+  const pts = [CITY.hotel].concat(nums.map(n => byN[n]).filter(Boolean)).concat([CITY.hotel]);
+  const legs = [];
+  for(let i = 0; i < pts.length - 1; i += 9) legs.push(pts.slice(i, i + 10));
+  return legs;
+}
+
+/* ---------- PLAN ---------- */
+$("#planIntro").innerHTML = `<div class="hero">
+  <h2>${CITY.dates}</h2>
+  <p>${CITY.plan}</p>
+  <p>${CITY.baseLine || ("<b>Base:</b> " + CITY.hotel.name + ". Every route below leaves from the hotel and comes back to it.")}</p>
+  <div class="pills">${CITY.pills.map(p=>`<span>${p}</span>`).join("")}</div>
+</div>`;
+
+$("#days").innerHTML = DAYS.map(d => {
+  const legs = dayLegs(d.stops);
+  const line = (n, cls) => {
+    const s = byN[n]; if(!s) return "";
+    return `<li><span class="n ${cls||''}">${s.n}</span><span class="t"><b>${s.name}</b><i>${s.dur} · ${s.fee}</i></span><button data-read="${s.n}">Read</button></li>`;
+  };
+  return `<article class="day">
+    <div class="top">
+      <div class="kick"><span class="slot ${d.slot==='Evening'?'eve':''}">${d.slot}</span><span class="when">${d.day}</span></div>
+      <h3>${d.title}</h3>
+      <div class="clock"><b>Out ${d.out}</b><b>Back ${d.back}</b><b>${d.walk}</b></div>
+    </div>
+    <div class="body">
+      <p>${d.intro}</p>
+      <ul class="seq">
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>${CITY.hotel.leaveLabel || ("Leave at " + d.out)}</i></span></li>
+        ${d.stops.map(n => line(n)).join("")}
+        ${(d.optional||[]).length ? `<li style="padding-top:13px"><span class="n o">+</span><span class="t"><b style="color:var(--ink2)">If you are going faster</b><i>Optional — skip without guilt</i></span></li>` : ""}
+        ${(d.optional||[]).map(n => line(n,"o")).join("")}
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.backLabel || ("Back at " + CITY.hotel.name)}</b><i>${d.after}</i></span></li>
+      </ul>
+      ${legs.map((L,i) => `<a class="btn${i?' g':''}" style="margin-bottom:8px" target="_blank" rel="noopener" href="${gRoute(L)}">Open ${legs.length>1?('leg '+(i+1)+' '):''}in Google Maps</a>`).join("")}
+      ${d.tips && d.tips.length ? `<div class="tipbox"><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : ""}
+    </div>
+  </article>`;
+}).join("");
+
+/* ---------- STOPS ---------- */
+function card(s, extra){
+  const meta = extra
+    ? `<span class="t">${s.dist}</span><span>${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span>`
+    : `<span class="t">${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span><span>${s.block}</span>`;
+  return `<article class="card${extra?" extra":""}" id="s${s.n}">
+    <div class="chead"><div class="num">${s.n}</div><div><h3>${s.name}</h3><span class="alt">${s.alt}</span></div></div>
+    <div class="meta">${meta}</div>
+    <div class="acts"><a href="${gS(s.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>${extra?"":`<button data-go="${s.n}">Show on map</button>`}</div>
+    ${s.tips&&s.tips.length?`<div class="sec"><h4>Good to know</h4><ul>${s.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`:""}
+    <details><summary>Know more — read this out</summary><div class="body">${s.more}</div></details>
+  </article>`;
+}
+$("#stops").innerHTML  = `<div class="sech"><h2>On foot</h2><i></i></div>` + STOPS.map(s=>card(s,false)).join("");
+$("#extras").innerHTML = EXTRAS.length ? `<div class="sech"><h2>Worth a taxi</h2><i></i></div>` + EXTRAS.map(s=>card(s,true)).join("") : "";
+
+/* ---------- FOOD ---------- */
+$("#food").innerHTML = `
+  <div class="hero"><h2>Eating in ${CITY.name}</h2><p>${FOOD.intro}</p></div>
+  <div class="sech"><h2>What to order</h2><i></i></div>
+  <div class="card" style="padding:4px 15px">${FOOD.dishes.map(d=>`<div class="dish"><div class="dn">${d.name}</div><div class="dd">${d.note}</div></div>`).join("")}</div>
+  <div class="sech"><h2>Where to eat</h2><i></i></div>
+  ${FOOD.places.map(p=>`<div class="eat">
+      <div class="et"><h4>${p.name}</h4><span class="pr">${p.price}</span></div>
+      <div class="ea">${p.type} · ${p.area}</div>
+      <p>${p.note}</p>
+      <a href="${gS(p.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>`).join("")}
+  <div class="pc warn" style="margin-top:16px"><h3>Before you book</h3><ul>${FOOD.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`;
+
+/* ---------- INFO ---------- */
+$("#info").innerHTML = PRACTICAL.map(b => `<div class="pc${b.warn?" warn":""}" style="margin-top:14px">
+  <h3>${b.title}</h3><ul>${b.items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`).join("");
+
+/* ---------- tabs & nav ---------- */
+const PANES = {plan:"p-plan", map:"p-map", stops:"p-stops", food:"p-food", info:"p-info"};
+function show(p){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on", b.dataset.p===p));
+  Object.entries(PANES).forEach(([k,id])=>$("#"+id).classList.toggle("on", k===p));
+  if(p==="map" && window._map) setTimeout(()=>window._map.invalidateSize(), 60);
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{show(b.dataset.p);scrollTo(0,0);});
+function goStop(n){
+  show("stops");
+  const el = document.getElementById("s"+n); if(!el) return;
+  const d = el.querySelector("details"); if(d) d.open = true;
+  setTimeout(()=>{el.scrollIntoView({behavior:"smooth",block:"start"});
+    el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);},70);
+}
+window.goStop = goStop;
+document.addEventListener("click", e=>{
+  const r = e.target.closest("[data-read]"); if(r){ goStop(r.dataset.read); return; }
+  const g = e.target.closest("[data-go]");   if(g){ showOnMap(+g.dataset.go); }
+});
+
+/* ---------- map route buttons ---------- */
+$("#gbar").innerHTML = DAYS.map((d,i)=>{
+  const legs = dayLegs(d.stops);
+  return legs.map((L,j)=>`<a class="${i?'alt':''}" target="_blank" rel="noopener" href="${gRoute(L)}">${d.slot} ${d.dayShort}${legs.length>1?' · leg '+(j+1):''}</a>`).join("");
+}).join("");
+
+/* ---------- offline schematic ---------- */
+(function(){
+  const W=1000, H=720, PAD=88;
+  const P = [CITY.hotel].concat(STOPS);
+  const k = Math.cos(CITY.hotel.lat*Math.PI/180);
+  const xs=P.map(s=>s.lng*k), ys=P.map(s=>-s.lat);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const sc=Math.min((W-2*PAD)/((x1-x0)||1e-6),(H-2*PAD)/((y1-y0)||1e-6));
+  const ox=(W-(x1-x0)*sc)/2-x0*sc, oy=(H-(y1-y0)*sc)/2-y0*sc;
+  const PX=s=>[s.lng*k*sc+ox, -s.lat*sc+oy];
+  let bar=200, mpu=1/(sc/111320);
+  while(bar/mpu>270) bar/=2; while(bar/mpu<90) bar*=2;
+
+  let g=`<rect width="${W}" height="${H}" fill="#F7F9FC"/>`;
+  for(let i=0;i<=W;i+=50) g+=`<line x1="${i}" y1="0" x2="${i}" y2="${H}" stroke="#E9EEF5" stroke-width="1"/>`;
+  for(let i=0;i<=H;i+=50) g+=`<line x1="0" y1="${i}" x2="${W}" y2="${i}" stroke="#E9EEF5" stroke-width="1"/>`;
+  DAYS.forEach(d=>{
+    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
+    if(!inner.length) return;
+    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(PX);
+    g+=`<path d="${pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${d.slot==='Evening'?'#B26A00':'#0A5FE0'}" stroke-width="3.5" stroke-opacity=".3" stroke-dasharray="10 8" stroke-linejoin="round"/>`;
+  });
+
+  const FS=16, CH=8.4, LH=19;
+  const slots=[];
+  [[0,1,"middle"],[0,-1,"middle"],[1,0,"start"],[-1,0,"end"],[.72,-.72,"start"],[-.72,-.72,"end"],[.72,.72,"start"],[-.72,.72,"end"]]
+    .forEach(([ux,uy,an])=>[26,44,64,86,110].forEach(r=>slots.push([ux*r, uy*r+(uy>0?8:uy<0?-2:6), an])));
+  slots.sort((a,b)=>Math.hypot(a[0],a[1])-Math.hypot(b[0],b[1]));
+  const boxes=P.map(s=>{const[x,y]=PX(s);return[x-17,y-17,x+17,y+17];});
+  const hit=(a,b)=>!(a[2]<b[0]||a[0]>b[2]||a[3]<b[1]||a[1]>b[3]);
+  const L=[];
+  P.forEach(s=>{
+    const [x,y]=PX(s), txt = s.short || s.name, w=txt.length*CH;
+    let best=null;
+    for(const [dx,dy,an] of slots){
+      const lx=x+dx, ly=y+dy;
+      const bx = an==="start"?lx: an==="end"?lx-w: lx-w/2;
+      const box=[bx-3, ly-LH+3, bx+w+3, ly+5];
+      if(box[0]<14||box[2]>W-14||box[1]<10||box[3]>H-38) continue;
+      if(!boxes.some(b=>hit(box,b))){best={lx,ly,an,box,dx,dy};break;}
+    }
+    if(!best){best={lx:x,ly:y+34,an:"middle",box:[x-w/2,y+15,x+w/2,y+38],dx:0,dy:34};}
+    boxes.push(best.box); L.push({s,x,y,txt,...best});
+  });
+  L.forEach(o=>{
+    const isH = o.s === CITY.hotel;
+    const far = Math.hypot(o.dx,o.dy)>38;
+    g += `<g class="hit" data-n="${isH?'H':o.s.n}">
+      ${far?`<line x1="${o.x}" y1="${o.y}" x2="${o.lx+(o.an==="end"?-2:o.an==="start"?2:0)}" y2="${o.ly-5}" stroke="#B9C4D2" stroke-width="1.5"/>`:""}
+      <circle cx="${o.x}" cy="${o.y}" r="22" fill="#fff" fill-opacity="0"/>
+      ${isH ? `<rect x="${o.x-14}" y="${o.y-14}" width="28" height="28" rx="8" fill="#0B1220"/>`
+            : `<circle cx="${o.x}" cy="${o.y}" r="14" fill="#0A5FE0" stroke="#fff" stroke-width="3"/>`}
+      <text x="${o.x}" y="${o.y+5}" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="700" fill="#fff">${isH?'H':o.s.n}</text>
+      <text x="${o.lx}" y="${o.ly}" text-anchor="${o.an}" font-family="Arial" font-size="${FS}" font-weight="700" fill="#5A6675" stroke="#F7F9FC" stroke-width="4.5" paint-order="stroke">${o.txt}</text>
+    </g>`;
+  });
+  const bx=PAD, by=H-26, bw=bar/mpu;
+  g+=`<line x1="${bx}" y1="${by}" x2="${bx+bw}" y2="${by}" stroke="#5A6675" stroke-width="3"/>
+      <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
+      <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
+      <text x="${bx+bw+10}" y="${by+6}" font-family="Arial" font-size="16" fill="#5A6675">${bar} m</text>
+      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = ${CITY.hotel.short||"hotel"} · N &#8593;</text>`;
+
+  const svg=$("#planSvg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML=g;
+  const sheet=$("#sheet");
+  svg.addEventListener("click", e=>{
+    const h=e.target.closest(".hit"); if(!h) return;
+    const id=h.dataset.n;
+    const s = id==="H" ? CITY.hotel : byN[+id];
+    const isH = id==="H";
+    sheet.innerHTML = `<b>${isH?"":s.n+". "}${s.name}</b><i>${isH?"Your base — routes start and end here":s.alt}</i>
+      <div class="r">${isH?"":`<a class="p" href="#" onclick="goStop(${s.n});closeSheet();return false;">Read</a>`}
+      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Google Maps</a>
+      <button onclick="closeSheet()">Close</button></div>`;
+    sheet.classList.add("on");
+  });
+  window.closeSheet=()=>sheet.classList.remove("on");
+})();
+
+/* ---------- live / offline toggle ---------- */
+const tL=$("#tabLive"), tP=$("#tabPlan");
+function mapMode(m){
+  tL.classList.toggle("on",m==="live"); tP.classList.toggle("on",m==="plan");
+  $("#map").style.display = m==="live" ? "" : "none";
+  $("#plan").classList.toggle("on", m==="plan");
+  if(m!=="plan") closeSheet();
+  if(m==="live" && window._map) setTimeout(()=>window._map.invalidateSize(),60);
+}
+tL.onclick=()=>mapMode("live"); tP.onclick=()=>mapMode("plan");
+
+/* ---------- leaflet ---------- */
+if(typeof L === "undefined"){
+  tL.textContent="Live map (offline)";
+  tL.onclick=()=>alert("The live street map needs an internet connection. The offline plan works without one.");
+  mapMode("plan");
+  window.showOnMap = n => { show("map"); scrollTo(0,0); mapMode("plan"); };
+} else {
+  const map = L.map("map",{zoomControl:true}).setView([CITY.hotel.lat, CITY.hotel.lng], 15);
+  window._map = map;
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
+  const M = {};
+  const mk = (s, cls, label) => {
+    const m = L.marker([s.lat,s.lng],{icon:L.divIcon({className:"",html:`<div class="pin ${cls}">${label}</div>`,iconSize:[28,28],iconAnchor:[14,14]})}).addTo(map);
+    m.bindPopup(`<div class="pop"><b>${label==="H"?"":label+". "}${s.name}</b><i>${s.alt||"Your base"}</i><div class="r">
+      ${label==="H"?"":`<a class="p" href="#" onclick="goStop('${label}');return false;">Read</a>`}
+      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Maps</a></div></div>`,{maxWidth:250});
+    return m;
+  };
+  M["H"] = mk(CITY.hotel,"h","H");
+  STOPS.forEach(s=>M[s.n]=mk(s,"",s.n));
+  EXTRAS.forEach(s=>M[s.n]=mk(s,"x",s.n));
+  DAYS.forEach(d=>{
+    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
+    if(!inner.length) return;
+    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(s=>[s.lat,s.lng]);
+    L.polyline(pts,{color:d.slot==="Evening"?"#B26A00":"#0A5FE0",weight:3.5,opacity:.5,dashArray:"8 8"}).addTo(map);
+  });
+  map.fitBounds(L.latLngBounds([CITY.hotel].concat(STOPS).map(s=>[s.lat,s.lng])).pad(0.16));
+  window.showOnMap = n => { show("map"); scrollTo(0,0);
+    setTimeout(()=>{map.invalidateSize(); map.setView(M[n].getLatLng(),17,{animate:true}); M[n].openPopup();},120); };
+}
+
+const topB=$("#top");
+topB.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+addEventListener("scroll",()=>{topB.style.display = scrollY>520 ? "block" : "none";});
+</script>
+</body>
+</html>

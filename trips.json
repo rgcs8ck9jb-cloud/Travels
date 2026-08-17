@@ -33,6 +33,17 @@
       "tag": "12 stops · 2 mornings · 2 evenings",
       "blurb": "Shah-i-Zinda on the doorstep, the Registan at opening, Timur's tomb before noon.",
       "accent": "#0A5FE0"
+    },
+    {
+      "city": "Tashkent",
+      "country": "Uzbekistan",
+      "dates": "August 2026 — dates to confirm",
+      "start": "2026-08-20",
+      "file": "tashkent.html",
+      "hotel": "Not booked yet",
+      "tag": "Top 10 · 2 mornings · 1 evening",
+      "blurb": "The metro as a museum, Chorsu under its blue dome, the world's oldest Qur'an, and the squares of the rebuilt city.",
+      "accent": "#0A5FE0"
     }
   ]
 }
