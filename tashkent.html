@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0A5FE0">
-<title>Tashkent — August 2026 — dates to confirm</title>
+<title>Tashkent — Saturday 22 August 2026</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%230A5FE0'/><circle cx='32' cy='27' r='9' fill='none' stroke='%23fff' stroke-width='5'/><path d='M32 39v13' stroke='%23fff' stroke-width='5' stroke-linecap='round'/></svg>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -199,7 +199,7 @@ footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--in
 <body>
 
 <header>
-  <div class="hb"><h1>Tashkent</h1><span>Top 10 · 2 mornings</span></div>
+  <div class="hb"><h1>Tashkent</h1><span>1 morning</span></div>
   <nav>
     <button data-p="plan" class="on">Plan</button>
     <button data-p="map">Map</button>
@@ -214,7 +214,7 @@ footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--in
 
   <section class="pane" id="p-map">
     <div class="gbar" id="gbar"></div>
-    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at your base. Google caps a route at 10 points, so longer days are split.</div>
+    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. The route starts and ends at the hotel.</div>
     <div class="seg"><button id="tabLive" class="on">Live map</button><button id="tabPlan">Offline plan</button></div>
     <div><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="pfoot">Schematic — true relative positions, no streets. Works with no signal.</div></div></div>
   </section>
@@ -226,379 +226,263 @@ footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--in
 
 <div class="sheet" id="sheet"></div>
 <button id="top" aria-label="Top">&#8593;</button>
-<footer>Tashkent, Uzbekistan · August 2026 — dates to confirm<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
+<footer>Tashkent, Uzbekistan · Saturday 22 August 2026<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const CITY = {
   name:"Tashkent", country:"Uzbekistan",
-  dates:"August 2026 — dates to confirm",
-  sub:"Top 10 · 2 mornings",
-  plan:"Tashkent is huge, flat and modern, and its sights are spread across two clusters: the old town in the north-west and the Soviet-and-after centre. Two early mornings covers all ten, with the hot middle of the day back at the base and one evening out.",
-  baseLine:"<b>Base: not booked yet.</b> Routes below currently start and end at <b>Amir Timur Square</b> in the centre. Tell me your hotel and every route re-anchors to it.",
-  pills:["Top 10","2 mornings","1 evening","Metro city","Out 07:00"],
-  hotel:{ name:"Amir Timur Square", short:"Base", gq:"Amir Timur Square Tashkent",
-          routeQ:"Amir Timur Square, Tashkent",
-          leaveLabel:"Placeholder start — replace with your hotel",
-          backLabel:"Back to base",
-          lat:41.3098, lng:69.2820,
-          alt:"Placeholder base — the geographic centre of the sights" }
+  dates:"Saturday 22 August 2026",
+  sub:"1 morning",
+  plan:"One morning, and it happens to be the easiest kind: your hotel sits inside the Hazrat Imam complex itself, so everything worth seeing on foot is within about 800 metres. Walk the old religious square while it is still cool, drop south into Chorsu Bazaar for breakfast and the blue dome, then walk back. Checkout is 12:00 and the airport is a 9-minute drive from this district, so there is no reason to leave for the 17:30 flight before mid-afternoon — the morning can stay unhurried.",
+  pills:["1 morning","Out 06:30","Back ~11:30","Flight 17:30","~1.7 km on foot"],
+  hotel:{ name:"Sayidat Hotel Tashkent", short:"Hotel", gq:"Sayidat Hotel Tashkent Islamic Civilization Centre, Zarqaynar, Tashkent", routeQ:"Sayidat Hotel Tashkent Islamic Civilization Centre, Zarqaynar, Tashkent",
+          lat:41.3363, lng:69.2397,
+          alt:"Zarqaynar street — about 230 m from the Hazrat Imam complex" }
 };
 
 const DAYS = [
 {
-  slot:"Morning", day:"Day 1", dayShort:"D1", out:"07:00", back:"12:30",
-  walk:"2.5 km on foot + metro", after:"Lunch, nap, pool",
-  title:"Old Tashkent: the metro, the bazaar, the Qur'an",
-  intro:"Ride the metro out to Chorsu — the ride is one of the ten things, not a way of getting to them — then the bazaar at its busiest, the madrasa above it, and a short taxi north to the holiest site in the country.",
-  stops:[1,2,3,4],
-  optional:[],
+  slot:"Morning", day:"Saturday 22 August", dayShort:"Sat", out:"06:30", back:"11:30",
+  walk:"~1.7 km on foot", after:"Checkout at 12:00, lunch, then taxi to the airport ~14:00",
+  title:"Hazrat Imam at dawn, then Chorsu",
+  intro:"Everything on this list is a short walk from your door. Do the quiet religious square first, while the light is low and the courtyards are empty, then follow Karasaray Street a few minutes south into Chorsu Bazaar for breakfast under the blue dome. You will be back at the hotel with hours to spare before the flight.",
+  stops:[1,2,3,4,5],
+  optional:[6],
   tips:[
-    "Chorsu opens at 05:00 and is at its best before 09:00 — full of traders, empty of tourists, and cool.",
-    "Get off at Chorsu station: the station itself is one of the prettiest on the network.",
-    "Khast Imam is a 1.5 km walk or a 5-minute taxi north of Chorsu. In August, take the taxi.",
-    "Dress properly for Khast Imam — it is a working religious complex and the most conservative place you will visit in Uzbekistan.",
-    "Breakfast in Chorsu: samsa straight from the tandir on the lower level, then non and dried fruit under the dome."
-  ]
-},
-{
-  slot:"Morning", day:"Day 2", dayShort:"D2", out:"07:30", back:"12:30",
-  walk:"3 km on foot", after:"Lunch, nap, pool",
-  title:"The centre: squares, opera, applied arts",
-  intro:"The other Tashkent — Soviet planning, fountains, plane trees and marble. Almost all of it is walkable in one loop from Amir Timur Square, and much of it is shaded.",
-  stops:[5,6,8,9],
-  optional:[10],
-  tips:[
-    "Start at Amir Timur Square for the shade. The plane trees here are the oldest thing in the centre.",
-    "The Applied Arts Museum is the sleeper hit — a 19th-century Russian diplomat's house covered inside in carved ganch and painted ceilings. Better than the building it is in suggests.",
-    "Independence Square has been under large-scale redevelopment; parts may be fenced. Check before making a special trip.",
-    "The State History Museum has been closed for renovation since 2024 — confirm before going.",
-    "Minor Mosque (10) is 4 km north and needs a taxi. Best in the late afternoon when the white marble goes warm."
-  ]
-},
-{
-  slot:"Evening", day:"Day 2", dayShort:"D2", out:"18:30", back:"21:30",
-  walk:"1.5 km on foot", after:"Late back",
-  title:"Broadway and the fountains",
-  intro:"Sayilgoh Street — everyone calls it Broadway — runs between the two great squares and comes alive after dark: portrait painters, food stalls, fairground games, families out in the cool. Then the fountains at Tashkent City Park.",
-  stops:[7],
-  optional:[],
-  tips:[
-    "This is the most relaxed evening of the whole trip and by far the easiest with a child.",
-    "Tashkent City Park (extra B) is a 15-minute walk west, with a musical fountain show after dark and a lot of Uzbek families doing exactly the same thing.",
-    "Street food along Broadway is fine, but eat properly first — Central Asian Plov Centre is lunch-only, so pick a restaurant near Amir Timur Square.",
-    "Cash for the stalls and the portrait painters."
+    "The complex opens with first light and there is no gate to wait for. Arrive by 06:30 and Barak-Khan and Kaffal Shashi will likely be yours alone.",
+    "Worth knowing before you go in: the famous Uthman Quran is no longer inside Muyi Muborak. It moved to the new Center for Islamic Civilization next door in November 2025 — see stop 4 and Extra A for what that means for this visit.",
+    "Chorsu's stalls are best early — tandoor bread and the first batches of samsa come out mid-morning, before the heat and the crowds arrive.",
+    "No need to rush back. Checkout is 12:00 and the airport is only about 9 minutes' drive from this district — you have real slack before a 17:30 departure.",
+    "If the child is flagging, drop stop 6 (Kukeldash) without a second thought — the dome at Chorsu is the only unmissable thing on this list."
   ]
 }
 ];
 
 const STOPS = [
 {
-  n:1, name:"Tashkent Metro", short:"Metro", alt:"Opened 1977 · the first metro in Central Asia",
-  lat:41.3040, lng:69.2725, gq:"Kosmonavtlar metro station Tashkent",
-  dur:"45 min", fee:"~2,000 som a ride", hours:"05:00–24:00",
-  block:"Start at Kosmonavtlar or Alisher Navoi",
+  n:1, name:"Barak-Khan Madrasah", short:"Barak-Khan", alt:"1530–32 · still Uzbekistan's Muslim Board offices",
+  lat:41.3374, lng:69.2402, gq:"Barak Khan Madrasah Tashkent",
+  dur:"20 min", fee:"Free (courtyard)", hours:"Daylight — confirm, restoration works were approved for 2026",
+  block:"Directly opposite the hotel",
   tips:[
-    "<b>Photography is allowed</b> — the ban was lifted in 2018. For decades this was a military secret.",
-    "The three to see: <b>Kosmonavtlar</b> (space, blue glass medallions of cosmonauts), <b>Alisher Navoi</b> (domed ceilings like a madrasa), <b>Mustaqillik Maydoni</b> (marble and chandeliers). All on or one stop from your route.",
-    "Buy a plastic token at the booth. Around 2,000 som a ride, flat fare, no zones.",
-    "Air-conditioned and about 15 degrees cooler than the street. In August that alone justifies it.",
-    "Trains every 3–5 minutes. Signs are in Latin script and increasingly in English."
+    "Go first — it is the closest building to your door and the quietest at 06:30.",
+    "Look for the turquoise-tiled portal and the two mismatched domes; the earthquake of 1868 took down the originals and what you see is a careful rebuild.",
+    "This is a working government building as much as a monument — it houses the actual offices of the Muslim Board of Uzbekistan. Keep voices down near the entrances people are using for work.",
+    "A restoration project covering this madrasah was approved in April 2025 — some scaffolding or partial closures are possible. Confirm access isn't restricted before you commit the whole morning to this route."
   ],
-  more:`<p>Most cities' metros are transport. Tashkent's is a sight, and it belongs on any top ten list of things to see here.</p>
-<p>It opened in 1977, the first underground railway in Central Asia and the seventh in the Soviet Union. It was built after the 1966 earthquake levelled much of the city, and it was engineered to survive another one — the tunnels are designed to withstand a magnitude 9 event, and the stations doubled as nuclear shelters. That second function is why <strong>photography was banned until 2018</strong>: the metro was formally a military installation, and taking pictures could get you arrested. The ban was lifted, and the stations turned out to be one of the best things in the country.</p>
-<p><strong>Each station is themed and individually designed</strong>, by different architects, with mosaic, majolica, carved marble, ganch plasterwork and chandeliers. <em>Kosmonavtlar</em> is the famous one: a dark blue tunnel like deep space, with ceramic medallions of Icarus, Ulugh Beg, Gagarin and Valentina Tereshkova floating along the walls. <em>Alisher Navoi</em> is the beautiful one — domes and pointed arches in blue and white, deliberately echoing a madrasa, decorated with scenes from the poet's work. <em>Mustaqillik Maydoni</em> is the grand one, all white marble and chandeliers. <em>Pakhtakor</em> has cotton-flower mosaics. <em>Chorsu</em> has ceramic panels of the bazaar above it.</p>
-<p>Ride two or three stops, get out, look, get back on. It costs about fifteen cents a journey and it is, in August, the coldest place in Tashkent.</p>`
+  more:`<p>The oldest headline building in the square, and — despite the name — not actually the tomb of the man it is named after. It was built in stages from 1530–32 under the Shaybanid dynasty, the Uzbek rulers who took Central Asia after the Timurids, at a moment when Tashkent was consolidating its identity and the word "Uzbek" itself was coming into wider use as a name for the people who ruled it.</p>
+<p><strong>Who Barak Khan actually was.</strong> The complex began under Suyunchkhodja-khan, an early Shaybanid ruler of Tashkent, and was expanded by his son Navruz Ahmad Khan — nicknamed Barak Khan, from <em>baraka</em>, "blessing". A mausoleum was built into the madrasah for him. He never used it: chronicles record that he died in Samarkand in 1556 and was buried there instead, leaving his own tomb in Tashkent empty. It is a small, telling detail about how much of what looks permanent in this square was, in practice, improvised and rearranged over five centuries.</p>
+<p><strong>What survived and what didn't.</strong> A series of major earthquakes in the second half of the 19th century — the worst in 1868 — badly damaged the portal and domes, and the complex spent much of the 20th century in a partly ruined state. It was substantially restored in 2007, when Tashkent was designated the capital of Islamic culture, and again is under further restoration work approved in 2025.</p>
+<p><strong>The living angle, for the family.</strong> Unlike the Registan in Samarkand or the Kalyan complex in Bukhara — beautiful buildings with no institutional function left — Barak-Khan is still in active use as the seat of the Muslim Board of Uzbekistan, the country's official Islamic administration. Point that out: it is the one stop on this whole trip that is not really a museum at all.</p>`
 },
 {
-  n:2, name:"Chorsu Bazaar", short:"Chorsu", alt:"The great blue dome · old town market",
-  lat:41.3262, lng:69.2345, gq:"Chorsu Bazaar Tashkent",
-  dur:"1h", fee:"Free", hours:"05:00–20:15 · from 04:30 Sunday",
-  block:"Chorsu metro station",
+  n:2, name:"Kaffal Shashi Mausoleum", short:"Kaffal Shashi", alt:"1542 · tomb of the complex's namesake",
+  lat:41.3376, lng:69.2404, gq:"Kaffal Shashi Mausoleum Tashkent",
+  dur:"15 min", fee:"Free", hours:"Daylight",
+  block:"A few steps from Barak-Khan, same square",
   tips:[
-    "Go early. It opens at five and the serious trading is done by nine.",
-    "The blue dome is the food hall: meat and dairy on the ground floor, spices and dried fruit on the gallery above. Go up for the view down.",
-    "Outside the dome: bread, pottery, knives, hats, hardware, and a whole street of tandir ovens.",
-    "Everything is tasted before it is bought. Accept the taste; it is not a sales trick, it is the etiquette.",
-    "Watch bags in the crowded aisles. It is safe, but it is busy."
+    "Quieter than Barak-Khan next door and easy to walk straight past — worth the ten minutes on purpose.",
+    "The 'locksmith' story is a good one for a child: a scholar nicknamed for how good he was at making an intricate lock.",
+    "Still an active pilgrimage site. Local visitors may be reading Qur'anic verses with palms upturned — give them space.",
+    "This is where the whole complex gets its name: Hazrati Imam, 'the venerated imam', refers to the man buried here."
   ],
-  more:`<p>Chorsu means "four ways" — the crossroads where the roads from Samarkand, the Fergana valley, the steppe and the Chimgan mountains met. There has been a market on this spot for more than a thousand years, and it is still the beating heart of the old city.</p>
-<p><strong>The dome</strong> is a Soviet building from the 1980s and it is magnificent: a shallow turquoise-tiled cupola 300-odd metres round, ribbed and ringed with ceramic ornament, covering a two-level food hall. Under it, the layout is by trade, as it has always been. Butchers occupy the centre in a ring, then dairy — sour cream, <em>suzma</em>, curd balls of <em>kurt</em> dried hard as stone — then pickles, then the gallery above for spices, nuts, dried apricots, raisins, tea and halva.</p>
-<p>Outside the dome the market sprawls for blocks: a bread row where women sit behind towers of stamped <em>non</em>; a pottery row from Rishtan and Gijduvan; knife-makers from Chust; hats, cradles, saddles, plastic buckets. The <strong>samsa ovens</strong> are worth finding — clay tandirs with the pastries stuck to the inner wall, pulled out with a hook.</p>
-<p>This is the least curated place on your whole trip. Nobody built Chorsu for you to look at, which is exactly why it is worth an hour.</p>`
+  more:`<p>Everything in this square is named, ultimately, after the man buried here: Abu Bakr Muhammad ibn Ali ibn Ismail al-Kaffal ash-Shashi, born in Tashkent — then called Shash — in 904, and died here in 976.</p>
+<p><strong>The nickname.</strong> <em>Kaffal</em> means "locksmith". Tradition holds he could make locks of extraordinary complexity — one story has him making a lock whose key alone weighed a pound and a half — before he turned to religious scholarship and became one of the most respected Islamic jurists and theologians of his generation. He travelled widely, studying and teaching in Baghdad and Mecca, then returned to Tashkent and taught until his death. His grave, by the old city wall, became a pilgrimage site almost immediately.</p>
+<p><strong>The building.</strong> What stands today dates from 1542, built by the royal architect Gulyam Husayn: a compact, asymmetrical domed structure — 13.3 by 12.5 metres, the dome rising 16.4 metres — restored most recently in 2006–2008. It predates Barak-Khan's madrasah next door by only a few years, and some accounts say the later madrasah was deliberately built on the edge of the existing mausoleum grounds, folding the older shrine into the new complex rather than replacing it.</p>
+<p>Nine and a half centuries after his death, Kaffal Shashi is still what this entire square is for. Everything else here — the madrasahs, the library, the new mosque, even the giant Center for Islamic Civilization next door — has grown up around one 10th-century grave.</p>`
 },
 {
-  n:3, name:"Kukeldash Madrasa", short:"Kukeldash", alt:"1560s · Tashkent's largest surviving madrasa",
-  lat:41.3245, lng:69.2352, gq:"Kukeldash Madrasa Tashkent",
-  dur:"25 min", fee:"Small charge or free", hours:"09:00–18:00",
-  block:"On the rise directly above Chorsu",
+  n:3, name:"Tillya-Sheikh Mosque", short:"Tillya-Sheikh", alt:"1856 · the old, plain Friday mosque",
+  lat:41.3371, lng:69.2399, gq:"Tillya Sheikh Mosque Tashkent",
+  dur:"15 min", fee:"Free", hours:"Daylight — working mosque, avoid prayer times",
+  block:"Beside Muyi Muborak, same square",
   tips:[
-    "Two minutes' walk uphill from the bazaar — you can see it from the dome.",
-    "A working madrasa again since 1990s independence. Students in residence; be discreet.",
-    "The terrace in front is the best place to photograph the Chorsu dome from above.",
-    "Shoulders and knees covered; a scarf for hair inside the courtyard."
+    "Also spelled Telyashayakh. Deliberately plain — this is the useful contrast stop after two ornate 16th-century buildings.",
+    "Working mosque: shoes off, shoulders and knees covered, quiet during prayer times.",
+    "The huge modern mosque you'll also see across the square — with the tall new dome — is the separate Hazrati Imam Friday Mosque, built in 2007. You'll walk past it; no need to make it a special stop.",
+    "This older mosque, not the new one, is where the library and the Uthman Quran historically sat for reading and safekeeping before the modern museum building existed."
   ],
-  more:`<p>Built in the 1560s by a vizier of the Shaybanid khans of Tashkent whose title was <em>kukeldash</em> — "the khan's foster brother", the same honorific behind the Kukeldash madrasa you saw at Lyabi Hauz in Bukhara. It is the largest medieval building left in Tashkent, which says as much about what the city has lost as about the building.</p>
-<p><strong>Tashkent has almost no old architecture</strong>, and there are three reasons. It was sacked repeatedly — by Genghis Khan, by the Shaybanids, by the Kokand khanate, by the Russians in 1865. It was then rebuilt by the Soviets as a showcase modern capital. And on 26 April 1966 an earthquake with a shallow focus directly beneath the city destroyed the centre, leaving 300,000 people homeless and flattening most of what was left of the mud-brick old town. Kukeldash survived all three, and it is the exception that shows you the rule.</p>
-<p>Its own history is grim in places. Used as a caravanserai in the eighteenth century and as a fortress by the Kokand khans, it was the site — according to nineteenth-century accounts — of public executions in which women convicted of adultery were thrown from the top of the portal in sacks. It was a museum of atheism under the Soviets. Since independence it has been a working seminary again.</p>
-<p>The building itself is plain by Samarkand standards: a big portal, a courtyard, two storeys of cells, restored fairly heavily in the 1950s and again in the 2000s. Come for the fact that it is still here.</p>`
+  more:`<p>A modest single-domed mosque built in 1856, and it looks it: after the tiled grandeur of Barak-Khan and the pilgrimage weight of Kaffal Shashi, this is a plain, almost severe building. One well-known English-language guide calls it "spartan", and that is the right word.</p>
+<p><strong>Why it looks the way it does.</strong> By the mid-19th century, Tashkent was a provincial city under the Khanate of Kokand, not a Timurid capital with imperial resources behind it. Religious building here was functional rather than showy — this was a working neighbourhood mosque, not a dynastic monument. That contrast is itself worth noticing: everything grand in Samarkand and Bukhara was built by rulers with empires to advertise; this was built by a city that no longer had one.</p>
+<p><strong>The modern counterpart.</strong> In 2007, when Tashkent was named the capital of Islamic culture, a large new Hazrati Imam Friday Mosque was built directly in the same square — domed, symmetrical, and roughly the visual opposite of this older building. Seeing both side by side, a few decades apart in age but centuries apart in ambition, tells you more about how this complex has been used across time than either building could alone.</p>
+<p>The old mosque and the neighbouring library building have functioned together for well over a century as the working religious and scholarly core of the complex — worship in one, manuscripts in the other, right next door to each other.</p>`
 },
 {
-  n:4, name:"Khast Imam Complex", short:"Khast Imam", alt:"Hazrati Imam · 16th c. and 2007 · the Uthman Qur'an",
-  lat:41.3337, lng:69.2374, gq:"Khast Imam Complex Tashkent",
-  dur:"1h 15", fee:"Complex free · Muyi Muborak library ~30,000 som", hours:"09:00–21:00",
-  block:"1.5 km north of Chorsu — short taxi",
+  n:4, name:"Muyi Muborak Madrasah", short:"Muyi Muborak", alt:"16th c. · \"Sacred Hair\" — and, until Nov 2025, the Uthman Quran",
+  lat:41.3373, lng:69.2405, gq:"Muyi Muborak Madrasah Tashkent",
+  dur:"15–20 min", fee:"~60,000 som — unverified since the move, confirm at the door", hours:"~09:00–17:00, confirm",
+  block:"Beside Tillya-Sheikh, same square",
   tips:[
-    "The most conservative site on your trip. Women: hair covered, arms and legs covered. Men: long trousers.",
-    "<b>The Uthman Qur'an is the reason to come.</b> It is in the Muyi Muborak library, a small building on the left of the square, and photography of it is not allowed.",
-    "The huge mosque is from 2007, not the 16th century. The old buildings are the Barak Khan Madrasa and the Tilla Sheikh Mosque around the square.",
-    "Very little shade on the marble square, and white marble reflects heat. Go early.",
-    "Fridays are extremely busy. Avoid midday prayer unless you want to see it."
+    "Read this before you build the moment up for the family: the actual Uthman Quran left this building in November 2025. It is now in the Center for Islamic Civilization next door (Extra A) — not here.",
+    "What remains is genuinely worthwhile on its own terms: the library of the Muslim Board of Uzbekistan, about 20,000 books and 3,000 manuscripts, plus the relic the building is named for — a hair said to belong to the Prophet Muhammad.",
+    "No photography inside, regardless of what's on display.",
+    "Given the star exhibit has moved, weigh a quick look at the building and the story against the ticket price — a shorter stop than the reviews written before late 2025 would suggest."
   ],
-  more:`<p>The religious centre of Uzbekistan, and the seat of the country's Muslim Board. The square is large, white-marbled and mostly modern — the enormous Hazrati Imam Friday mosque with its two minarets was built in 2007 on presidential orders, in a sixteenth-century style. The genuinely old buildings sit around the edges: the <strong>Barak Khan Madrasa</strong> (1530s–50s, blue-tiled portal, now craft shops), the <strong>Tilla Sheikh Mosque</strong> (1850s), and the tomb of Abu Bakr Kaffal Shashi, the tenth-century scholar and saint the complex is named for — <em>hazrati imam</em>, "the holy imam", worn down in speech to <em>khast imam</em>.</p>
-<h4>The Uthman Qur'an</h4>
-<p>In the small <strong>Muyi Muborak</strong> library on the square sits a very large, very worn manuscript on deerskin, written in an early angular Kufic script. It is traditionally identified as the personal Qur'an of <strong>Uthman ibn Affan</strong>, the third caliph, who was assassinated in 656 AD while reading it — and the dark stains on the pages are said to be his blood.</p>
-<p>The traditional account is that Timur brought it from Iraq to Samarkand; the Russians took it to St Petersburg in 1869; Lenin returned it to the Muslims of Russia in 1924 as a gesture; it went to Ufa, then Tashkent. Roughly a third of the original survives here, with leaves in Istanbul, Cairo and St Petersburg.</p>
-<p><strong>Scholars date it later than the tradition claims</strong> — most radiocarbon and palaeographic work puts it in the eighth or ninth century rather than the 650s, so it is probably not Uthman's own copy. UNESCO listed it on the Memory of the World register in 1997 regardless, because whatever its exact date it is one of the oldest substantial Qur'an manuscripts in existence. Say the caveat once, then look at it properly: the sheer physical presence of the thing — enormous pages, thick deerskin, a script that predates the dots and vowel marks that make Arabic easy to read — is the point.</p>`
+  more:`<p><em>Muyi Muborak</em> means "Sacred Hair" — for a relic kept here, believed by tradition to be a single strand of the Prophet Muhammad's hair. The building dates to the 16th century, was substantially rebuilt in 1856–57 under the Kokand Khanate, and functions today as the library of the Muslim Board of Uzbekistan.</p>
+<p><strong>The Quran, and its extraordinary journey.</strong> For a century, this small building held the single most important object in Tashkent: an early Quran manuscript on deerskin parchment, traditionally dated to 644–651 AD, in the era of the third caliph Uthman ibn Affan — tradition holds some pages carry his blood, from the moment he was murdered while reading it. Timur is said to have brought it to Samarkand from a Middle Eastern campaign in the 14th century. Russian imperial authorities removed it to St Petersburg and then Moscow after 1868. Lenin ordered it returned to Tashkent in 1924, an act of Soviet goodwill toward the Muslims of Turkestan, and it sat here, in Muyi Muborak, from 1924 until — <strong>this is the part worth knowing before you go in</strong> — November 2025, when it was moved again, this time down the street to the newly built Center for Islamic Civilization, opened to the public in March 2026.</p>
+<p><strong>So what is actually here now?</strong> The building itself, the hair relic, and the wider manuscript library — real and interesting, but not the headline object most guidebooks and reviews written before late 2025 describe. The single most photographed and most written-about thing in Tashkent has, quite recently, changed address.</p>
+<p>It is a good, honest lesson for a family trip: even a thousand-year-old relic's home can change within your own travel-planning lifetime. Treat this stop as the story of where the Quran has been, not a guarantee of where it currently is.</p>`
 },
 {
-  n:5, name:"Amir Timur Square & Museum", short:"Amir Timur Sq", alt:"1882 park · museum opened 1996",
-  lat:41.3111, lng:69.2797, gq:"Amir Timur Square Tashkent",
-  dur:"45 min", fee:"Square free · museum ~40,000 som", hours:"Museum 10:00–18:00, closed Mondays",
-  block:"The centre of the modern city",
+  n:5, name:"Chorsu Bazaar", short:"Chorsu Bazaar", alt:"UNESCO-listed July 2026 · the blue-domed market",
+  lat:41.3263, lng:69.2365, gq:"Chorsu Bazaar Tashkent",
+  dur:"45 min – 1h", fee:"Free to browse", hours:"~06:00–19:00, busiest and best 07:00–10:00 — confirm",
+  block:"~10 min walk south of Hazrat Imam, down Karasaray Street",
   tips:[
-    "The shadiest spot in central Tashkent — mature plane trees, benches, and a fountain. Start here.",
-    "The equestrian statue has occupied this plinth after Konstantin von Kaufman, Stalin, Marx and Lenin. The plinth is the real exhibit.",
-    "The museum's exterior is a copy of Gur-e-Amir, which you will just have seen for real in Samarkand. Caravanistan flatly advises skipping the interior; it is heavy on nation-building and light on objects.",
-    "Closed Mondays. The square is always open."
+    "Go early on purpose — dawn is genuinely the best light and the freshest food, before the heat and the crowds build.",
+    "The upstairs food hall does lagman, shurpa and kebabs for roughly 12,000–30,000 som; street stalls around the domes sell samsa for a few thousand som each.",
+    "As of July 2026 the bazaar's domed complex is a UNESCO World Heritage Site, part of a listing covering Tashkent's Soviet-modernist architecture — brand new as of this trip, worth telling the family.",
+    "A taxi rank sits at the market gate for the short ride back to the hotel if the morning has already been a long one.",
+    "Buy a stamped loaf of Tashkent non on the way out — it keeps for days and makes a genuinely good snack for the flight home."
   ],
-  more:`<p>The centre of Tashkent, laid out as a park by the Russians in 1882 at the junction of their new colonial city's main avenues, and a good place to watch a country decide who it is.</p>
-<p><strong>The plinth in the middle has held five different men.</strong> First Konstantin von Kaufman, the general who conquered Turkestan for the Tsar. Then, after the revolution, a Soviet star. Then Stalin. Then Karl Marx, whose enormous head sat there through the 1970s and 80s. Since 1993, Amir Timur — Tamerlane — on horseback, with the inscription <em>"Strength is in justice"</em>. Each replacement was a statement about which past the state wanted to claim.</p>
-<p>The <strong>Amir Timur Museum</strong> behind it, opened in 1996 for the 660th anniversary of his birth, is a domed rotunda of blue tile modelled on Gur-e-Amir. Inside are manuscripts, weapons, a letter from Timur to Charles VI of France, and a great deal of interpretation. It is the clearest single expression of independent Uzbekistan's official history, in which Timur — a Soviet-era villain — became the national founding father almost overnight. Worth twenty minutes for that reason. Several good guides suggest skipping it altogether; if you are short of time or patience, sit under the plane trees instead.</p>
-<p>Also on the square: the <strong>Hotel Uzbekistan</strong>, a colossal curved concrete slab from 1974 and the most photographed piece of Soviet modernism in the country. You can walk into the foyer, and there is a bar upstairs with a view.</p>`
+  more:`<p><em>Chorsu</em> is Persian for "crossroads" — four roads, four directions — and that is exactly what this site has been since at least the 11th century, when Central Asian cities began building covered bazaars at exactly this kind of junction. A market has stood on this spot, in some form, for the best part of a thousand years, through Silk Road trade, Mongol conquest, Russian and Soviet rule, and now an independent Uzbekistan.</p>
+<p><strong>The dome you actually see</strong> is much younger than the site itself. The earlier bazaar buildings were destroyed in the devastating Tashkent earthquake of 1966, and the current structure — the vast turquoise dome that has become one of the defining images of the city — was built in the 1980s as a piece of late Soviet modernism, deliberately referencing the historic domed-market tradition of Bukhara, Samarkand and Shahrisabz while being built in reinforced concrete. The central dome is roughly 80 metres across, among the largest of its kind in Uzbekistan, with several smaller domes clustered around it; inside, three floors of stalls run in concentric circles — produce, spices, dried fruit and dairy on different levels, with a busy food hall of prepared dishes upstairs.</p>
+<p><strong>Very recent news, worth telling the family:</strong> in July 2026, Chorsu's domed market complex was formally inscribed on the UNESCO World Heritage List, as part of a wider listing covering Tashkent's modernist architecture. It is an unusual honour — Soviet-era buildings rarely receive this kind of international heritage status — and it happened only weeks before this trip.</p>
+<p>Come for the architecture, but come more for the smell and the noise: tandoor bread slapped onto clay oven walls, the first samsa of the day, mountains of dried apricots and walnuts, and vendors who will hand you a taste before you buy. It is the one stop on this whole morning that needs no explanation to a five-year-old.</p>`
 },
 {
-  n:6, name:"Alisher Navoi Opera & Ballet Theatre", short:"Navoi Opera", alt:"1947 · built by Japanese prisoners of war",
-  lat:41.3105, lng:69.2740, gq:"Alisher Navoi Opera and Ballet Theatre Tashkent",
-  dur:"30 min outside · 2h+ for a performance", fee:"Tickets from ~50,000 som", hours:"Box office daytime; performances evenings",
-  block:"400 m west of Amir Timur Square",
+  n:6, name:"Kukeldash Madrasah", short:"Kukeldash", alt:"c. 1570 · still training imams today",
+  lat:41.3268, lng:69.2378, gq:"Kukeldash Madrasah Tashkent",
+  dur:"20 min", fee:"~5,000–10,000 som, indicative — confirm", hours:"Daylight",
+  block:"At the edge of Chorsu Bazaar",
   tips:[
-    "<b>Tickets are absurdly cheap</b> — a good seat for an opera or ballet costs a few dollars. If there is a performance while you are there, go.",
-    "Six foyers, each decorated in the style of a different Uzbek region — Tashkent, Bukhara, Samarkand, Khiva, Fergana, Termez. Worth seeing even without a ticket if they let you in.",
-    "The fountain plaza in front is a good evening stop with a child.",
-    "Check the schedule at the box office or online — the season pauses in high summer, so August performances are not guaranteed."
+    "Optional, and only worth it if the morning is still moving fast. Skip without guilt.",
+    "It sits right at the market's edge — easy to fold in on the way to or from Chorsu without a detour.",
+    "Locals say the best döner in the old city is on the narrow path beside this building — worth knowing if lunch timing lines up.",
+    "Unlike almost everything else on this trip, it is a working religious school, not a monument — genuinely still doing its 16th-century job."
   ],
-  more:`<p>A grand neoclassical theatre with an Uzbek skin, finished in 1947 and designed by <strong>Alexey Shchusev</strong> — the architect of Lenin's mausoleum on Red Square. It is named for Alisher Navoi, the fifteenth-century poet who wrote in Chagatai Turkic rather than Persian and effectively founded Uzbek literature.</p>
-<p><strong>It was built largely by Japanese prisoners of war.</strong> After the Soviet invasion of Manchuria in 1945, several hundred thousand captured Japanese soldiers were sent to labour camps across the USSR; around 25,000 came to Uzbekistan, and a few hundred worked on this building. They finished it in two years. When the 1966 earthquake destroyed most of central Tashkent, the theatre stood without a crack, and the story of the Japanese builders became famous — there is a commemorative plaque, and Japanese visitors still come specifically to see it. Uzbeks tend to tell the story warmly, which is not always how prisoner-of-war labour is remembered.</p>
-<p>Inside, the six foyers are each decorated in the carved ganch and painted style of a different Uzbek region, so the building doubles as a tour of the country's craft traditions. The auditorium seats about 1,400.</p>
-<p>Tickets cost a few dollars. Whatever is on, it is worth the money.</p>`
-},
-{
-  n:7, name:"Broadway (Sayilgoh Street)", short:"Broadway", alt:"Pedestrian street between the two squares",
-  lat:41.3110, lng:69.2755, gq:"Sayilgoh Street Broadway Tashkent",
-  dur:"1h", fee:"Free", hours:"Best after 18:30",
-  block:"Links Amir Timur Square to Independence Square",
-  tips:[
-    "An evening thing. In the daytime it is a hot empty street; after dark it is the city's living room.",
-    "Portrait painters, souvenir stalls, fairground games, ice cream, buskers, families out walking in the cool.",
-    "Cash for everything here.",
-    "Ten minutes end to end if you walk it. Plan an hour if you have a child with you."
-  ],
-  more:`<p>Officially Sayilgoh Street. Everybody calls it Broadway, and has since the late 1980s, when it became the one place in Soviet Tashkent where artists could sell work in the open, unofficially and then officially, along with the black-market money changers.</p>
-<p>It is a short tree-lined pedestrian street running the few hundred metres between Amir Timur Square and Independence Square, and it is the best free entertainment in the city. In the evening it fills with portrait painters working in charcoal at folding tables, stalls selling suzani and fridge magnets and Soviet badges of doubtful provenance, air-rifle shooting galleries, candyfloss, and an enormous number of Uzbek families walking slowly up and down in the cool.</p>
-<p>That last part is the point. Uzbek city life happens outdoors after sunset in summer, and Broadway is where Tashkent does it. Buy an ice cream, sit on a bench, and watch. It will be the least demanding and possibly the most enjoyable hour of your time in the city — and the easiest with a small child, who can run.</p>`
-},
-{
-  n:8, name:"Independence Square & Monument of Courage", short:"Mustaqillik",
-  alt:"Mustaqillik Maydoni · Soviet then national ceremonial space",
-  lat:41.3111, lng:69.2703, gq:"Independence Square Tashkent",
-  dur:"40 min", fee:"Free", hours:"Daylight · fountains in the evening",
-  block:"Western end of Broadway",
-  tips:[
-    "<b>Under large-scale redevelopment.</b> Parts may be fenced off. Check before making a special trip.",
-    "The Monument of Courage — the split stone and the bronze family — is a few hundred metres away on Sharaf Rashidov Avenue, and is the more moving of the two.",
-    "Big, open, marble, and no shade at all. Early morning or after dark only.",
-    "Fountains run in the evening and children are allowed near them."
-  ],
-  more:`<p>This was Lenin Square, and it held the largest statue of Lenin in Central Asia. In 1991 the statue came down and a globe went up in its place, with Uzbekistan alone picked out on it. The square was renamed <em>Mustaqillik Maydoni</em> — Independence Square. It is the national ceremonial space: parades, independence day, the state's picture of itself. Marble, fountains, arches topped with storks, and the Monument to the Independence and Humanism, showing a mother holding a child.</p>
-<p>It has been rebuilt more than once since independence and, as of recent reporting, is being substantially redeveloped again. Expect hoardings.</p>
-<h4>The Monument of Courage</h4>
-<p>A short walk away, and the thing actually worth seeing. At 05:23 on <strong>26 April 1966</strong>, an earthquake struck directly beneath central Tashkent. The magnitude was moderate — around 5.2 — but the focus was shallow and the city was built of unreinforced mud brick. Some 300,000 people lost their homes. The official death toll was low and is widely doubted.</p>
-<p>The monument marks the epicentre. A cube of black granite is split by a jagged crack, with the date and time carved on it; a bronze woman and man shield a child, the man's arm thrown out against the fault. Behind them a relief shows the reconstruction, which was carried out by work brigades sent from every Soviet republic and which rebuilt Tashkent in three years as a modern city of wide avenues and prefabricated blocks. That is why the capital of Uzbekistan looks the way it does, and why so little of the old city survives — the earthquake is the single most important fact about the shape of modern Tashkent.</p>`
-},
-{
-  n:9, name:"State Museum of Applied Arts", short:"Applied Arts", alt:"In the Polovtsev house, 1890s",
-  lat:41.2985, lng:69.2723, gq:"State Museum of Applied Arts Tashkent",
-  dur:"1h", fee:"~30,000 som", hours:"09:00–18:00",
-  block:"1.5 km south of the centre — short taxi",
-  tips:[
-    "<b>The best museum in Tashkent</b>, and the one most people miss.",
-    "The building is the exhibit as much as the collection — go for the carved ganch and the painted ceilings.",
-    "Small, cool, quiet and quick. Ideal for the end of a hot morning.",
-    "There is a decent craft shop attached, with better quality than the bazaar stalls."
-  ],
-  more:`<p>Alexander Polovtsev was a Russian diplomat posted to Turkestan in the 1890s, and a serious collector of local craft. He commissioned a house in the Uzbek style and imported the best masters in the region — carvers, plasterers, painters — to decorate it. The result is a set of rooms whose walls and ceilings are entirely covered in carved <em>ganch</em> fretwork, mirrored niches, and painted timber in the <em>kundal</em> gold-relief technique, all done by hand in the 1890s at a moment when the craft was at its last high point.</p>
-<p>The house was nationalised after the revolution and became a museum of applied arts in 1937. The collection now runs to several thousand pieces: suzani embroidery from every region, each with its own vocabulary of motifs; ceramics from Rishtan in that particular unrepeatable blue; skullcaps, jewellery, carved doors, copperware, silk ikat.</p>
-<p><strong>Why it beats the bigger museums.</strong> The State History Museum has been closed for renovation since 2024. The Amir Timur Museum is mostly interpretation. This is the one place in Tashkent where you can look closely at the actual objects — and at a complete interior — after a week of looking at buildings from thirty metres away. If your family has enjoyed the tilework and the woodwork on this trip, this is where they find out how it was made.</p>`
-},
-{
-  n:10, name:"Minor Mosque", short:"Minor Mosque", alt:"Opened 2014 · white marble",
-  lat:41.3399, lng:69.2668, gq:"Minor Mosque Tashkent",
-  dur:"30 min", fee:"Free", hours:"Daylight · avoid prayer times",
-  block:"4 km north of the centre, on the Ankhor canal",
-  tips:[
-    "Optional, and it needs a taxi. Go late afternoon when the white marble turns warm and gold.",
-    "Completely modern — 2014 — and it makes no claim otherwise. Come for the calm and the light, not the history.",
-    "Working mosque: shoes off, hair covered, quiet. Non-Muslims are welcome outside prayer times.",
-    "The canal-side park next to it is pleasant and shaded, and a good place to sit."
-  ],
-  more:`<p>A white marble mosque on the bank of the Ankhor canal, opened in 2014, with two slender minarets and a turquoise dome. It is the newest thing on this list by four hundred years and it is on it deliberately.</p>
-<p>Almost everything you will have seen in Uzbekistan on this trip is old, restored, and looked at. Minor is in daily use, and it is the current answer to the question those old buildings were answering: what should a mosque look like here, now? The response was to strip out the polychrome tile that defines Samarkand and Bukhara and go almost entirely white — Turkish and Gulf influence as much as Central Asian — with the traditional decoration reduced to a band of turquoise, carved marble screens and a mihrab of gilded ganch. The interior is bright, spare and genuinely beautiful, with a green mihrab wall and verses in gold.</p>
-<p>It seats around 2,400 and it fills on Fridays. Locals photograph it constantly; it has become the picture people post of contemporary Tashkent.</p>
-<p>Twenty minutes and a taxi fare. Worth it in the last hour of daylight, when the marble stops being white and turns the colour of butter.</p>`
+  more:`<p>Built around 1570, in the last strong phase of Shaybanid building in Tashkent, Kukeldash is one of the largest madrasahs in the old city and — unusually for a building this old — still functions as one. It trains imams today, the same job it was built for four and a half centuries ago.</p>
+<p><strong>The name</strong> comes from its founder's title rather than a personal name: <em>kukeldash</em> was an honorific for a ruler's foster-brother or closest confidant, a position of real political weight in Shaybanid court life. The madrasah follows the standard Central Asian plan — a large rectangular courtyard ringed by two storeys of student cells, with a grand tiled portal facing the square — on a scale that would not look out of place among the madrasahs of the Registan in Samarkand, though it draws a fraction of the visitors.</p>
+<p><strong>What happened to it in between.</strong> The building's history since the 16th century has not been continuous religious use. At various points under Russian and Soviet rule it served other purposes — reportedly including, at different times, a caravanserai and even a circus — before being restored to religious education in the post-Soviet period. That gap, and the return, is itself a small piece of the story of Islam's public life in Uzbekistan across the 20th century: suppressed, repurposed, and then deliberately revived.</p>
+<p>It sits at the literal edge of Chorsu Bazaar, so this is not really a detour — it is the last thing between you and the market, or the first thing after it.</p>`
 }
 ];
 
 const EXTRAS = [
 {
-  n:"A", name:"Chimgan Mountains & Charvak Lake", short:"Chimgan",
-  alt:"The Western Tian Shan · 1,500–3,300 m",
-  lat:41.5700, lng:70.0100, gq:"Chimgan Mountains Uzbekistan",
-  dist:"80–90 km north-east · 1h 30 by car", dur:"Full day", fee:"Car and driver ~600–900,000 som for the day",
-  hours:"Go early, back by evening",
-  more:`<p><strong>The single best thing you can do in Tashkent in August is leave it.</strong> Ninety minutes north-east, the Chimgan range rises out of the plain to over 3,000 metres and the temperature drops by ten to fifteen degrees. On the way is the Charvak reservoir, a large turquoise lake ringed by mountains, with beaches, boat hire, and a chairlift at Chimgan for the view.</p>
-<p>It is where Tashkent families go at weekends, which means it is busy on Saturday and Sunday and comparatively empty midweek. There are yurt camps and roadside cafés doing shashlik, a via ferrata and zip line at Amirsoy, and easy walking rather than serious hiking if you have a child.</p>
-<p>Hire a car and driver for the day through your hotel rather than a tour — it costs less, you set your own pace, and you can stop wherever the view is good. Take swimming things for the lake.</p>`
+  n:"A", name:"Center for Islamic Civilization", short:"Islamic Civ. Center", alt:"Opened March 2026 · where the Uthman Quran actually is now",
+  lat:41.3379, lng:69.2410, gq:"Center for Islamic Civilization Tashkent",
+  dist:"Next door to Hazrat Imam · 5 min walk", dur:"2h minimum guided tour, 3–4h recommended",
+  fee:"Timed group-tour tickets — price not established for this guide, check the centre directly",
+  hours:"Guided group tours by time slot, as of April 2026 — no drop-in visits",
+  more:`<p>This is where the Uthman Quran actually lives now, moved here from Muyi Muborak in November 2025, ahead of the Center's public opening on 17 March 2026. It sits beneath a 65-metre dome in a dedicated Quran Hall, alongside a gallery of 114 historic Quran manuscripts connected to Uzbekistan.</p>
+<p><strong>Why it isn't part of this one-morning plan.</strong> The Center is enormous — more than ten hectares, around 42,000 square metres of exhibition space — and as of spring 2026 it operates on guided group tours only, booked for a specific time slot, running a minimum of two hours with three to four hours recommended to see it properly. That does not fit a single relaxed morning with a young child alongside everything else here, and the timed-ticket structure makes it hard to combine casually with an unplanned walk around the old square.</p>
+<p>If a genuine look at the real Uthman Quran matters enough to the family to reshape the whole morning around a fixed tour slot, it is worth doing properly on a future, longer Tashkent stopover rather than squeezed in here. For this trip, Muyi Muborak (stop 4) tells you the object's story even though the object itself has moved on.</p>`
 },
 {
-  n:"B", name:"Tashkent City Park & Magic City", short:"City Park",
-  alt:"Opened 2019–21 · fountains, gardens, night lights",
-  lat:41.3125, lng:69.2645, gq:"Tashkent City Park",
-  dist:"1.5 km west of Broadway · walkable", dur:"1–2h", fee:"Park free · Magic City rides charged",
-  hours:"Best after 19:00",
-  more:`<p>A large new landscaped park in the middle of the redeveloped Tashkent City district, with lawns, water channels, a big musical fountain that runs in the evening, and a lot of families out after dark.</p>
-<p>Nearby, <strong>Magic City</strong> is an unabashedly kitsch theme park of miniature European castles, illuminated at night, with rides, restaurants and a light show. It has no cultural value whatsoever and small children find it wonderful.</p>
-<p>Together they make the easiest evening in Tashkent: flat paths, shade, water, ice cream, no steps, no dress code, no tickets required for the park itself. If the trip has been heavy on monuments, spend an evening here without guilt.</p>`
-},
-{
-  n:"C", name:"Tashkent TV Tower", short:"TV Tower", alt:"1985 · 375 m · viewing platform at 100 m",
-  lat:41.3480, lng:69.2879, gq:"Tashkent TV Tower",
-  dist:"6 km north · 15 min taxi", dur:"1h", fee:"~40,000 som",
-  hours:"10:00–22:00",
-  more:`<p>A 375-metre Soviet television tower finished in 1985, standing on three splayed legs with a lattice spire — a design that would look at home in a science-fiction paperback of the period. For a while it was among the tallest free-standing towers in the world; it is still the tallest structure in Central Asia.</p>
-<p>The viewing platform is at 100 metres, which is a quarter of the way up and lower than the marketing suggests. The view is of a flat green city stretching to the horizon, with the mountains visible to the north-east on a clear day. There is a revolving restaurant.</p>
-<p><strong>Bring passports</strong> — it is still treated as a strategic installation and there is a security check. Photography of the exterior is fine. Best at dusk. Whether it is worth the trip depends entirely on how much you like Soviet engineering; if you do, it is a highlight, and if you do not, skip it.</p>`
+  n:"B", name:"Amir Timur Square", short:"Amir Timur Sq.", alt:"Tashkent's modern civic centre",
+  lat:41.3111, lng:69.2797, gq:"Amir Timur Square Tashkent",
+  dist:"~5 km south-east · 15 min taxi", dur:"1–2h",
+  fee:"Free",
+  hours:"Open air, any time",
+  more:`<p>The symbolic centre of modern Tashkent, and a useful contrast to everything in the old city this morning: wide Soviet-era boulevards, formal gardens, and an equestrian statue of Timur at the centre that has stood in for several very different versions of the city's official self-image over the last century — the same plinth reportedly held a Russian imperial monument, then Stalin, then Marx, before Timur arrived in 1994 as the new republic's chosen founding figure.</p>
+<p>Independence Square and the newer Tashkent City business district sit nearby, giving a reasonably complete sense of how the capital sees its own present day, alongside the deep past explored in the old town this morning.</p>
+<p>Filed here purely as a note for a longer future stay — it does not fit inside one morning that already includes the old city and Chorsu, and there is no reason to trade either for it on this trip.</p>`
 }
 ];
 
 const FOOD = {
-  intro:"Tashkent is where Uzbek food stops being regional and becomes a capital city's: the plov centres are institutions, but there is also Korean food from the deported Koryo-saram community, Uyghur noodle houses, Georgian restaurants and a real coffee scene. It is the best eating of the whole trip.",
+  intro:"Tashkent plov leans different from what you had in Samarkand and Bukhara — quail eggs, chickpeas, and a lighter hand with the raisins are the local signature. With only one morning here, the practical plan is market food at Chorsu for breakfast, and lunch back at the hotel before the airport run — but the options below cover it either way.",
   dishes:[
-    {name:"Tashkent plov", note:"Darker and richer than Samarkand's, stirred rather than layered, often topped with quail eggs, horse sausage (<em>kazy</em>) and chickpeas. Cooked in kazans the size of a paddling pool. A lunch dish, gone by early afternoon."},
-    {name:"Samsa", note:"Tashkent bakes them in every shape — triangular, square, round — from clay tandirs. The best are pulled off the oven wall in front of you."},
-    {name:"Lagman", note:"Hand-pulled Uyghur noodles, either in broth (<em>suyuq</em>) or fried (<em>quruq</em>). The fried version is the one to order here."},
-    {name:"Koryo-saram salads", note:"Korean-style spiced carrot (<em>morkovcha</em>), kimchi and marinated vegetables, sold by the kilo at Chorsu and Alay bazaars. A legacy of the Koreans deported to Central Asia by Stalin in 1937, and now completely Uzbek."},
-    {name:"Manti &amp; chuchvara", note:"Big steamed dumplings and tiny ones in broth. Reliable with children."},
-    {name:"Shashlik &amp; kazan-kebab", note:"Skewered charcoal-grilled lamb; or lamb and potato crisped in a cast-iron kazan."},
-    {name:"Norin", note:"A Tashkent speciality — cold hand-cut noodles with sliced boiled horsemeat and onion. Genuinely local, and an acquired taste worth acquiring."},
-    {name:"Achichuk &amp; herb salads", note:"Tomato, onion and chilli in vinegar. Order with everything grilled."},
-    {name:"Non", note:"Tashkent <em>obi non</em> is softer and thinner than Samarkand's. Buy it hot from a bread row."},
-    {name:"Chak-chak &amp; halva", note:"Fried dough in honey, and dense nut halva. Both by weight in the bazaars."},
-    {name:"Coffee", note:"Tashkent has a genuinely good third-wave coffee scene — a surprise after a week of green tea. Look for it around Amir Timur Square and Broadway."}
+    {name:"Tashkent plov", note:"The capital's version: lamb, yellow carrot and rice, often finished with quail eggs and chickpeas on top. Lighter on raisins than the Samarkand or Bukhara styles. A lunch dish, rarely served well at dinner."},
+    {name:"Non", note:"Tashkent's own stamped round bread, with its own <em>chekich</em> pattern — distinct from Samarkand's. Buy it hot at Chorsu; it keeps for days and travels well."},
+    {name:"Samsa", note:"Flaky lamb-and-onion parcels baked against the wall of a clay tandoor. Best from the mid-morning batches at Chorsu's stalls, a few thousand som each."},
+    {name:"Norin (naryn)", note:"A Tashkent specialty: hand-cut noodles tossed with horsemeat sausage (<em>qazi</em>) and onion, served cold or lukewarm. Distinctive rather than universally loved — worth a taste, not a full plate, for a first try."},
+    {name:"Lagman", note:"Hand-pulled noodles in a spiced tomato-and-pepper broth with meat and vegetables. A safe, familiar-tasting option for a child."},
+    {name:"Manti", note:"Large steamed dumplings of minced lamb and onion, served with sour cream or a light vinegar-chilli sauce."},
+    {name:"Shurpa", note:"Clear lamb soup with big chunks of meat, carrot and potato. Common at breakfast as much as lunch."},
+    {name:"Dimlama", note:"A layered stew of meat, potato, cabbage and pepper, slow-cooked without added water so the vegetables steam in their own juice. Homely and mild."},
+    {name:"Achichuk", note:"Sliced tomato, onion and chilli with a little vinegar — order it alongside anything grilled to cut the richness."},
+    {name:"Halva &amp; navvot", note:"Tashkent halva is a crumbly nut fudge, nothing like sesame halva. Navvot is crystallised sugar on a string, dropped into green tea. Both sold loose in the bazaar."}
   ],
   places:[
-    {name:"Central Asian Plov Centre", gq:"Central Asian Plov Center Tashkent", type:"Plov institution", area:"Near the TV Tower, north", price:"Cheap",
-     note:"Also called Besh Qozon — \"five cauldrons\". An open-sided hall with enormous kazans out front, feeding hundreds at a sitting. <b>Open roughly 08:00 to 12:00 or until the plov runs out</b>, so it is an early lunch or nothing. The single most photographed food scene in Uzbekistan and entirely worth the trip north."},
-    {name:"Chorsu Bazaar food hall", gq:"Chorsu Bazaar Tashkent", type:"Market eating", area:"Old town, under the blue dome", price:"Very cheap",
-     note:"Breakfast on your first morning. Samsa from the tandirs outside, non from the bread row, Korean salads by the kilo on the gallery, and tea. Cheaper and better than any café, and part of the sightseeing."},
-    {name:"Afsona", gq:"Afsona Restaurant Tashkent", type:"Modern Uzbek", area:"Central, near Amir Timur Square", price:"Mid",
-     note:"Longstanding favourite for Uzbek cooking done with care rather than volume — proper plov, good salads, English menus, air conditioning. The safe choice for a family dinner in the centre."},
-    {name:"Caravan", gq:"Caravan Restaurant Tashkent", type:"Uzbek, courtyard", area:"Central, Mirabad", price:"Mid",
-     note:"Courtyard restaurant done up with craft and lanterns — touristy in a pleasant way, with live music some evenings and a craft shop attached. Broad menu, reliable, easy with children."},
-    {name:"Plov &amp; lagman houses on Broadway", gq:"Sayilgoh Street Tashkent restaurants", type:"Street food &amp; cafés", area:"Sayilgoh (Broadway)", price:"Cheap",
-     note:"Not one place but the run of cafés and stalls along the pedestrian street. Ice cream, samsa, grilled corn, shashlik. This is the evening — eat as you walk rather than sitting down."},
-    {name:"Alay Bazaar", gq:"Alay Bazaar Tashkent", type:"Market", area:"Central, near Amir Timur Square", price:"Cheap",
-     note:"Smaller, tidier and more central than Chorsu, with an excellent dried fruit and nut section and prepared Korean salads. The right place to buy things to take home — apricots, pistachios, saffron, nabot."},
-    {name:"City Grill / Bon!", gq:"Bon restaurant Tashkent", type:"European &amp; pizza", area:"Central, several branches", price:"Mid",
-     note:"Filed here for the evening when the child will not eat another piece of lamb. Reliable pizza and pasta, air conditioning, quick service. No shame in it on day nine."}
+    {name:"Chorsu Bazaar food hall", gq:"Chorsu Bazaar Tashkent", type:"Market food hall", area:"Upstairs, inside the main dome", price:"Cheap",
+     note:"Lagman, shurpa and grilled kebabs at shared tables, locals eating elbow to elbow. The obvious lunch stop if the morning runs long, and genuinely good value — expect 12,000–30,000 som with tea."},
+    {name:"Tandoor stalls at Chorsu", gq:"Chorsu Bazaar Tashkent", type:"Street food", area:"Around the domes", price:"Cheap",
+     note:"Samsa straight off the clay oven wall, a few thousand som each. This is breakfast on this trip — go before 09:00 for the freshest batches, before the queues build."},
+    {name:"Döner alley by Kukeldash", gq:"Kukeldash Madrasah Tashkent", type:"Street food", area:"Narrow path beside the madrasah", price:"Cheap",
+     note:"Locals point here for the best döner in the old city — worth a stop if you take the optional walk past Kukeldash on the way in or out of the bazaar."},
+    {name:"Oqvat Bozori stalls", gq:"Chorsu Bazaar Tashkent", type:"Street food", area:"Alley between the domes", price:"Cheap",
+     note:"A row of cooking stalls draped in ikat fabric doing plov, shashlik and naryn side by side — good for letting everyone point at something different."},
+    {name:"Central Asian Plov Centre (Besh Qozon)", gq:"Besh Qozon Plov Centre Tashkent", type:"Plov institution", area:"Near the TV Tower — a taxi ride from the hotel", price:"Cheap",
+     note:"Tashkent's legendary plov hall, cooked in giant wood-fired kazans that can serve a thousand people from one pot. Only worth the taxi if you finish the old town ahead of schedule — arrive before 13:00, as it tends to sell out. Note: this is a well-known chain with more than one branch in the city, and at least one online listing shows a branch as closed — confirm the address you're heading to before you set out."},
+    {name:"Lunch at the hotel", gq:"Sayidat Hotel Tashkent Islamic Civilization Centre, Zarqaynar, Tashkent", type:"Hotel restaurant", area:"On site", price:"Mid",
+     note:"Given checkout is 12:00 and the flight isn't until 17:30, the simplest plan is the market for breakfast and the hotel for a relaxed final lunch before the airport — no logistics required on a day that already has enough of them."}
   ],
   tips:[
-    "<b>On sources:</b> you asked for Condé Nast recommendations. Their site is blocked from this environment (HTTP 403), so nothing here comes from them. These draw on Caravanistan, Advantour and current independent guides, cross-checked where they overlap.",
-    "<b>Plov centres close at lunchtime.</b> Besh Qozon is done by about noon. Plan around it or miss it.",
-    "Tashkent has the best restaurant range in the country — use it for the meals that Bukhara and Samarkand could not provide.",
-    "Cards are accepted more widely here than elsewhere in Uzbekistan, but carry cash for bazaars and street food.",
-    "Tap water is not for drinking. Bottled water is 3–5,000 som.",
-    "Alcohol is freely available in restaurants in the centre."
+    "<b>On sources:</b> Condé Nast's site is blocked from this environment, so nothing here is drawn from them — these are pulled from Advantour, Caravanistan-style independent guides and current on-the-ground write-ups, cross-checked where they overlap.",
+    "Plov is a lunch dish here as everywhere in Uzbekistan — order it at midday, not in the evening.",
+    "Most stalls and small places are cash only. Carry som; card acceptance is patchy outside hotels.",
+    "Tap water is not for drinking. Bottled water is sold throughout the bazaar for a few thousand som.",
+    "A stamped loaf of non bought at Chorsu makes a genuinely good, sturdy snack for the flight — buy it on your way back to the hotel, not first thing."
   ]
 };
 
 const PRACTICAL = [
 {
-  warn:true, title:"Read this first — the base is not set",
+  warn:true, title:"August heat — the same rule as the rest of this trip",
   items:[
-    "<b>You have not booked a hotel yet</b>, so every route on this page currently starts and ends at <b>Amir Timur Square</b>, which is roughly the geographic centre of the sights.",
-    "Tell me the hotel and I will re-anchor every route, redraw both maps, and adjust the taxi times in the tips.",
-    "If you end up at the Hilton in Tashkent City or the Hyatt, you are already inside the Day 2 loop and a short taxi from Day 1.",
-    "Dates on this page say \"August 2026 — to confirm\". Give me the days and I will split the stops properly."
+    "Expect <b>36–40 °C</b> by early afternoon, with little shade in the old square or at Chorsu.",
+    "That's the reason for the 06:30 start — you want the walking done before the middle of the day, same as Samarkand and Bukhara.",
+    "With only one morning here, the stakes are lower than on a multi-day stop, but the water and hats rule still applies.",
+    "Carry water for all three of you; bottled water is sold throughout Chorsu for a few thousand som."
   ]
 },
 {
-  warn:true, title:"August heat",
+  title:"Getting around from Sayidat Hotel",
   items:[
-    "Expect <b>35–38 °C</b> in the afternoon. Tashkent is greener and leafier than Bukhara or Samarkand, so it feels marginally better, but the marble squares are brutal.",
-    "Same rhythm as the rest of the trip: <b>out by 07:00, back at the base by ~12:30</b> for lunch, nap and pool, out again at 18:30.",
-    "<b>The metro is the coolest place in the city.</b> Use it as air conditioning, not just transport.",
-    "Chorsu opens at 05:00 and Khast Imam at 09:00 — the first morning can start very early.",
-    "Carry 2 litres of water per person."
+    "You are inside the Hazrat Imam district itself — stops 1 to 4 are all under five minutes' walk from the door.",
+    "Chorsu Bazaar (stop 5) is about a 10-minute walk south down Karasaray Street; a taxi rank at the market gate covers the way back if needed.",
+    "<b>Yandex Go</b> works well in Tashkent and is the easiest way to book the one taxi trip you actually need today — to the airport.",
+    "No other taxis are needed for this morning's plan. Save the ride-hailing app for the airport run in the early afternoon."
   ]
 },
 {
-  title:"Getting around",
+  title:"Tickets and money",
   items:[
-    "<b>The metro is excellent</b> — clean, frequent, air-conditioned, about 2,000 som a flat-fare ride, and three of the stations are on this list of things to see.",
-    "Tashkent is much bigger than the other cities. Do not plan to walk between the old town and the centre; it is 5 km.",
-    "<b>Yandex Go</b> is the default for taxis and is cheap — most city rides are 15–30,000 som.",
-    "Signs are in Latin script and increasingly bilingual. Russian is more useful than English with drivers.",
-    "The airport is only 15 minutes from the centre, so there is no reason to stay near it."
-  ]
-},
-{
-  title:"Tickets, hours and closures",
-  items:[
-    "Rough foreigner prices: Amir Timur Museum ~40,000 som · Applied Arts Museum ~30,000 · Muyi Muborak library ~30,000 · TV Tower ~40,000 · metro ~2,000 a ride. Chorsu, Khast Imam square, Minor Mosque, Broadway and the parks are free.",
-    "<b>The State Museum of History has been closed for renovation since 2024.</b> Confirm before going.",
-    "<b>Independence Square is under large-scale redevelopment.</b> Expect hoardings.",
-    "Most museums close on Mondays.",
-    "<b>All prices indicative — they rise most years. Confirm at the window.</b>",
-    "Bring passports for the TV Tower; there is a security check."
+    "Entry to the grounds of Barak-Khan, Kaffal Shashi and Tillya-Sheikh is free — only Muyi Muborak historically charged, for the museum inside.",
+    "Muyi Muborak's price is genuinely uncertain right now: most figures online (commonly ~60,000 som) predate the Uthman Quran's move in November 2025, and it isn't clear whether the price has changed for the reduced collection now on show. <b>Confirm at the door.</b>",
+    "Chorsu Bazaar itself is free to enter and browse — you only pay for what you eat or buy.",
+    "Carry cash in som; card acceptance is patchy at ticket booths and market stalls alike.",
+    "Budget roughly 100,000–150,000 som per adult for the whole morning, food included. Children are usually free or reduced at ticketed sites — ask."
   ]
 },
 {
   title:"Dress and etiquette",
   items:[
-    "<b>Khast Imam is the most conservative site of the trip.</b> Hair, arms and legs covered for women; long trousers for men.",
-    "Shoes off in working mosques, including Minor.",
-    "Photography of the Uthman Qur'an is not allowed. Ask before photographing worshippers anywhere.",
-    "Tashkent is a big secular capital and dress in the centre is entirely European. The old town is more traditional.",
-    "Bargaining is normal at Chorsu, less so at Alay."
+    "Shoulders and knees covered at every religious building in the square. A light scarf for hair is appreciated at Kaffal Shashi and inside Tillya-Sheikh.",
+    "Shoes off inside mosque interiors and inside Muyi Muborak.",
+    "Barak-Khan houses working offices of the Muslim Board of Uzbekistan — keep noise down near entrances people are actually using for work.",
+    "Bargaining is normal in Chorsu Bazaar, less so at the food stalls where prices are usually fixed and posted."
   ]
 },
 {
   title:"With a small child",
   items:[
-    "Tashkent is <b>the easiest city of the trip</b> for a child: flat, green, full of parks and fountains, and a stroller actually works here.",
-    "Best bits: riding the metro and hunting for the cosmonaut medallions, the fountains at Tashkent City Park, Magic City after dark, ice cream on Broadway, and the samsa ovens at Chorsu.",
-    "The Chimgan and Charvak day trip is the one to do if the heat has worn everyone down — a lake, a chairlift and ten degrees cooler.",
-    "Skip: the Amir Timur Museum interior and Independence Square in the daytime."
+    "The old square itself is flat, paved and easy — genuinely easier walking than Shah-i-Zinda or the Registan were.",
+    "Chorsu's aisles are narrower and busier; a carrier beats a stroller once you're inside the market proper.",
+    "Halva or navvot from the bazaar works as the emergency sweet bribe, same job gelato did in Samarkand.",
+    "<b>Sayidat Hotel has a pool</b> — worth using it. With checkout at 12:00 and the flight not until 17:30, there is real time for a swim before the airport run, not just a nap."
+  ]
+},
+{
+  title:"Getting to the airport for the 17:30 flight",
+  items:[
+    "Tashkent International Airport is only about <b>9 minutes' drive / ~8 km</b> from this district — genuinely close, not a logistics problem.",
+    "Checkout is 12:00; if you'd rather not carry bags around after the morning walk, ask the hotel about holding luggage until you're ready to leave.",
+    "For an international departure, aim to leave the hotel by <b>14:00–14:30</b> — comfortably 2.5–3 hours before a 17:30 flight, with margin to spare given the short drive.",
+    "International departures reportedly use a separate terminal from domestic flights at Tashkent airport — check your boarding pass or airline confirmation for the exact terminal before you set out.",
+    "Book the car through Yandex Go or ask the hotel to arrange one — no need to negotiate a fare on the street for this trip."
   ]
 },
 {
   title:"Using this page offline",
   items:[
-    "Every description, tip and plan works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself.",
-    "Download the Tashkent area in Google Maps for offline use before you set out.",
-    "Add this page to your Home Screen: Share → Add to Home Screen.",
-    "<b>Map pins are accurate to roughly a block.</b> The <b>Open in Google Maps</b> button on each stop searches by name, which is exact — use that for navigation."
+    "Every description, tip and plan works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself and always works.",
+    "Download the Tashkent old-city area in Google Maps for offline use before you set out, so the Google Maps buttons work without signal too.",
+    "Add this page to your Home Screen: Share → Add to Home Screen. It opens full-screen like an app.",
+    "<b>Map pins are accurate to roughly a block</b> — sources disagree by up to a few hundred metres for this square. The <b>Open in Google Maps</b> button on each stop searches by name, which is exact — use that for navigation."
   ]
 }
 ];
@@ -627,7 +511,7 @@ function dayLegs(nums){
 $("#planIntro").innerHTML = `<div class="hero">
   <h2>${CITY.dates}</h2>
   <p>${CITY.plan}</p>
-  <p>${CITY.baseLine || ("<b>Base:</b> " + CITY.hotel.name + ". Every route below leaves from the hotel and comes back to it.")}</p>
+  <p><b>Base:</b> ${CITY.hotel.name}. Every route below leaves from the hotel and comes back to it.</p>
   <div class="pills">${CITY.pills.map(p=>`<span>${p}</span>`).join("")}</div>
 </div>`;
 
@@ -646,11 +530,11 @@ $("#days").innerHTML = DAYS.map(d => {
     <div class="body">
       <p>${d.intro}</p>
       <ul class="seq">
-        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>${CITY.hotel.leaveLabel || ("Leave at " + d.out)}</i></span></li>
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>Leave at ${d.out}</i></span></li>
         ${d.stops.map(n => line(n)).join("")}
         ${(d.optional||[]).length ? `<li style="padding-top:13px"><span class="n o">+</span><span class="t"><b style="color:var(--ink2)">If you are going faster</b><i>Optional — skip without guilt</i></span></li>` : ""}
         ${(d.optional||[]).map(n => line(n,"o")).join("")}
-        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.backLabel || ("Back at " + CITY.hotel.name)}</b><i>${d.after}</i></span></li>
+        <li><span class="n h">H</span><span class="t"><b>Back at ${CITY.hotel.name}</b><i>${d.after}</i></span></li>
       </ul>
       ${legs.map((L,i) => `<a class="btn${i?' g':''}" style="margin-bottom:8px" target="_blank" rel="noopener" href="${gRoute(L)}">Open ${legs.length>1?('leg '+(i+1)+' '):''}in Google Maps</a>`).join("")}
       ${d.tips && d.tips.length ? `<div class="tipbox"><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : ""}
@@ -672,7 +556,7 @@ function card(s, extra){
   </article>`;
 }
 $("#stops").innerHTML  = `<div class="sech"><h2>On foot</h2><i></i></div>` + STOPS.map(s=>card(s,false)).join("");
-$("#extras").innerHTML = EXTRAS.length ? `<div class="sech"><h2>Worth a taxi</h2><i></i></div>` + EXTRAS.map(s=>card(s,true)).join("") : "";
+$("#extras").innerHTML = EXTRAS.length ? `<div class="sech"><h2>Worth a taxi — a future stay</h2><i></i></div>` + EXTRAS.map(s=>card(s,true)).join("") : "";
 
 /* ---------- FOOD ---------- */
 $("#food").innerHTML = `
@@ -780,7 +664,7 @@ $("#gbar").innerHTML = DAYS.map((d,i)=>{
       <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
       <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
       <text x="${bx+bw+10}" y="${by+6}" font-family="Arial" font-size="16" fill="#5A6675">${bar} m</text>
-      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = ${CITY.hotel.short||"hotel"} · N &#8593;</text>`;
+      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = hotel · N &#8593;</text>`;
 
   const svg=$("#planSvg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML=g;
   const sheet=$("#sheet");
