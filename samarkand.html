@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0A5FE0">
-<title>Samarkand — Tuesday 18 – Wednesday 19 August 2026</title>
+<title>Samarkand — Tuesday 18 – Thursday 20 August 2026</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%230A5FE0'/><circle cx='32' cy='27' r='9' fill='none' stroke='%23fff' stroke-width='5'/><path d='M32 39v13' stroke='%23fff' stroke-width='5' stroke-linecap='round'/></svg>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -199,7 +199,7 @@ footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--in
 <body>
 
 <header>
-  <div class="hb"><h1>Samarkand</h1><span>2 mornings · 2 evenings</span></div>
+  <div class="hb"><h1>Samarkand</h1><span>3 mornings · 3 evenings</span></div>
   <nav>
     <button data-p="plan" class="on">Plan</button>
     <button data-p="map">Map</button>
@@ -214,7 +214,7 @@ footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--in
 
   <section class="pane" id="p-map">
     <div class="gbar" id="gbar"></div>
-    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at the hotel. Google caps a route at 10 points, so longer days are split.</div>
+    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at your base. Google caps a route at 10 points, so longer days are split.</div>
     <div class="seg"><button id="tabLive" class="on">Live map</button><button id="tabPlan">Offline plan</button></div>
     <div><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="pfoot">Schematic — true relative positions, no streets. Works with no signal.</div></div></div>
   </section>
@@ -226,16 +226,16 @@ footer{padding:22px 16px calc(var(--sb) + 28px);text-align:center;color:var(--in
 
 <div class="sheet" id="sheet"></div>
 <button id="top" aria-label="Top">&#8593;</button>
-<footer>Samarkand, Uzbekistan · Tuesday 18 – Wednesday 19 August 2026<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
+<footer>Samarkand, Uzbekistan · Tuesday 18 – Thursday 20 August 2026<br>Prices, hours and opening days change often — treat every figure as indicative and confirm on the door.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const CITY = {
   name:"Samarkand", country:"Uzbekistan",
-  dates:"Tuesday 18 – Wednesday 19 August 2026",
-  sub:"2 mornings · 2 evenings",
-  plan:"Two early mornings out and two evenings out, with the hot middle of the day back at the hotel for lunch, a nap and the pool. Nothing here is rushed — each morning has three or four real stops plus optional extras if you are moving faster than expected.",
-  pills:["2 mornings","2 evenings","Out 06:30","Back ~12:30","~3 km a day"],
+  dates:"Tuesday 18 – Thursday 20 August 2026",
+  sub:"3 mornings · 3 evenings",
+  plan:"Three early mornings out and three evenings out, with the hot middle of every day back at the hotel for lunch, a nap and the pool. The third day takes all the pressure off the first two — nothing needs squeezing, and Thursday morning is the gentlest of the three.",
+  pills:["3 mornings","3 evenings","Out 06:30–07:00","Back by ~12:30","2–3 km a day"],
   hotel:{ name:"Khan Hotel Samarkand", short:"Hotel", gq:"Khan Hotel Samarkand", routeQ:"Khan Hotel Samarkand, Usto Umar Djurakulov, Samarkand",
           lat:39.6643, lng:66.9853,
           alt:"48 Usto Umar Djurakulov St — 70 m from Shah-i-Zinda" }
@@ -248,12 +248,12 @@ const DAYS = [
   title:"The doorstep, the bazaar and the blue",
   intro:"The single best thing in Samarkand is 70 metres from your door, and at seven in the morning you will have it almost to yourselves. Walk down through the shrines to Bibi-Khanym, finish in the bazaar with breakfast, and take a taxi back before it gets hot.",
   stops:[1,2,3,4,5,6],
-  optional:[11,12],
+  optional:[],
   tips:[
     "Shah-i-Zinda officially opens around 07:00–08:00 in summer. Arrive at opening: the light is low, the tilework glows and the staircase is empty. By 10:00 it is full of tour groups.",
     "It is downhill almost the whole way. Take a taxi back from the bazaar rather than walking up in the sun — 10–15,000 som, two minutes.",
     "Buy breakfast in Siyob Bazaar: hot non straight off the tandir wall, apricots, walnuts, halva. Better and cheaper than any café.",
-    "If the child is still fresh at 10:30, add the Afrosiyob Museum (11) and Daniel's tomb (12) — both close to the hotel on the way back."
+    "Nothing needs squeezing in now that you have Thursday. The Afrosiyob Museum and Daniel's tomb have moved to Day 3 — if you finish here early, go back to the pool."
   ]
 },
 {
@@ -276,18 +276,18 @@ const DAYS = [
   title:"Timur: the square and the tomb",
   intro:"Taxi straight to the Registan for opening, take your time inside all three madrasas, then walk the pedestrian mall down to Timur's tomb. Short, shaded in parts, and finished before noon.",
   stops:[7,8,9],
-  optional:[10],
+  optional:[],
   tips:[
     "Taxi to the Registan (15 min, ~20,000 som) rather than walking — it is 2 km and there is no shade on the way.",
     "Be at the gate for 08:00 opening. The first hour is the only time the courtyards are empty and the low sun is on the façades.",
     "Inside Tilya-Kori, stand under the gold dome and look straight up. It is flat, not domed — the whole effect is painted illusion.",
     "The walk from the Registan to Gur-e-Amir is about 800 m down a pedestrian mall with trees and cafés. Easy with a child.",
-    "Going fast? Add the Ulugh Beg Observatory (10) — but it is north, near the hotel, so it is better as a separate 45-minute stop on the way back."
+    "The Ulugh Beg Observatory has moved to Thursday morning, where it belongs — it is near the hotel, not here."
   ]
 },
 {
   slot:"Evening", day:"Wednesday 19 August", dayShort:"Wed", out:"18:30", back:"21:30",
-  walk:"Taxi each way", after:"Pack for the onward leg",
+  walk:"Taxi each way", after:"Late back",
   title:"Eternal City and dinner",
   intro:"An easy last evening. The Eternal City is a purpose-built recreation of an old Uzbek town inside the Silk Road Samarkand complex — part film set, part food court, and genuinely good with a child after two mornings of monuments.",
   stops:["A"],
@@ -297,6 +297,37 @@ const DAYS = [
     "Craft workshops, courtyards, restaurants and a nightly show. Everything is walkable and stroller-friendly, which the old town is not.",
     "If you would rather have a quiet last night, skip it: dinner at Bibikhanum Teahouse and a slow walk is a fine substitute.",
     "Taxi is about 20 minutes from the hotel. Agree the fare first or use Yandex Go."
+  ]
+},
+{
+  slot:"Morning", day:"Thursday 20 August", dayShort:"Thu", out:"07:00", back:"12:00",
+  walk:"1.5 km on foot + two short taxis", after:"Lunch, nap, pool",
+  title:"North of the hotel: stars, ruins and a prophet",
+  intro:"The gentlest of the three mornings, and all of it within two kilometres of your door. Ulugh Beg's buried sextant, the Sogdian murals of the city Genghis Khan destroyed, and an eighteen-metre grave under a pistachio tree. Home by noon, easily.",
+  stops:[10,11,12],
+  optional:["B"],
+  tips:[
+    "All three sit north and north-east of the hotel. One taxi loop covers them — agree a price for the whole circuit and ask the driver to wait, roughly 60–80,000 som for the morning.",
+    "The Observatory opens at 08:00 and Afrosiyob at 09:00, so start with the Observatory.",
+    "The Observatory museum is the best stop of the whole trip for a science-minded child. The line to use: Ulugh Beg measured the length of the year and got it wrong by 58 seconds, six hundred years ago, with no telescope.",
+    "Afrosiyob is air-conditioned and quiet — the right place to be by 10:30.",
+    "Daniel's tomb last: shaded, green, a holy spring, and almost nobody there. Finish sitting under the pistachio tree.",
+    "Want a proper change of pace instead? Swap in the Konigil paper mill (B) — 15 minutes east, a working watermill making paper from mulberry bark, and the child can pound the pulp."
+  ]
+},
+{
+  slot:"Evening", day:"Thursday 20 August", dayShort:"Thu", out:"18:30", back:"21:30",
+  walk:"1.2 km on foot", after:"Pack for the onward leg",
+  title:"Last evening: the lit mall and a proper dinner",
+  intro:"Nothing new to see, and that is the point. The pedestrian mall between the Registan and Gur-e-Amir is better after dark than either building was in daylight — both ends floodlit, cafés open, families out walking. Walk it once, then eat well.",
+  stops:[7,9],
+  optional:[],
+  tips:[
+    "Taxi to the Registan for about 19:15, when the floodlights come up, then walk the 800 m down to Gur-e-Amir with the dome lit. Ten minutes of walking, and the best photographs of the three days.",
+    "<b>Book Platan.</b> It is the best meal in Samarkand — courtyard under plane trees, air conditioning inside, a wine list — and the last night is the night for it.",
+    "If the Registan light-and-music show did not run on Tuesday, tonight is the second chance. Ask the hotel desk in the afternoon.",
+    "Dolce Italia for gelato on the way past. Non-negotiable at this point in a trip.",
+    "Buy anything you still want from the madrasa shops tonight — they stay open late and you will not have time in the morning."
   ]
 }
 ];
@@ -653,7 +684,7 @@ function dayLegs(nums){
 $("#planIntro").innerHTML = `<div class="hero">
   <h2>${CITY.dates}</h2>
   <p>${CITY.plan}</p>
-  <p><b>Base:</b> ${CITY.hotel.name}. Every route below leaves from the hotel and comes back to it.</p>
+  <p>${CITY.baseLine || ("<b>Base:</b> " + CITY.hotel.name + ". Every route below leaves from the hotel and comes back to it.")}</p>
   <div class="pills">${CITY.pills.map(p=>`<span>${p}</span>`).join("")}</div>
 </div>`;
 
@@ -672,11 +703,11 @@ $("#days").innerHTML = DAYS.map(d => {
     <div class="body">
       <p>${d.intro}</p>
       <ul class="seq">
-        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>Leave at ${d.out}</i></span></li>
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>${CITY.hotel.leaveLabel || ("Leave at " + d.out)}</i></span></li>
         ${d.stops.map(n => line(n)).join("")}
         ${(d.optional||[]).length ? `<li style="padding-top:13px"><span class="n o">+</span><span class="t"><b style="color:var(--ink2)">If you are going faster</b><i>Optional — skip without guilt</i></span></li>` : ""}
         ${(d.optional||[]).map(n => line(n,"o")).join("")}
-        <li><span class="n h">H</span><span class="t"><b>Back at ${CITY.hotel.name}</b><i>${d.after}</i></span></li>
+        <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.backLabel || ("Back at " + CITY.hotel.name)}</b><i>${d.after}</i></span></li>
       </ul>
       ${legs.map((L,i) => `<a class="btn${i?' g':''}" style="margin-bottom:8px" target="_blank" rel="noopener" href="${gRoute(L)}">Open ${legs.length>1?('leg '+(i+1)+' '):''}in Google Maps</a>`).join("")}
       ${d.tips && d.tips.length ? `<div class="tipbox"><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : ""}
@@ -806,7 +837,7 @@ $("#gbar").innerHTML = DAYS.map((d,i)=>{
       <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
       <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
       <text x="${bx+bw+10}" y="${by+6}" font-family="Arial" font-size="16" fill="#5A6675">${bar} m</text>
-      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = hotel · N &#8593;</text>`;
+      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = ${CITY.hotel.short||"hotel"} · N &#8593;</text>`;
 
   const svg=$("#planSvg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML=g;
   const sheet=$("#sheet");
