@@ -35,15 +35,15 @@
       "accent": "#0A5FE0"
     },
     {
-      "city": "Tashkent",
-      "country": "Uzbekistan",
-      "dates": "August 2026 — dates to confirm",
-      "start": "2026-08-21",
-      "file": "tashkent.html",
-      "hotel": "Not booked yet",
-      "tag": "Top 10 · 2 mornings · 1 evening",
-      "blurb": "The metro as a museum, Chorsu under its blue dome, the world's oldest Qur'an, and the squares of the rebuilt city.",
-      "accent": "#0A5FE0"
-    }
+  "city": "Tashkent",
+  "country": "Uzbekistan",
+  "dates": "22 August 2026",
+  "start": "2026-08-22",
+  "file": "tashkent.html",
+  "hotel": "Sayidat Hotel Tashkent",
+  "tag": "6 stops · 1 morning",
+  "blurb": "One relaxed morning at the doorstep of Hazrat Imam, then Chorsu's dawn market before the flight home.",
+  "accent": "#0A5FE0"
+}
   ]
 }
