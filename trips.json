@@ -9,7 +9,7 @@
     "hotel": "where you stayed — shown on the card",
     "tag": "short line, e.g. '12 stops - 2 mornings'",
     "blurb": "one sentence",
-    "accent": "hex colour for the card stripe"
+    "accent": "hex colour for the card stripe (brand teal #0F4C5C, coral #FF7A59)"
   },
   "trips": [
     {
@@ -21,7 +21,7 @@
       "hotel": "Sahid Zarafshon Hotel",
       "tag": "19 stops · 2 mornings · 2 evenings",
       "blurb": "The old town west to east, from the oldest building in Central Asia to the last emir's world.",
-      "accent": "#0A5FE0"
+      "accent": "#0F4C5C"
     },
     {
       "city": "Samarkand",
@@ -32,18 +32,18 @@
       "hotel": "Khan Hotel Samarkand",
       "tag": "12 stops · 3 mornings · 3 evenings",
       "blurb": "Shah-i-Zinda on the doorstep, the Registan at opening, Timur's tomb before noon, and Ulugh Beg's observatory on the last morning.",
-      "accent": "#0A5FE0"
+      "accent": "#0F4C5C"
     },
     {
-  "city": "Tashkent",
-  "country": "Uzbekistan",
-  "dates": "22 August 2026",
-  "start": "2026-08-22",
-  "file": "tashkent.html",
-  "hotel": "Sayidat Hotel Tashkent",
-  "tag": "6 stops · 1 morning",
-  "blurb": "One relaxed morning at the doorstep of Hazrat Imam, then Chorsu's dawn market before the flight home.",
-  "accent": "#0A5FE0"
-}
+      "city": "Tashkent",
+      "country": "Uzbekistan",
+      "dates": "August 2026 — dates to confirm",
+      "start": "2026-08-21",
+      "file": "tashkent.html",
+      "hotel": "Not booked yet",
+      "tag": "Top 10 · 2 mornings · 1 evening",
+      "blurb": "The metro as a museum, Chorsu under its blue dome, the world's oldest Qur'an, and the squares of the rebuilt city.",
+      "accent": "#0F4C5C"
+    }
   ]
 }

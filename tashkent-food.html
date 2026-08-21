@@ -7,13 +7,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0F4C5C">
 <meta name="apple-mobile-web-app-title" content="RafikTrip">
-<title>RafikTrip — Tashkent</title>
+<title>RafikTrip — Tashkent Food</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22%230F4C5C%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%225.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M20%2050V16h11a9.6%209.6%200%200%201%200%2019.2H20%22%2F%3E%3Cpath%20d%3D%22M32.6%2035.2%2044.5%2050%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M31.5%2019.6a5.1%205.1%200%200%201%205.1%205.1c0%203.6-5.1%208.6-5.1%208.6s-5.1-5-5.1-8.6a5.1%205.1%200%200%201%205.1-5.1z%22%20fill%3D%22%23FF7A59%22%2F%3E%3Ccircle%20cx%3D%2231.5%22%20cy%3D%2224.7%22%20r%3D%221.9%22%20fill%3D%22%230F4C5C%22%2F%3E%3C%2Fsvg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 /* ===== RafikTrip brand tokens ===== */
 :root{
@@ -271,53 +270,21 @@ footer .fmark b i{font-style:normal;color:var(--coral)}
 <header>
   <div class="crumb">
     <button id="back">&#8592; Back</button>
-    <a href="index.html">Home</a>
+    <a href="tashkent.html">Tashkent</a>
     <span class="sp"></span>
-    <a href="tashkent-food.html" class="accent">Food</a>
     <a href="tashkent-info.html" class="accent">Practical</a>
+    <a href="index.html">Home</a>
   </div>
   <div class="hb">
     <a class="mkbox" href="index.html" aria-label="RafikTrip home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="16 12 32 42" class="mk"><g fill="none" stroke="#FFFFFF" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 50V16h11a9.6 9.6 0 0 1 0 19.2H20"/><path d="M32.6 35.2 44.5 50"/></g><path d="M31.5 19.6a5.1 5.1 0 0 1 5.1 5.1c0 3.6-5.1 8.6-5.1 8.6s-5.1-5-5.1-8.6a5.1 5.1 0 0 1 5.1-5.1z" fill="#FF7A59"/><circle cx="31.5" cy="24.7" r="1.9" fill="#0F4C5C"/></svg></a>
-    <div class="tt"><h1>Tashkent</h1><span class="sub">Top 10 · 2 mornings</span></div>
+    <div class="tt"><h1>Food</h1><span class="sub">Tashkent</span></div>
   </div>
-  <nav>
-    <button data-p="plan" class="on">Plan</button>
-    <button data-p="map">Map</button>
-    <button data-p="stops">Stops</button>
-  </nav>
 </header>
 
-<main>
-  <section class="pane on" id="p-plan"><div class="wrap">
-    <div id="planIntro"></div>
-    <div id="days"></div>
-    <div class="jump">
-      <a href="tashkent-food.html"><b>Food</b><span>What to order, where to eat</span><em>Open &#8594;</em></a>
-      <a href="tashkent-info.html"><b>Practical</b><span>Heat, tickets, transport, kids</span><em>Open &#8594;</em></a>
-    </div>
-  </div></section>
-
-  <section class="pane" id="p-map">
-    <div class="gbar" id="gbar"></div>
-    <div class="hint">Tap a pin: <b>Read</b> opens the description, <b>Maps</b> opens Google Maps. Routes start and end at your base. Google caps a route at 10 points, so longer days are split.</div>
-    <div class="seg"><button id="tabLive" class="on">Live map</button><button id="tabPlan">Offline plan</button></div>
-    <div><div id="map"></div><div id="plan"><svg id="planSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="pfoot">Schematic &mdash; true relative positions, no streets. Works with no signal.</div></div></div>
-  </section>
-
-  <section class="pane" id="p-stops"><div class="wrap">
-    <div class="prog">
-      <div class="pt"><b id="progText">0 of 0 done</b><div class="bar"><i id="progBar" style="width:0%"></i></div></div>
-      <button id="resetDone">Reset</button>
-    </div>
-    <div id="stops"></div><div id="extras"></div>
-  </div></section>
-</main>
-
-<div class="sheet" id="sheet"></div>
+<main class="sub"><div id="out"></div><div class="backbar"><a class="btn" href="tashkent.html">&#8592; Back to Tashkent</a><a class="btn g" href="index.html">All trips</a></div></main>
 <button id="top" aria-label="Top">&#8593;</button>
 <footer><a class="fmark" href="index.html"><span class="mkbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="mk"><rect width="64" height="64" rx="15" fill="#0F4C5C"/><g fill="none" stroke="#FFFFFF" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 50V16h11a9.6 9.6 0 0 1 0 19.2H20"/><path d="M32.6 35.2 44.5 50"/></g><path d="M31.5 19.6a5.1 5.1 0 0 1 5.1 5.1c0 3.6-5.1 8.6-5.1 8.6s-5.1-5-5.1-8.6a5.1 5.1 0 0 1 5.1-5.1z" fill="#FF7A59"/><circle cx="31.5" cy="24.7" r="1.9" fill="#0F4C5C"/></svg></span><b>Rafik<i>Trip</i></b></a>Tashkent, Uzbekistan &middot; August 2026 — dates to confirm<br>Prices, hours and opening days change often &mdash; treat every figure as indicative and confirm on the door.</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const CITY = {
   name:"Tashkent", country:"Uzbekistan",
@@ -692,293 +659,32 @@ const PRACTICAL = [
 }
 ];
 
-const SLUG = "tashkent";
-document.getElementById("back").onclick = () => (history.length > 1 ? history.back() : location.href = "index.html");
-
+const KIND = "food";
+document.getElementById("back").onclick = () => (history.length > 1 ? history.back() : location.href = "tashkent.html");
 const $ = s => document.querySelector(s);
 const gS = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
-const byN = {}; STOPS.concat(EXTRAS).forEach(s => byN[s.n] = s);
 
-function gRoute(list){
-  const c = p => p.routeQ ? p.routeQ : (p.lat.toFixed(6) + "," + p.lng.toFixed(6));
-  if(list.length < 2) return gS(list[0] ? list[0].gq : CITY.name);
-  const w = list.slice(1,-1).map(c).join("|");
-  return "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=" + c(list[0]) +
-         "&destination=" + c(list[list.length-1]) + (w ? "&waypoints=" + encodeURIComponent(w) : "");
-}
-function dayLegs(nums){
-  const pts = [CITY.hotel].concat(nums.map(n => byN[n]).filter(Boolean)).concat([CITY.hotel]);
-  const legs = [];
-  for(let i = 0; i < pts.length - 1; i += 9) legs.push(pts.slice(i, i + 10));
-  return legs;
-}
-
-/* ---------- done state ---------- */
-const KEY = "travels:done:" + SLUG;
-let done = new Set();
-try { done = new Set(JSON.parse(localStorage.getItem(KEY) || "[]").map(String)); } catch(e){}
-function save(){ try { localStorage.setItem(KEY, JSON.stringify([...done])); } catch(e){} }
-function isDone(n){ return done.has(String(n)); }
-function applyDone(){
-  STOPS.concat(EXTRAS).forEach(s=>{
-    const on = isDone(s.n);
-    const card = document.getElementById("s"+s.n);
-    if(card) card.classList.toggle("done", on);
-    document.querySelectorAll('[data-row="'+s.n+'"]').forEach(r=>r.classList.toggle("done", on));
-    document.querySelectorAll('.tick[data-tick="'+s.n+'"]').forEach(t=>t.setAttribute("aria-pressed", on));
-  });
-  const total = STOPS.length + EXTRAS.length;
-  const n = STOPS.concat(EXTRAS).filter(s=>isDone(s.n)).length;
-  $("#progText").textContent = n + " of " + total + " done";
-  $("#progBar").style.width = (total ? Math.round(n/total*100) : 0) + "%";
-}
-function toggleDone(n){
-  n = String(n);
-  if(done.has(n)) done.delete(n); else done.add(n);
-  save(); applyDone();
-}
-window.toggleDone = toggleDone;
-
-/* ---------- PLAN ---------- */
-$("#planIntro").innerHTML = `<div class="hero">
-  <h2>${CITY.dates}</h2>
-  <p>${CITY.plan}</p>
-  <p>${CITY.baseLine || ("<b>Base:</b> " + CITY.hotel.name + ". Every route below leaves from the hotel and comes back to it.")}</p>
-  <div class="pills">${CITY.pills.map(p=>`<span>${p}</span>`).join("")}</div>
-</div>`;
-
-const groups = [];
-DAYS.forEach(d=>{
-  let g = groups.find(x => x.day === d.day);
-  if(!g){ g = {day:d.day, blocks:[]}; groups.push(g); }
-  g.blocks.push(d);
-});
-
-function seqRow(n, cls){
-  const s = byN[n]; if(!s) return "";
-  return `<li data-row="${s.n}" class="${isDone(s.n)?'done':''}">
-    <button class="tick" data-tick="${s.n}" aria-pressed="${isDone(s.n)}" aria-label="Mark done"></button>
-    <span class="n ${cls||''}">${s.n}</span>
-    <span class="t"><b>${s.name}</b><i>${s.dur} &middot; ${s.fee}</i></span>
-    <button class="go" data-read="${s.n}">Read</button></li>`;
-}
-
-$("#days").innerHTML = groups.map((g, gi) => {
-  const inner = g.blocks.map(d => {
-    const legs = dayLegs(d.stops);
-    return `<details class="block" data-k="b:${d.day}|${d.slot}">
-      <summary>
-        <span class="slot ${d.slot==='Evening'?'eve':''}">${d.slot}</span>
-        <span class="bt">${d.title}<span class="bh">Out ${d.out} &middot; back ${d.back} &middot; ${d.walk}</span></span>
-        <span class="chev">&#9662;</span>
-      </summary>
-      <div class="bbody">
-        <p>${d.intro}</p>
-        <ul class="seq">
-          <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.name}</b><i>${CITY.hotel.leaveLabel || ("Leave at " + d.out)}</i></span></li>
-          ${d.stops.map(n => seqRow(n)).join("")}
-          ${(d.optional||[]).length ? `<li><span class="n o">+</span><span class="t"><b style="color:var(--ink2)">If you are going faster</b><i>Optional &mdash; skip without guilt</i></span></li>` : ""}
-          ${(d.optional||[]).map(n => seqRow(n,"o")).join("")}
-          <li><span class="n h">H</span><span class="t"><b>${CITY.hotel.backLabel || ("Back at " + CITY.hotel.name)}</b><i>${d.after}</i></span></li>
-        </ul>
-        ${legs.map((L,i) => `<a class="btn${i?' g':''}" target="_blank" rel="noopener" href="${gRoute(L)}">Open ${legs.length>1?('leg '+(i+1)+' '):''}in Google Maps</a>`).join("")}
-        ${d.tips && d.tips.length ? `<div class="tipbox"><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>` : ""}
-      </div>
-    </details>`;
-  }).join("");
-  const summary = g.blocks.map(b=>b.slot).join(" + ");
-  return `<details class="daygrp" data-k="d:${g.day}" ${gi===0?"open":""}>
-    <summary><span class="dl"><h3>${g.day}</h3><span class="ds">${summary}</span></span><span class="chev">&#9662;</span></summary>
-    <div class="blocks">${inner}</div>
-  </details>`;
-}).join("");
-
-/* ---------- STOPS ---------- */
-function card(s, extra){
-  const meta = extra
-    ? `<span class="t">${s.dist}</span><span>${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span>`
-    : `<span class="t">${s.dur}</span><span>${s.fee}</span><span>${s.hours}</span><span>${s.block}</span>`;
-  return `<article class="card${extra?" extra":""}${isDone(s.n)?" done":""}" id="s${s.n}">
-    <div class="chead">
-      <button class="tick" data-tick="${s.n}" aria-pressed="${isDone(s.n)}" aria-label="Mark done"></button>
-      <div class="num">${s.n}</div>
-      <div class="ct"><h3>${s.name}</h3><span class="alt">${s.alt}</span></div>
-    </div>
-    <div class="meta">${meta}</div>
-    <div class="acts"><a href="${gS(s.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>${extra?"":`<button data-go="${s.n}">Show on map</button>`}</div>
-    ${s.tips&&s.tips.length?`<div class="sec"><h4>Good to know</h4><ul>${s.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`:""}
-    <details><summary>Know more &mdash; read this out</summary><div class="body">${s.more}</div></details>
-  </article>`;
-}
-$("#stops").innerHTML  = `<div class="sech"><h2>On foot</h2><i></i></div>` + STOPS.map(s=>card(s,false)).join("");
-$("#extras").innerHTML = EXTRAS.length ? `<div class="sech"><h2>Worth a taxi</h2><i></i></div>` + EXTRAS.map(s=>card(s,true)).join("") : "";
-applyDone();
-
-$("#resetDone").onclick = ()=>{ done.clear(); save(); applyDone(); };
-
-/* remember which day groups and blocks are open */
-const OK = "travels:open:" + SLUG;
-let openState = {};
-try { openState = JSON.parse(localStorage.getItem(OK) || "{}"); } catch(e){}
-document.querySelectorAll("#days details[data-k]").forEach(d=>{
-  if(d.dataset.k in openState) d.open = openState[d.dataset.k];
-  d.addEventListener("toggle", ()=>{
-    openState[d.dataset.k] = d.open;
-    try { localStorage.setItem(OK, JSON.stringify(openState)); } catch(e){}
-  });
-});
-
-/* ---------- tabs & interactions ---------- */
-const PANES = {plan:"p-plan", map:"p-map", stops:"p-stops"};
-function show(p){
-  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on", b.dataset.p===p));
-  Object.entries(PANES).forEach(([k,id])=>$("#"+id).classList.toggle("on", k===p));
-  if(p==="map" && window._map) setTimeout(()=>window._map.invalidateSize(), 60);
-}
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{show(b.dataset.p);history.replaceState(null,"","#"+b.dataset.p);scrollTo(0,0);});
-/* deep link: city.html#map / #stops / #plan */
-(function(){ const h=(location.hash||"").replace("#",""); if(h in PANES) show(h); })();
-addEventListener("hashchange",()=>{ const h=(location.hash||"").replace("#",""); if(h in PANES) show(h); });
-function goStop(n){
-  show("stops");
-  const el = document.getElementById("s"+n); if(!el) return;
-  if(isDone(n)) { toggleDone(n); }
-  const d = el.querySelector("details"); if(d) d.open = true;
-  setTimeout(()=>{el.scrollIntoView({behavior:"smooth",block:"start"});
-    el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);},70);
-}
-window.goStop = goStop;
-document.addEventListener("click", e=>{
-  const t = e.target.closest("[data-tick]");
-  if(t){ e.preventDefault(); e.stopPropagation(); toggleDone(t.dataset.tick); return; }
-  const r = e.target.closest("[data-read]"); if(r){ e.preventDefault(); goStop(r.dataset.read); return; }
-  const g = e.target.closest("[data-go]");   if(g){ showOnMap(+g.dataset.go); }
-});
-
-/* ---------- map route buttons ---------- */
-$("#gbar").innerHTML = DAYS.map((d,i)=>{
-  const legs = dayLegs(d.stops);
-  return legs.map((L,j)=>`<a class="${i?'alt':''}" target="_blank" rel="noopener" href="${gRoute(L)}">${d.slot} ${d.dayShort}${legs.length>1?' &middot; leg '+(j+1):''}</a>`).join("");
-}).join("");
-
-/* ---------- offline schematic ---------- */
-(function(){
-  const W=1000, H=720, PAD=88;
-  const P = [CITY.hotel].concat(STOPS);
-  const k = Math.cos(CITY.hotel.lat*Math.PI/180);
-  const xs=P.map(s=>s.lng*k), ys=P.map(s=>-s.lat);
-  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
-  const sc=Math.min((W-2*PAD)/((x1-x0)||1e-6),(H-2*PAD)/((y1-y0)||1e-6));
-  const ox=(W-(x1-x0)*sc)/2-x0*sc, oy=(H-(y1-y0)*sc)/2-y0*sc;
-  const PX=s=>[s.lng*k*sc+ox, -s.lat*sc+oy];
-  let bar=200, mpu=1/(sc/111320);
-  while(bar/mpu>270) bar/=2; while(bar/mpu<90) bar*=2;
-
-  let g=`<rect width="${W}" height="${H}" fill="#F7F9FC"/>`;
-  for(let i=0;i<=W;i+=50) g+=`<line x1="${i}" y1="0" x2="${i}" y2="${H}" stroke="#E9EEF5" stroke-width="1"/>`;
-  for(let i=0;i<=H;i+=50) g+=`<line x1="0" y1="${i}" x2="${W}" y2="${i}" stroke="#E9EEF5" stroke-width="1"/>`;
-  DAYS.forEach(d=>{
-    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
-    if(!inner.length) return;
-    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(PX);
-    g+=`<path d="${pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${d.slot==='Evening'?'#B26A00':'#0A5FE0'}" stroke-width="3.5" stroke-opacity=".3" stroke-dasharray="10 8" stroke-linejoin="round"/>`;
-  });
-
-  const FS=16, CH=8.4, LH=19;
-  const slots=[];
-  [[0,1,"middle"],[0,-1,"middle"],[1,0,"start"],[-1,0,"end"],[.72,-.72,"start"],[-.72,-.72,"end"],[.72,.72,"start"],[-.72,.72,"end"]]
-    .forEach(([ux,uy,an])=>[26,44,64,86,110].forEach(r=>slots.push([ux*r, uy*r+(uy>0?8:uy<0?-2:6), an])));
-  slots.sort((a,b)=>Math.hypot(a[0],a[1])-Math.hypot(b[0],b[1]));
-  const boxes=P.map(s=>{const[x,y]=PX(s);return[x-17,y-17,x+17,y+17];});
-  const hit=(a,b)=>!(a[2]<b[0]||a[0]>b[2]||a[3]<b[1]||a[1]>b[3]);
-  const L=[];
-  P.forEach(s=>{
-    const [x,y]=PX(s), txt = s.short || s.name, w=txt.length*CH;
-    let best=null;
-    for(const [dx,dy,an] of slots){
-      const lx=x+dx, ly=y+dy;
-      const bx = an==="start"?lx: an==="end"?lx-w: lx-w/2;
-      const box=[bx-3, ly-LH+3, bx+w+3, ly+5];
-      if(box[0]<14||box[2]>W-14||box[1]<10||box[3]>H-38) continue;
-      if(!boxes.some(b=>hit(box,b))){best={lx,ly,an,box,dx,dy};break;}
-    }
-    if(!best){best={lx:x,ly:y+34,an:"middle",box:[x-w/2,y+15,x+w/2,y+38],dx:0,dy:34};}
-    boxes.push(best.box); L.push({s,x,y,txt,...best});
-  });
-  L.forEach(o=>{
-    const isH = o.s === CITY.hotel;
-    const far = Math.hypot(o.dx,o.dy)>38;
-    g += `<g class="hit" data-n="${isH?'H':o.s.n}">
-      ${far?`<line x1="${o.x}" y1="${o.y}" x2="${o.lx+(o.an==="end"?-2:o.an==="start"?2:0)}" y2="${o.ly-5}" stroke="#B9C4D2" stroke-width="1.5"/>`:""}
-      <circle cx="${o.x}" cy="${o.y}" r="22" fill="#fff" fill-opacity="0"/>
-      ${isH ? `<rect x="${o.x-14}" y="${o.y-14}" width="28" height="28" rx="8" fill="#0B1220"/>`
-            : `<circle cx="${o.x}" cy="${o.y}" r="14" fill="#0A5FE0" stroke="#fff" stroke-width="3"/>`}
-      <text x="${o.x}" y="${o.y+5}" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="700" fill="#fff">${isH?'H':o.s.n}</text>
-      <text x="${o.lx}" y="${o.ly}" text-anchor="${o.an}" font-family="Arial" font-size="${FS}" font-weight="700" fill="#5A6675" stroke="#F7F9FC" stroke-width="4.5" paint-order="stroke">${o.txt}</text>
-    </g>`;
-  });
-  const bx=PAD, by=H-26, bw=bar/mpu;
-  g+=`<line x1="${bx}" y1="${by}" x2="${bx+bw}" y2="${by}" stroke="#5A6675" stroke-width="3"/>
-      <line x1="${bx}" y1="${by-6}" x2="${bx}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
-      <line x1="${bx+bw}" y1="${by-6}" x2="${bx+bw}" y2="${by+6}" stroke="#5A6675" stroke-width="3"/>
-      <text x="${bx+bw+10}" y="${by+6}" font-family="Arial" font-size="16" fill="#5A6675">${bar} m</text>
-      <text x="${W-PAD}" y="${PAD-26}" text-anchor="end" font-family="Arial" font-size="15" fill="#8D98A6">H = ${CITY.hotel.short||"hotel"} &middot; N &#8593;</text>`;
-
-  const svg=$("#planSvg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML=g;
-  const sheet=$("#sheet");
-  svg.addEventListener("click", e=>{
-    const h=e.target.closest(".hit"); if(!h) return;
-    const id=h.dataset.n, isH = id==="H";
-    const s = isH ? CITY.hotel : byN[id] || byN[+id];
-    sheet.innerHTML = `<b>${isH?"":s.n+". "}${s.name}</b><i>${isH?"Your base — routes start and end here":s.alt}</i>
-      <div class="r">${isH?"":`<a class="p" href="#" onclick="goStop('${s.n}');closeSheet();return false;">Read</a>`}
-      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Google Maps</a>
-      <button onclick="closeSheet()">Close</button></div>`;
-    sheet.classList.add("on");
-  });
-  window.closeSheet=()=>sheet.classList.remove("on");
-})();
-
-/* ---------- live / offline toggle ---------- */
-const tL=$("#tabLive"), tP=$("#tabPlan");
-function mapMode(m){
-  tL.classList.toggle("on",m==="live"); tP.classList.toggle("on",m==="plan");
-  $("#map").style.display = m==="live" ? "" : "none";
-  $("#plan").classList.toggle("on", m==="plan");
-  if(m!=="plan") closeSheet();
-  if(m==="live" && window._map) setTimeout(()=>window._map.invalidateSize(),60);
-}
-tL.onclick=()=>mapMode("live"); tP.onclick=()=>mapMode("plan");
-
-if(typeof L === "undefined"){
-  tL.textContent="Live map (offline)";
-  tL.onclick=()=>alert("The live street map needs an internet connection. The offline plan works without one.");
-  mapMode("plan");
-  window.showOnMap = n => { show("map"); scrollTo(0,0); mapMode("plan"); };
+if(KIND === "food"){
+  $("#out").innerHTML = `
+    <div class="hero"><h2>Eating in ${CITY.name}</h2><p>${FOOD.intro}</p></div>
+    <div class="sech"><h2>What to order</h2><i></i></div>
+    <div class="card" style="padding:4px 15px">${FOOD.dishes.map(d=>`<div class="dish"><div class="dn">${d.name}</div><div class="dd">${d.note}</div></div>`).join("")}</div>
+    <div class="sech"><h2>Where to eat</h2><i></i></div>
+    ${FOOD.places.map(p=>`<div class="eat">
+        <div class="et"><h4>${p.name}</h4><span class="pr">${p.price}</span></div>
+        <div class="ea">${p.type} &middot; ${p.area}</div>
+        <p>${p.note}</p>
+        <a href="${gS(p.gq)}" target="_blank" rel="noopener">Open in Google Maps</a>
+      </div>`).join("")}
+    <details class="pc warn" open><summary><h3>Before you book</h3><span class="chev">&#9662;</span></summary>
+      <div class="pb"><ul>${FOOD.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div></details>`;
 } else {
-  const map = L.map("map",{zoomControl:true}).setView([CITY.hotel.lat, CITY.hotel.lng], 15);
-  window._map = map;
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
-  const M = {};
-  const mk = (s, cls, label) => {
-    const m = L.marker([s.lat,s.lng],{icon:L.divIcon({className:"",html:`<div class="pin ${cls}">${label}</div>`,iconSize:[28,28],iconAnchor:[14,14]})}).addTo(map);
-    m.bindPopup(`<div class="pop"><b>${label==="H"?"":label+". "}${s.name}</b><i>${s.alt||"Your base"}</i><div class="r">
-      ${label==="H"?"":`<a class="p" href="#" onclick="goStop('${label}');return false;">Read</a>`}
-      <a class="s" href="${gS(s.gq)}" target="_blank" rel="noopener">Maps</a></div></div>`,{maxWidth:250});
-    return m;
-  };
-  M["H"] = mk(CITY.hotel,"h","H");
-  STOPS.forEach(s=>M[s.n]=mk(s,"",s.n));
-  EXTRAS.forEach(s=>M[s.n]=mk(s,"x",s.n));
-  DAYS.forEach(d=>{
-    const inner=d.stops.map(n=>byN[n]).filter(s=>s&&typeof s.n==='number');
-    if(!inner.length) return;
-    const pts=[CITY.hotel].concat(inner).concat([CITY.hotel]).map(s=>[s.lat,s.lng]);
-    L.polyline(pts,{color:d.slot==="Evening"?"#B26A00":"#0A5FE0",weight:3.5,opacity:.5,dashArray:"8 8"}).addTo(map);
-  });
-  map.fitBounds(L.latLngBounds([CITY.hotel].concat(STOPS).map(s=>[s.lat,s.lng])).pad(0.16));
-  window.showOnMap = n => { show("map"); scrollTo(0,0);
-    setTimeout(()=>{map.invalidateSize(); map.setView(M[n].getLatLng(),17,{animate:true}); M[n].openPopup();},120); };
+  $("#out").innerHTML = `
+    <div class="hero"><h2>${CITY.name} &mdash; practical</h2><p>${CITY.dates}. Tap any section to open it.</p></div>
+    ${PRACTICAL.map((b,i) => `<details class="pc${b.warn?" warn":""}"${i===0?" open":""}>
+      <summary><h3>${b.title}</h3><span class="chev">&#9662;</span></summary>
+      <div class="pb"><ul>${b.items.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    </details>`).join("")}`;
 }
 
 const topB=$("#top");
