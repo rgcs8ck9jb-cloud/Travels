@@ -278,7 +278,7 @@ footer .fmark b i{font-style:normal;color:var(--coral)}
   </div>
   <div class="hb">
     <a class="mkbox" href="index.html" aria-label="RafikTrip home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="16 12 32 42" class="mk"><g fill="none" stroke="#FFFFFF" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 50V16h11a9.6 9.6 0 0 1 0 19.2H20"/><path d="M32.6 35.2 44.5 50"/></g><path d="M31.5 19.6a5.1 5.1 0 0 1 5.1 5.1c0 3.6-5.1 8.6-5.1 8.6s-5.1-5-5.1-8.6a5.1 5.1 0 0 1 5.1-5.1z" fill="#FF7A59"/><circle cx="31.5" cy="24.7" r="1.9" fill="#0F4C5C"/></svg></a>
-    <div class="tt"><h1>Tashkent</h1><span class="sub">Top 10 · 2 mornings</span></div>
+    <div class="tt"><h1>Tashkent</h1><span class="sub">One morning · flight day</span></div>
   </div>
   <nav>
     <button data-p="plan" class="on">Plan</button>
@@ -315,17 +315,17 @@ footer .fmark b i{font-style:normal;color:var(--coral)}
 
 <div class="sheet" id="sheet"></div>
 <button id="top" aria-label="Top">&#8593;</button>
-<footer><a class="fmark" href="index.html"><span class="mkbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="mk"><rect width="64" height="64" rx="15" fill="#0F4C5C"/><g fill="none" stroke="#FFFFFF" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 50V16h11a9.6 9.6 0 0 1 0 19.2H20"/><path d="M32.6 35.2 44.5 50"/></g><path d="M31.5 19.6a5.1 5.1 0 0 1 5.1 5.1c0 3.6-5.1 8.6-5.1 8.6s-5.1-5-5.1-8.6a5.1 5.1 0 0 1 5.1-5.1z" fill="#FF7A59"/><circle cx="31.5" cy="24.7" r="1.9" fill="#0F4C5C"/></svg></span><b>Rafik<i>Trip</i></b></a>Tashkent, Uzbekistan &middot; August 2026 — dates to confirm<br>Prices, hours and opening days change often &mdash; treat every figure as indicative and confirm on the door.</footer>
+<footer><a class="fmark" href="index.html"><span class="mkbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="mk"><rect width="64" height="64" rx="15" fill="#0F4C5C"/><g fill="none" stroke="#FFFFFF" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 50V16h11a9.6 9.6 0 0 1 0 19.2H20"/><path d="M32.6 35.2 44.5 50"/></g><path d="M31.5 19.6a5.1 5.1 0 0 1 5.1 5.1c0 3.6-5.1 8.6-5.1 8.6s-5.1-5-5.1-8.6a5.1 5.1 0 0 1 5.1-5.1z" fill="#FF7A59"/><circle cx="31.5" cy="24.7" r="1.9" fill="#0F4C5C"/></svg></span><b>Rafik<i>Trip</i></b></a>Tashkent, Uzbekistan &middot; Saturday 22 August 2026<br>Prices, hours and opening days change often &mdash; treat every figure as indicative and confirm on the door.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const CITY = {
   name:"Tashkent", country:"Uzbekistan",
-  dates:"August 2026 — dates to confirm",
-  sub:"Top 10 · 2 mornings",
-  plan:"Tashkent is huge, flat and modern, and its sights are spread across two clusters: the old town in the north-west and the Soviet-and-after centre. Two early mornings covers all ten, with the hot middle of the day back at the base and one evening out.",
-  baseLine:"<b>Base: not booked yet.</b> Routes below currently start and end at <b>Amir Timur Square</b> in the centre. Tell me your hotel and every route re-anchors to it.",
-  pills:["Top 10","2 mornings","1 evening","Metro city","Out 07:00"],
+  dates:"Saturday 22 August 2026",
+  sub:"One morning · flight day",
+  plan:"One morning, and a plane to catch. After three days of Timurid tilework in Samarkand and Bukhara, the things worth your last four hours are the ones Tashkent has and they do not: the bazaar under its blue dome, the holiest site in the country, and a metro built to be looked at. The Soviet squares in the centre are the first thing to drop.",
+  baseLine:"<b>Base: still not booked in my copy.</b> The route below starts and ends at <b>Amir Timur Square</b> as a placeholder. Send me the hotel name and every timing and taxi fare on this page re-anchors to it.",
+  pills:["1 morning","Out 07:00","Back 13:00","Airport 14:00","4 stops + 2 optional"],
   hotel:{ name:"Amir Timur Square", short:"Base", gq:"Amir Timur Square Tashkent",
           routeQ:"Amir Timur Square, Tashkent",
           leaveLabel:"Placeholder start — replace with your hotel",
@@ -336,47 +336,20 @@ const CITY = {
 
 const DAYS = [
 {
-  slot:"Morning", day:"Day 1", dayShort:"D1", out:"07:00", back:"12:30",
-  walk:"2.5 km on foot + metro", after:"Lunch, nap, pool",
-  title:"Old Tashkent: the metro, the bazaar, the Qur'an",
-  intro:"Ride the metro out to Chorsu — the ride is one of the ten things, not a way of getting to them — then the bazaar at its busiest, the madrasa above it, and a short taxi north to the holiest site in the country.",
-  stops:[1,2,3,4],
-  optional:[],
+  slot:"Morning", day:"Saturday 22 August", dayShort:"Sat", out:"07:00", back:"13:00",
+  walk:"1.5 km on foot + taxis and metro", after:"Shower, bags, leave for the airport at 14:00",
+  title:"The bazaar, the Qur'an and the metro",
+  intro:"Four stops, in the order their opening hours allow, finishing with a metro ride that drops you back in the centre. Unhurried — there is slack built in at every step, and two optional extras if you are running ahead. Everything is done by 12:30 so the last half hour is a buffer, not a sprint.",
+  stops:[2,3,4,1],
+  optional:[5,9],
   tips:[
-    "Chorsu opens at 05:00 and is at its best before 09:00 — full of traders, empty of tourists, and cool.",
-    "Get off at Chorsu station: the station itself is one of the prettiest on the network.",
-    "Khast Imam is a 1.5 km walk or a 5-minute taxi north of Chorsu. In August, take the taxi.",
-    "Dress properly for Khast Imam — it is a working religious complex and the most conservative place you will visit in Uzbekistan.",
-    "Breakfast in Chorsu: samsa straight from the tandir on the lower level, then non and dried fruit under the dome."
-  ]
-},
-{
-  slot:"Morning", day:"Day 2", dayShort:"D2", out:"07:30", back:"12:30",
-  walk:"3 km on foot", after:"Lunch, nap, pool",
-  title:"The centre: squares, opera, applied arts",
-  intro:"The other Tashkent — Soviet planning, fountains, plane trees and marble. Almost all of it is walkable in one loop from Amir Timur Square, and much of it is shaded.",
-  stops:[5,6,8,9],
-  optional:[10],
-  tips:[
-    "Start at Amir Timur Square for the shade. The plane trees here are the oldest thing in the centre.",
-    "The Applied Arts Museum is the sleeper hit — a 19th-century Russian diplomat's house covered inside in carved ganch and painted ceilings. Better than the building it is in suggests.",
-    "Independence Square has been under large-scale redevelopment; parts may be fenced. Check before making a special trip.",
-    "The State History Museum has been closed for renovation since 2024 — confirm before going.",
-    "Minor Mosque (10) is 4 km north and needs a taxi. Best in the late afternoon when the white marble goes warm."
-  ]
-},
-{
-  slot:"Evening", day:"Day 2", dayShort:"D2", out:"18:30", back:"21:30",
-  walk:"1.5 km on foot", after:"Late back",
-  title:"Broadway and the fountains",
-  intro:"Sayilgoh Street — everyone calls it Broadway — runs between the two great squares and comes alive after dark: portrait painters, food stalls, fairground games, families out in the cool. Then the fountains at Tashkent City Park.",
-  stops:[7],
-  optional:[],
-  tips:[
-    "This is the most relaxed evening of the whole trip and by far the easiest with a child.",
-    "Tashkent City Park (extra B) is a 15-minute walk west, with a musical fountain show after dark and a lot of Uzbek families doing exactly the same thing.",
-    "Street food along Broadway is fine, but eat properly first — Central Asian Plov Centre is lunch-only, so pick a restaurant near Amir Timur Square.",
-    "Cash for the stalls and the portrait painters."
+    "<b>Check out and leave the bags at reception before you go.</b> Do not plan to come back, repack and leave inside an hour.",
+    "<b>Chorsu first, because it opens at 05:00.</b> Be there by 07:15 and you get the traders, the samsa ovens and none of the tourists. Eat breakfast there — hot non, apricots, a samsa off the oven wall.",
+    "<b>Khast Imam does not open until 09:00.</b> That is why it is third, not first. Kukeldash fills the gap: it is two minutes uphill from Chorsu and the terrace looks straight down onto the blue dome.",
+    "Khast Imam is the most conservative site of your whole trip. Hair, arms and legs covered for your wife; long trousers for you. The Uthman Qur'an is in the small Muyi Muborak library on the left of the square — no photography of it.",
+    "Finish on the metro: taxi to Alisher Navoi station, ride two or three stops through Kosmonavtlar and Mustaqillik Maydoni, come up in the centre. Fifteen cents a ride and the coolest place in the city.",
+    "<b>Timing check.</b> Back at the hotel 13:00, leave 14:00. The airport is only 15–20 minutes away, so 14:00 gives you roughly three hours before an international departure — comfortable. Confirm your own flight time against that.",
+    "Ask the hotel to book the airport taxi the night before rather than hailing one at 14:00."
   ]
 }
 ];
@@ -623,70 +596,65 @@ const FOOD = {
 
 const PRACTICAL = [
 {
-  warn:true, title:"Read this first — the base is not set",
+  warn:true, title:"Flight day — the timings that matter",
   items:[
-    "<b>You have not booked a hotel yet</b>, so every route on this page currently starts and ends at <b>Amir Timur Square</b>, which is roughly the geographic centre of the sights.",
-    "Tell me the hotel and I will re-anchor every route, redraw both maps, and adjust the taxi times in the tips.",
-    "If you end up at the Hilton in Tashkent City or the Hyatt, you are already inside the Day 2 loop and a short taxi from Day 1.",
-    "Dates on this page say \"August 2026 — to confirm\". Give me the days and I will split the stops properly."
+    "<b>Out 07:00 · back at the hotel 13:00 · leave for the airport 14:00.</b> The plan is built backwards from that.",
+    "<b>Check out and leave your bags at reception before you set off.</b> The single biggest risk tomorrow is losing 40 minutes to repacking.",
+    "Tashkent airport (TAS) is <b>15–20 minutes</b> from the centre. Leaving at 14:00 gives roughly three hours before an international departure — comfortable, not tight. Check it against your actual flight time.",
+    "Book the airport taxi through the hotel the night before. Do not hail one at 14:00 with luggage and a child.",
+    "If anything runs late, <b>drop the metro ride</b> (stop 1) — it is the one stop you can cut without regret, and a taxi straight back is 15 minutes."
   ]
 },
 {
-  warn:true, title:"August heat",
+  warn:true, title:"Base not confirmed",
   items:[
-    "Expect <b>35–38 °C</b> in the afternoon. Tashkent is greener and leafier than Bukhara or Samarkand, so it feels marginally better, but the marble squares are brutal.",
-    "Same rhythm as the rest of the trip: <b>out by 07:00, back at the base by ~12:30</b> for lunch, nap and pool, out again at 18:30.",
-    "<b>The metro is the coolest place in the city.</b> Use it as air conditioning, not just transport.",
-    "Chorsu opens at 05:00 and Khast Imam at 09:00 — the first morning can start very early.",
-    "Carry 2 litres of water per person."
+    "<b>You have not told me the hotel</b>, so the route starts and ends at <b>Amir Timur Square</b> as a placeholder.",
+    "Send me the name and I will re-anchor the route, the taxi times and the airport timing in one pass.",
+    "If you are at the Hilton in Tashkent City or the Hyatt, you are already 10 minutes from Chorsu and the plan works as written."
   ]
 },
 {
-  title:"Getting around",
+  title:"The morning, stop by stop",
   items:[
-    "<b>The metro is excellent</b> — clean, frequent, air-conditioned, about 2,000 som a flat-fare ride, and three of the stations are on this list of things to see.",
-    "Tashkent is much bigger than the other cities. Do not plan to walk between the old town and the centre; it is 5 km.",
-    "<b>Yandex Go</b> is the default for taxis and is cheap — most city rides are 15–30,000 som.",
-    "Signs are in Latin script and increasingly bilingual. Russian is more useful than English with drivers.",
-    "The airport is only 15 minutes from the centre, so there is no reason to stay near it."
-  ]
-},
-{
-  title:"Tickets, hours and closures",
-  items:[
-    "Rough foreigner prices: Amir Timur Museum ~40,000 som · Applied Arts Museum ~30,000 · Muyi Muborak library ~30,000 · TV Tower ~40,000 · metro ~2,000 a ride. Chorsu, Khast Imam square, Minor Mosque, Broadway and the parks are free.",
-    "<b>The State Museum of History has been closed for renovation since 2024.</b> Confirm before going.",
-    "<b>Independence Square is under large-scale redevelopment.</b> Expect hoardings.",
-    "Most museums close on Mondays.",
-    "<b>All prices indicative — they rise most years. Confirm at the window.</b>",
-    "Bring passports for the TV Tower; there is a security check."
+    "<b>07:15 Chorsu Bazaar</b> — opens 05:00, best before 09:00. Breakfast here: hot non, samsa off the tandir wall, apricots and walnuts for the plane.",
+    "<b>08:40 Kukeldash Madrasa</b> — two minutes uphill, opens 09:00. The terrace in front is the best view down onto the blue dome.",
+    "<b>09:15 Khast Imam</b> — opens 09:00. Allow an hour and a quarter. The Uthman Qur'an is the reason to come.",
+    "<b>11:00 Metro</b> — taxi to Alisher Navoi, ride through Kosmonavtlar and Mustaqillik Maydoni, come up in the centre.",
+    "<b>12:15 back to the hotel.</b> Optional if you are ahead: Amir Timur Square (5) for the plane trees, or the Applied Arts Museum (9), which is small, cool and the best museum in the city."
   ]
 },
 {
   title:"Dress and etiquette",
   items:[
     "<b>Khast Imam is the most conservative site of the trip.</b> Hair, arms and legs covered for women; long trousers for men.",
-    "Shoes off in working mosques, including Minor.",
-    "Photography of the Uthman Qur'an is not allowed. Ask before photographing worshippers anywhere.",
-    "Tashkent is a big secular capital and dress in the centre is entirely European. The old town is more traditional.",
-    "Bargaining is normal at Chorsu, less so at Alay."
+    "Shoes off in the working mosques. Slip-ons save time on a tight morning.",
+    "<b>No photography of the Uthman Qur'an.</b> Ask before photographing worshippers anywhere.",
+    "Chorsu is busy and safe — just keep bags in front of you in the crowded aisles."
+  ]
+},
+{
+  title:"Money and tickets",
+  items:[
+    "Chorsu, Khast Imam square and Kukeldash's courtyard are free or a token charge. The Muyi Muborak library is ~30,000 som. Metro ~2,000 som a ride.",
+    "<b>Spend your remaining som this morning.</b> Chorsu is the place — dried apricots, nuts, halva, nabot, a doppa cap. Changing som back at the airport is poor value.",
+    "Carry cash; ticket booths and the bazaar do not take cards.",
+    "All prices indicative — confirm at the window."
   ]
 },
 {
   title:"With a small child",
   items:[
-    "Tashkent is <b>the easiest city of the trip</b> for a child: flat, green, full of parks and fountains, and a stroller actually works here.",
-    "Best bits: riding the metro and hunting for the cosmonaut medallions, the fountains at Tashkent City Park, Magic City after dark, ice cream on Broadway, and the samsa ovens at Chorsu.",
-    "The Chimgan and Charvak day trip is the one to do if the heat has worn everyone down — a lake, a chairlift and ten degrees cooler.",
-    "Skip: the Amir Timur Museum interior and Independence Square in the daytime."
+    "Tashkent is the easiest city of the trip: flat, green, and a stroller actually works here.",
+    "Best bits tomorrow: the samsa ovens at Chorsu, and hunting the cosmonaut medallions at Kosmonavtlar station.",
+    "The metro is air-conditioned and about 15 degrees cooler than the street — use it as a break, not just transport.",
+    "Buy snacks for the flight at Chorsu. Far better and cheaper than the airport."
   ]
 },
 {
   title:"Using this page offline",
   items:[
-    "Every description, tip and plan works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself.",
-    "Download the Tashkent area in Google Maps for offline use before you set out.",
-    "Add this page to your Home Screen: Share → Add to Home Screen.",
+    "Every description and tip works with no signal. <b>Only the live street map needs data</b> — the Offline plan tab is drawn on the page itself.",
+    "Download the Tashkent area in Google Maps for offline use tonight.",
     "<b>Map pins are accurate to roughly a block.</b> The <b>Open in Google Maps</b> button on each stop searches by name, which is exact — use that for navigation."
   ]
 }
